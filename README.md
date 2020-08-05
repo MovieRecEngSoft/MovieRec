@@ -11,7 +11,7 @@
 Um sistema que armazena e exibe listagens de diversos filmes para o usuário. Este sistema utiliza de informações como preferências de gênero de filme, filmes já assistidos e avaliados, avaliações de outros usuários e atividades de outras pessoas seguidas pelo usuário atual para exibir recomendações de filmes que ele possa assistir.
 
 ## Tecnologias:
-- Front-end com HTML, CSS, JavaScript e Bootstrap 4.
+- Front-end com HTML, CSS, JavaScript e React.
 - Back-end com NodeJS e Express.
 - Banco de dados não-relacional com MongoDB.
 - Sistema de recomendação com Python e scikit-learn.
