@@ -1,99 +1,132 @@
-import React from 'react';
-import { Form, Input, InputNumber, Button } from 'antd';
+import React from "react";
+import { Form, Input, InputNumber, Button, DatePicker } from "antd";
+
+import "./styles.css";
 
 const layout = {
     labelCol: {
-      span: 8,
+        span: 8,
     },
     wrapperCol: {
-      span: 16,
+        span: 16,
     },
 };
 const validateMessages = {
-    required: '${label} is required!',
+    required: "${label} is required!",
     types: {
-      email: '${label} is not validate email!',
-      number: '${label} is not a validate number!',
+        email: "${label} is not validate email!",
+        number: "${label} is not a validate number!",
     },
     number: {
-      range: '${label} must be between ${min} and ${max}',
+        range: "${label} must be between ${min} and ${max}",
     },
 };
 
 const RegisterForm = () => {
     const layout = {
         labelCol: {
-          span: 8,
+        span: 8,
         },
         wrapperCol: {
-          span: 16,
-        },
-    };
-    const validateMessages = {
-        required: '${label} is required!',
-        types: {
-          email: '${label} is not validate email!',
-          number: '${label} is not a validate number!',
-        },
-        number: {
-          range: '${label} must be between ${min} and ${max}',
+        span: 16,
         },
     };
 
-    const onFinish = values => {
+    const validateMessages = {
+        required: "${label} is required!",
+        types: {
+            email: "${label} is not validate email!",
+            number: "${label} is not a validate number!",
+        },
+        number: {
+            range: "${label} must be between ${min} and ${max}",
+        },
+    };
+
+    const onFinish = (values) => {
         console.log(values);
     };
-    
+
     return (
-        <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+      <div className="content">
+        <Form
+          {...layout}
+          name="nest-messages"
+          onFinish={onFinish}
+          validateMessages={validateMessages}
+        >
           <Form.Item
-            name={['user', 'name']}
+            name={["user", "name"]}
             label="Name"
+            rules={[
+                {
+                    required: true,
+                },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name={["user", "email"]}
+            label="Email"
+            rules={[
+                {
+                    required: true,
+                    type: "email",
+                },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Password"
+            name="password"
             rules={[
               {
                 required: true,
+                message: "Please input your password!",
               },
             ]}
           >
-            <Input />
+            <Input.Password />
           </Form.Item>
+
           <Form.Item
-            name={['user', 'email']}
-            label="Email"
-            rules={[
-              {
-                type: 'email',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name={['user', 'age']}
+            name={["user", "age"]}
             label="Age"
             rules={[
-              {
-                type: 'number',
-                min: 0,
-                max: 99,
-              },
+                {
+                    type: "number",
+                    min: 0,
+                    max: 99,
+                },
             ]}
           >
             <InputNumber />
           </Form.Item>
-          <Form.Item name={['user', 'website']} label="Website">
+
+          <Form.Item name={["user", "birth"]} label="Birth">
+            <DatePicker />
+          </Form.Item>
+
+          <Form.Item name={["user", "avatar"]} label="Avatar">
             <Input />
           </Form.Item>
-          <Form.Item name={['user', 'introduction']} label="Introduction">
+
+          <Form.Item name={["user", "aboutme"]} label="About me">
             <Input.TextArea />
           </Form.Item>
+
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button type="primary" htmlType="submit">
-              Submit
+              Register
             </Button>
           </Form.Item>
         </Form>
-      );
-    };
+      </div>
+    );
+};
 
 export default RegisterForm;
