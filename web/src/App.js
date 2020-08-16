@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import RegisterForm from './Pages/RegisterForm';
+import Routes from './routes';
 
 const App = () => (
   <div className="App">
-    <RegisterForm />
+    <Routes />
   </div>
 );
 
