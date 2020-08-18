@@ -5,7 +5,7 @@ import "./styles.css";
 function Button({ name }) {
   return (
     <div className="button">
-      <div>{name}</div>
+      <a>{name}</a>
     </div>
   );
 };
