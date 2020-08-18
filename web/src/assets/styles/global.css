@@ -3,7 +3,8 @@
 
     --color-input-background: rgb(51 51 51);
     --color-input-text: rgb(133 136 123);
-    --color-text-base: '#FFF'
+    --color-text-base: '#FFF';
+    --black-transparency: rgb(0 0 0 / 78%);
 }
 
 * {
