@@ -5,7 +5,7 @@ import Routes from './routes';
 import "./assets/styles/global.css";
 
 const App = () => (
-  <div className="App bg-image">
+  <div className="App">
     <Routes />
   </div>
 );

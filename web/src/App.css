@@ -1,6 +1,12 @@
 @import '~antd/dist/antd.css';
 
 .App {
+  height: 100%;
+  width: 100%;
+}
+
+/*
+.App {
   text-align: center;
   background-color: black;
   height: 100vh;
@@ -42,3 +48,4 @@
     transform: rotate(360deg);
   }
 }
+*/

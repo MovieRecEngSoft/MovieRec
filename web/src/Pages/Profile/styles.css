@@ -1,0 +1,44 @@
+
+.wrapper{
+    background: rgb(19, 17, 23);
+    height:100%;
+    padding-top: 50px;
+}
+
+.profile-block{
+    padding-bottom: 20px;
+    margin: auto;
+    max-width: 600px;
+    background: fuchsia;
+    border-bottom: 3px solid black;
+}
+
+.profile-block .pfsection{
+}
+
+.profile-block .imgsection{
+    padding: 25px;
+}
+
+.profile-block .txtsection{
+    padding: 0 25px 5px 25px;
+}
+
+.profile-block .pfimgblock{
+}
+
+.profile-block .avatar{
+    border-radius: 25px;
+    width: 125px;
+}
+
+.profile-block .txtblk1{
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.profile-block .txtblk2{
+    font-family: monospace;
+    font-size: 16px;
+}
