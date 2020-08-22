@@ -22,13 +22,6 @@ html, body, #root {
 body {
     background: var(--color-background);
 }
-/*
-#root {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-*/
 
 body,
 input,
@@ -41,15 +34,4 @@ textarea {
 .container {
     width: 90vw;
     max-width: 700px;
-}
-
-
-.bg-image {
-    background-image: url("https://i.pinimg.com/564x/4c/86/60/4c86600a82bb109d4e9ae48c993d73a0.jpg");
-    background-color: #cccccc;
-    height: 100vh;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
 }
