@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Checkbox } from "antd";
+import { Link } from 'react-router-dom';
 
 import "./styles.css";
 import Input from "../Input";
@@ -32,25 +33,29 @@ const LoginForm = ({title}) => {
 
     return (
       <>
-      <div className="content">
-        <Form
-          {...layout}
-          name="nest-messages"
-          onFinish={onFinish}
-          validateMessages={validateMessages}
+        <div className="content">
+          <Form
+            {...layout}
+            name="nest-messages"
+            onFinish={onFinish}
+            validateMessages={validateMessages}
           >
-          <h1>{title}</h1>
+            <h1>{title}</h1>
 
-          <Input name="email" placeholder="Email" />
+            <Input name="email" placeholder="Email" />
 
-          <Input name="password" type="password" placeholder="Password" />
+            <Input name="password" type="password" placeholder="Password" />
 
-          <Checkbox className="remember-me">Remember me</Checkbox>
+            <Checkbox className="remember-me">Remember me</Checkbox>
 
-          <Button type="button" htmlType="submit" name="Login" />
-        </Form>
-      </div>
-    </>
+            <Button type="button" htmlType="submit" name="Login" />
+
+            <p>
+              Not a member yet? <Link to="/signup">Register</Link>
+            </p>
+          </Form>
+        </div>
+      </>
     );
 };
 
