@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import ItemsCarousel from "react-items-carousel";
 import VideoCard from './Components/VideoCard';
+import Arrow from './Components/Arrow';
+import { UserOutlined } from "@ant-design/icons";
 
 function Carousel({
     category,
@@ -21,8 +23,8 @@ function Carousel({
           activeItemIndex={activeItemIndex}
           numberOfCards={4}
           gutter={20}
-          leftChevron={<button>{"<"}</button>}
-          rightChevron={<button>{">"}</button>}
+          leftChevron={<Arrow value="<" />}
+          rightChevron={<Arrow value=">" />}
           outsideChevron
           chevronWidth={chevronWidth}
         >
