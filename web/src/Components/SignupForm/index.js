@@ -4,6 +4,7 @@ import { Form } from "antd";
 import "./styles.css";
 import Input from "../Input";
 import Button from "../Button";
+import { Link } from "react-router-dom";
 
 const SignupForm = ({title}) => {
     const layout = {
@@ -32,26 +33,34 @@ const SignupForm = ({title}) => {
 
     return (
       <>
-      <div className="content">
-        <Form
-          {...layout}
-          name="nest-messages"
-          onFinish={onFinish}
-          validateMessages={validateMessages}
+        <div className="content">
+          <Form
+            {...layout}
+            name="nest-messages"
+            onFinish={onFinish}
+            validateMessages={validateMessages}
           >
-          <h1>{title}</h1>
-          <Input name="name" placeholder="Name" />
+            <h1>{title}</h1>
+            <Input name="name" placeholder="Name" />
 
-          <Input name="email" placeholder="Email" />
+            <Input name="email" placeholder="Email" />
 
-          <Input name="password" type="password" placeholder="Password" />
+            <Input name="password" type="password" placeholder="Password" />
 
-          <Input name="c-password" type="password" placeholder="Confirm Password" />
+            <Input
+              name="c-password"
+              type="password"
+              placeholder="Confirm Password"
+            />
 
-          <Button type="button" htmlType="submit" name="Register" />
-        </Form>
-      </div>
-    </>
+            <Button type="button" htmlType="submit" name="Register" />
+
+            <p>
+              Already a member? <Link to="/login">Login</Link>
+            </p>
+          </Form>
+        </div>
+      </>
     );
 };
 
