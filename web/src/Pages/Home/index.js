@@ -1,18 +1,25 @@
 import React from 'react';
-import {Button} from 'antd';
 import { Link } from 'react-router-dom';
+import Carousel from '../../Components/Carousel';
+import Menu from '../../Components/Menu';
+
+import dadosIniciais from "../../data/dados_iniciais.json";
 
 function Home(){
-    return(
-        <>  
+    return (
+      <>
+        <Menu />
         <div className="bg-image">
-            <div className="page-register">
-                <h1>Home Page</h1>
-                <Link to="/login">Login</Link><br />
-                <Link to="/signup">Signup</Link>
-            </div>  
+          <div className="">
+            
+            <br />
+            <Carousel category={dadosIniciais.categorias[0]} />
+            <br /><br />
+            <Carousel category={dadosIniciais.categorias[1]} />
+          
+          </div>
         </div>
-        </>
+      </>
     );
 }
 
