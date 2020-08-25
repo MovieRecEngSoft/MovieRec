@@ -15,9 +15,9 @@ function VideoCard({ videoTitle, videoURL, categoryColor }) {
   return (
     <VideoCardContainer
       url={image}
-      href={videoURL}
+      // href={videoURL} // colocar aqui o caminho para a página do filme
       target="_blank"
-      style={{ borderColor: categoryColor || 'red' }}
+      style={{ borderColor: categoryColor || 'black' }}
       title={videoTitle}
     />
   );
