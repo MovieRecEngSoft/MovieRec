@@ -12,7 +12,6 @@ function Carousel({
     const chevronWidth = 40;
     
     const categoryTitle = category.titulo;
-    const categoryColor = category.cor;
     const videos = category.videos;
 
     return (
@@ -34,7 +33,6 @@ function Carousel({
                 <VideoCard
                   videoTitle={video.titulo}
                   videoURL={video.url}
-                  categoryColor={categoryColor}
                 />
               </>
             );
