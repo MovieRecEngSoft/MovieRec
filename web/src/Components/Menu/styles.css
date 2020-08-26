@@ -1,10 +1,10 @@
 .Logo {
-  max-width: 168px;
+  max-width: 120px;
 }
 
 .Menu {
   width: 100%;
-  height: 10vh;
+  height: 8vh;
   z-index: 100;
 
   display: flex;
@@ -26,9 +26,9 @@ body {
 }
 
 .user-icon {
-  border: 1px solid white;
+  border: 1px solid red;
   border-radius: 0.9rem;
-  color: white;
-  font-size: 23px;
+  color: red;
+  font-size: 15px;
   padding: 5px;
 }
