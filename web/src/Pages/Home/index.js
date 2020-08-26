@@ -10,7 +10,7 @@ function Home(){
     return (
       <>
         <Menu />
-        <Main background="https://nit.pt/wp-content/uploads/2019/12/76674270a70d88a6fbfb0428f55d10cb-754x394.jpg">
+        <Main background="https://d1yn1kh78jj1rr.cloudfront.net/image/thumbnail/rDtN98Qoishumwih/dark-red-blurred-background_mkP0t-_thumb.jpg">
           <br />
           <br />
           <br />
@@ -25,6 +25,7 @@ function Home(){
 
           <br />
           <Carousel category={dadosIniciais.categorias[4]} />
+          <br />
         </Main>
       </>
     );
