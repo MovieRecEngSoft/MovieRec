@@ -40,7 +40,7 @@ const LoginForm = ({title}) => {
             onFinish={onFinish}
             validateMessages={validateMessages}
           >
-            <h1>{title}</h1>
+            <h1 className="form-title">{title}</h1>
 
             <Input name="email" placeholder="Email" />
 
