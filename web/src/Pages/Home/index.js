@@ -4,6 +4,7 @@ import Carousel from '../../Components/Carousel';
 import Menu from '../../Components/Menu';
 
 import dadosIniciais from "../../data/dados_iniciais.json";
+import movies from "../../data/movies.json";
 import Main from '../../Components/Main';
 
 function Home(){
@@ -15,16 +16,16 @@ function Home(){
           <br />
           <br />
           <br />
-          <Carousel category={dadosIniciais.categorias[0]} />
+          <Carousel category={movies.categorias[0]} />
 
           <br />
-          <Carousel category={dadosIniciais.categorias[2]} />
+          <Carousel category={movies.categorias[1]} />
 
           <br />
-          <Carousel category={dadosIniciais.categorias[3]} />
+          <Carousel category={movies.categorias[2]} />
 
           <br />
-          <Carousel category={dadosIniciais.categorias[4]} />
+          <Carousel category={movies.categorias[3]} />
           <br />
         </Main>
       </>
