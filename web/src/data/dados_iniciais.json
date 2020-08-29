@@ -1,7 +1,7 @@
 {
   "categorias": [
     {
-      "titulo": "Recomendados para você",
+      "titulo": "Popular Films This Week",
       "cor": "yellow",
       "link_extra": {},
       "videos": [
@@ -20,6 +20,18 @@
         {
           "titulo": "A Bússola de Ouro",
           "url": "https://www.youtube.com/watch?v=L8Mw3eVuD50"
+        },
+        {
+          "titulo": "Os Infectados",
+          "url": "https://www.youtube.com/watch?v=KjABQTsZPE4"
+        },
+        {
+          "titulo": "Os Infectados",
+          "url": "https://www.youtube.com/watch?v=KjABQTsZPE4"
+        },
+        {
+          "titulo": "Os Infectados",
+          "url": "https://www.youtube.com/watch?v=KjABQTsZPE4"
         },
         {
           "titulo": "Os Infectados",
@@ -51,7 +63,7 @@
       ]
     },
     {
-      "titulo": "Filmes que você assistiu",
+      "titulo": "Films You Reviewd",
       "cor": "orange",
       "videos": [
         {
@@ -81,7 +93,7 @@
       ]
     },
     {
-      "titulo": "Games",
+      "titulo": "Recently Reviewd By Your Friends",
       "cor": "red",
       "link_extra": {
         "text": "Formação de Jogos na Alura",
@@ -111,7 +123,7 @@
       ]
     },
     {
-      "titulo": "Aprendendo a aprender tecnologia",
+      "titulo": "Our Recomendations For You",
       "cor": "#6b5be2",
       "link_extra": {},
       "videos": [
