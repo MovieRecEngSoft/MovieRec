@@ -2,15 +2,10 @@ import React from 'react';
 import ReviewPage from '../../Pages/Review';
 
 import './styles.css';
-
-function getYouTubeId(youtubeURL) {
-  return youtubeURL.replace(
-    /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/,
-    "$7"
-  );
-}
+import getYouTubeId from '../../assets/utils/getYouTubeId';
 
 function Review(props) {
+
   const image = `https://img.youtube.com/vi/${getYouTubeId(`url(${props.url}`)}/hqdefault.jpg`;
   return (
     <>
