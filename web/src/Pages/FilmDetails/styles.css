@@ -13,22 +13,17 @@
 }
 
 .film-title {
-  color: white
+  color: white;
+  font-family: sans;
 }
 
 .film-details {
   color: rgb(122, 122, 122)
 }
 
-.review-text {
+.summary {
     color:rgb(168, 168, 168);
     font-family: sans-serif;
-}
-
-.content-wrap {
-    width: 950px;
-    margin: 0 auto;
-    padding-top: 90px;
 }
 
 /* Left column */
@@ -44,13 +39,6 @@
   width: 25%;
 }
 
-/* Fake image */
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
-}
-
 /* Add a card effect for articles */
 .card {
    background-color: black;
@@ -63,14 +51,6 @@
   content: "";
   display: table;
   clear: both;
-}
-
-.height100 {
-    height: 100px;
-}
-
-.height200 {
-    height: 200px;
 }
 
 h5 {
