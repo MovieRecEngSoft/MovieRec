@@ -1,25 +1,21 @@
 import React from 'react';
 import { VideoCardContainer } from './styles';
+import { Link } from 'react-router-dom';
+import getImageAddress from '../../../../assets/utils/getImageAddress';
 
-function getYouTubeId(youtubeURL) {
-  return youtubeURL
-    .replace(
-      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/,
-      '$7',
-    );
-}
+function VideoCard({ videoTitle, videoURL, categoryColor, videoImage }) {
+  const image = getImageAddress(videoImage);
 
-
-function VideoCard({ videoTitle, videoURL, categoryColor }) {
-  const image = `https://img.youtube.com/vi/${getYouTubeId(videoURL)}/hqdefault.jpg`;
   return (
-    <VideoCardContainer
-      url={image}
-      // href={videoURL} // colocar aqui o caminho para a página do filme
-      target="_blank"
-      style={{ borderColor: categoryColor || 'black' }}
-      title={videoTitle}
-    />
+    <Link to="/movie">
+      <VideoCardContainer
+        url={image}
+        // href={videoURL} // colocar aqui o caminho para a página do filme
+        target="_blank"
+        style={{ borderColor: categoryColor || "black" }}
+        title={videoTitle}
+      />
+    </Link>
   );
 }
 
