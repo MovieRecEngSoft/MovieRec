@@ -4,6 +4,8 @@ import VideoCard from './Components/VideoCard';
 import Arrow from './Components/Arrow';
 import { UserOutlined } from "@ant-design/icons";
 
+import './styles.css';
+
 function Carousel({
     category,
 }) {
@@ -18,9 +20,10 @@ function Carousel({
       <div style={{ padding: `0 ${chevronWidth}px` }}>
           <h1>{categoryTitle}</h1>
         <ItemsCarousel
+          
           requestToChangeActive={setActiveItemIndex}
           activeItemIndex={activeItemIndex}
-          numberOfCards={4}
+          numberOfCards={6}
           gutter={20}
           leftChevron={<Arrow value="<" />}
           rightChevron={<Arrow value=">" />}
@@ -29,12 +32,11 @@ function Carousel({
         >
           {videos.map((video, index) => {
             return (
-              <>
-                <VideoCard
-                  videoTitle={video.titulo}
-                  videoURL={video.url}
-                />
-              </>
+              <VideoCard
+                videoTitle={video.titulo}
+                videoURL={video.url}
+                videoImage={video.image}
+              />
             );
           })}
         </ItemsCarousel>
