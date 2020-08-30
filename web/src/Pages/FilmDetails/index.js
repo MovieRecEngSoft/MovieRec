@@ -7,6 +7,7 @@ import Card from "../../Components/Card";
 
 import './styles.css';
 import Review from "../../Components/Review";
+import { Link } from "react-router-dom";
 
 function FilmDetails(url) {
   const image = getImageAddress("/HORpg5CSkmeQlAolx3bKMrKgfi.jpg");
@@ -45,46 +46,57 @@ function FilmDetails(url) {
               <br />
               <h1 className="title-separator">Reviews</h1>
 
-              <Card>
-                <Review
-                  text="Sunt in culpa qui officia deserunt mollit anim id est laborum
-                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco."
-                  author="Lorena Mendes"
-                  avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
-                />
-              </Card>
-              <Card>
-                <Review
-                  text="Sunt in culpa qui officia deserunt mollit anim id est laborum
-                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco."
-                  author="Lorena Mendes"
-                  avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
-                />
-              </Card>
-              <Card>
-                <Review
-                  text="Sunt in culpa qui officia deserunt mollit anim id est laborum
-                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco."
-                  author="Lorena Mendes"
-                  avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
-                />
-              </Card>
-              <Card>
-                <Review
-                  text="Sunt in culpa qui officia deserunt mollit anim id est laborum
-                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco."
-                  author="Lorena Mendes"
-                  avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
-                />
-              </Card>
+              <Link to="/review">
+                <Card>
+                  <Review
+                    text="Sunt in culpa qui officia deserunt mollit anim id est laborum
+                    consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                    exercitation ullamco."
+                    author="Lorena Mendes"
+                    avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
+                  />
+                </Card>
+              </Link>
+              
+              <Link to="/review">
+                <Card>
+                  <Review
+                    text="Sunt in culpa qui officia deserunt mollit anim id est laborum
+                          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                          exercitation ullamco."
+                    author="Lorena Mendes"
+                    avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
+                  />
+                </Card>
+              </Link>
+
+              <Link to="/review">
+                <Card>
+                  <Review
+                    text="Sunt in culpa qui officia deserunt mollit anim id est laborum
+                          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                          exercitation ullamco."
+                    author="Lorena Mendes"
+                    avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
+                  />
+                </Card>
+              </Link>
+
+              <Link to="/review">
+                <Card>
+                  <Review
+                    text="Sunt in culpa qui officia deserunt mollit anim id est laborum
+                          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                          exercitation ullamco."
+                    author="Lorena Mendes"
+                    avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
+                  />
+                </Card>
+              </Link>
               <br />
             </div>
           </div>
