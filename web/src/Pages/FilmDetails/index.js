@@ -17,12 +17,12 @@ function FilmDetails(url) {
       <Main background="https://www.xmple.com/wallpaper/highlight-black-red-gradient-linear-2736x1824-c2-000000-8b0000-l-67-a-345-f-21.svg">
         <div className="container-wrapper">
           <div className="row">
-            <div className="leftcolumn">
+            <div className="detail-leftcolumn">
               <Card>
                 <img className="cover" src={image} />
               </Card>
             </div>
-            <div className="rightcolumn">
+            <div className="detail-rightcolumn">
               <Card>
                 <h2 className="film-title">
                   <strong>Skyfall - 007</strong>
