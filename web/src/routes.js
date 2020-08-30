@@ -5,6 +5,7 @@ import Home from './Pages/Home';
 import Register from './Pages/Register';
 import Profile from './Pages/Profile';
 import FilmDetails from './Pages/FilmDetails';
+import Review from './Pages/Review';
 
 
 function Routes() {
@@ -15,6 +16,7 @@ function Routes() {
             <Route path="/signup" component={Register} />
             <Route path="/profile" component={Profile} />
             <Route path="/movie" component={FilmDetails} />
+            <Route path="/review" component={Review} />
         </BrowserRouter>
     );
 }
