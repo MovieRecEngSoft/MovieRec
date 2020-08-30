@@ -10,14 +10,15 @@
 }
 
 /* Left column */
-.leftcolumn {   
+.review-leftcolumn {   
   float: left;
   width: 75%;
   padding-left: 20px;
 }
 
 /* Right column */
-.rightcolumn {
+.review-rightcolumn {
   float: left;
   width: 25%;
+  padding-left: 20px;
 }

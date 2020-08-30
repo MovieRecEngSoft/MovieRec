@@ -18,7 +18,7 @@ function Review(){
         <Main background="https://www.xmple.com/wallpaper/highlight-black-red-gradient-linear-2736x1824-c2-000000-8b0000-l-67-a-345-f-21.svg">
           <div className="container-wrapper">
             <div className="row">
-              <div className="leftcolumn">
+              <div className="review-leftcolumn">
                 <div className="row">
                   <Card>
                     <h2 className="film-title">
@@ -96,7 +96,7 @@ function Review(){
                 </Card>
                 <br />
               </div>
-              <div className="rightcolumn">
+              <div className="review-rightcolumn">
                 <Card>
                   <img className="cover" src={image} />
                 </Card>
