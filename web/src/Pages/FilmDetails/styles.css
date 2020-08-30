@@ -5,7 +5,7 @@
 }
 
 .cover {
-    height: 387px;
+    height: 384px;
     background-size: cover;
     background-position: center;
     border-radius: 10px;
@@ -27,16 +27,17 @@
 }
 
 /* Left column */
-.rightcolumn {   
+.detail-rightcolumn {   
   float: left;
   width: 75%;
-  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /* Right column */
-.leftcolumn {
+.detail-leftcolumn {
   float: left;
   width: 25%;
+  padding-right: 20px;
 }
 
 /* Add a card effect for articles */
@@ -44,6 +45,7 @@
    background-color: black;
    padding: 20px;
    margin-top: 20px;
+   border-radius: 0.8rem;
 }
 
 /* Clear floats after the columns */
