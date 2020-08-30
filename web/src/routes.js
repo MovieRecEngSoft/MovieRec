@@ -12,7 +12,7 @@ function Routes() {
     return (
         <BrowserRouter>
             <Route path="/" exact component={Home} />
-            <Route path="/login" exact component={Login} />
+            <Route path="/login" component={Login} />
             <Route path="/signup" component={Register} />
             <Route path="/profile" component={Profile} />
             <Route path="/movie" component={FilmDetails} />
