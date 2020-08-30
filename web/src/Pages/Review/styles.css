@@ -22,3 +22,23 @@
   width: 25%;
   padding-left: 20px;
 }
+
+.comment-session {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-comment-input {
+  width: 700px;
+}
+
+.add-comment-button {
+  background-color: red;
+  float: right;
+  margin-top: 7px;
+  height: 48px;
+  width: 94px;
+  color: white;
+  border-radius: 0.3rem;
+}

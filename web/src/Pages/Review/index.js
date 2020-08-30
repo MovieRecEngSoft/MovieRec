@@ -3,6 +3,8 @@ import React from 'react';
 import Menu from '../../Components/Menu';
 import Main from '../../Components/Main';
 import Card from '../../Components/Card';
+import Input from '../../Components/Input';
+import Button from '../../Components/Button';
 import ReviewItem from '../../Components/Review';
 import Comment from '../../Components/Comment';
 import getImageAddress from "../../assets/utils/getImageAddress";
@@ -54,6 +56,17 @@ function Review(){
                 </div>
                 <br />
                 <h1 className="title-separator">Comments</h1>
+                <Card>
+                  <div className="comment-session">
+                    <Input
+                      className="add-comment-input"
+                      />
+                    <button
+                      className="add-comment-button"
+                      name="Add comment"
+                    >Add comment</button>
+                  </div>
+                </Card>
                 <Card>
                   <Comment
                     text="Sunt in culpa qui officia deserunt mollit anim id est laborum
