@@ -12,7 +12,7 @@ function Menu() {
       <Link to="/">
         <img className="Logo" src={Logo} alt="Logo" />
       </Link>
-      <Link to="/profile">
+      <Link to="/login">
         <UserOutlined className="user-icon" />
       </Link>
     </nav>
