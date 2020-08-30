@@ -1,7 +1,6 @@
 import React from 'react';
 
 import './styles.css';
-import getYouTubeId from '../../assets/utils/getYouTubeId';
 
 function Review(props) {
 
