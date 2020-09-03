@@ -1,13 +1,14 @@
 import React from "react";
 
-
 import './styles.css';
 import Menu from "../../Components/Menu";
+
+// Gerenciar perfil
+// Como usuário, eu quero ter um ambiente no sistema que represente meu perfil, onde possa apresentar uma imagem como avatar e compartilhar informações sobre mim.
 
 function Profile() {
   return (
     <>
-    {/* Pode apagar esse menu que coloquei aqui, se quiser */}
       <Menu /> 
       <div class="wrapper">
         <div class="profile-block">
@@ -29,6 +30,9 @@ function Profile() {
                 libero orci, eget imperdiet purus consectetur eget.
               </span>
             </div>
+          </div>
+          <div class="pfsection timeline">
+            Array [Atividades (resenhas publicadas,comentários ...)]
           </div>
         </div>
       </div>
