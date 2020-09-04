@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Login from './Pages/Login';
-import Home from './Pages/Home';
-import Register from './Pages/Register';
-import Profile from './Pages/Profile';
 import FilmDetails from './Pages/FilmDetails';
+import Home from './Pages/Home';
+import Login from './Pages/Login';
+import Profile from './Pages/Profile';
+import Register from './Pages/Register';
 import Review from './Pages/Review';
+import Search from './Pages/Search';
 
 
 function Routes() {
@@ -13,10 +14,11 @@ function Routes() {
         <BrowserRouter>
             <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
-            <Route path="/signup" component={Register} />
-            <Route path="/profile" component={Profile} />
             <Route path="/movie" component={FilmDetails} />
+            <Route path="/profile" component={Profile} />
             <Route path="/review" component={Review} />
+            <Route path="/signup" component={Register} />
+            <Route path="/search" component={Search} />
         </BrowserRouter>
     );
 }
