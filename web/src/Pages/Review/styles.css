@@ -33,7 +33,7 @@
 }
 
 .add-comment-input {
-  width: 700px;
+  width: 718px;
 }
 
 .add-comment-button {
@@ -44,4 +44,19 @@
   width: 94px;
   color: white;
   border-radius: 0.3rem;
+}
+
+.likes {
+  display: flex;
+  color: white;
+  margin-left: 560px;
+}
+
+.like-button {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.like-button:hover {
+  color: pink;
 }

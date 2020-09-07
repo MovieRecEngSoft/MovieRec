@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { LikeOutlined } from "@ant-design/icons";
+
 import Menu from '../../Components/Menu';
 import Main from '../../Components/Main';
 import Card from '../../Components/Card';
@@ -40,14 +42,7 @@ function Review(){
                       consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                       exercitation ullamco.Sunt in culpa qui officia deserunt mollit anim id est laborum
-                      consectetur adipiscing elit.
-                      Sunt in culpa qui officia deserunt mollit anim id est laborum
-                      consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                      exercitation ullamco.Sunt in culpa qui officia deserunt mollit anim id est laborum
-                      consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                      exercitation ullamco."
+                      consectetur adipiscing elit."
                       author="Lorena Mendes"
                       avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
                     />
@@ -58,13 +53,10 @@ function Review(){
                 <h1 className="title-separator">Comments</h1>
                 <Card>
                   <div className="comment-session">
-                    <Input
-                      className="add-comment-input"
-                      />
-                    <button
-                      className="add-comment-button"
-                      name="Add comment"
-                    >Add comment</button>
+                    <Input className="add-comment-input" />
+                    <button className="add-comment-button" name="Add comment">
+                      Add comment
+                    </button>
                   </div>
                 </Card>
                 <Card>
