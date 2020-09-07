@@ -42,7 +42,7 @@
 
 /* Add a card effect for articles */
 .card {
-   background-color: black;
+   background-color: rgb(0 0 0 / 98%);
    padding: 20px;
    margin-top: 20px;
    border-radius: 0.8rem;
@@ -57,4 +57,30 @@
 
 h5 {
   color: #aaa;
+}
+
+.expand-icon {
+  color: white;
+}
+
+.expand-icon:hover {
+  color: red;
+}
+
+.expand-row {
+  display: flex;
+  align-items: right;
+  justify-content: space-between;
+  position: relative;
+  text-align: right;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.review-item {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 4; /* number of lines to show */
+   -webkit-box-orient: vertical;
 }

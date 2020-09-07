@@ -1,9 +1,12 @@
 import React from "react";
 
+import Input from "../../Components/Input";
 import Main from "../../Components/Main";
 import Menu from "../../Components/Menu";
 import getImageAddress from "../../assets/utils/getImageAddress";
 import Card from "../../Components/Card";
+
+import { LikeOutlined, FullscreenOutlined } from "@ant-design/icons";
 
 import './styles.css';
 import Review from "../../Components/Review";
@@ -46,57 +49,82 @@ function FilmDetails(url) {
               <br />
               <h1 className="title-separator">Reviews</h1>
 
-              <Link to="/review">
-                <Card>
-                  <Review
-                    text="Sunt in culpa qui officia deserunt mollit anim id est laborum
+              <Card>
+                <div className="comment-session">
+                  <Input className="add-comment-input" />
+                  <button className="add-comment-button">Add review</button>
+                </div>
+              </Card>
+              <Card>
+                <Review
+                  text="Sunt in culpa qui officia deserunt mollit anim id est laborum
                     consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                     labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                     exercitation ullamco."
-                    author="Lorena Mendes"
-                    avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
-                  />
-                </Card>
-              </Link>
-              
-              <Link to="/review">
-                <Card>
-                  <Review
-                    text="Sunt in culpa qui officia deserunt mollit anim id est laborum
-                          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                          exercitation ullamco."
-                    author="Lorena Mendes"
-                    avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
-                  />
-                </Card>
-              </Link>
+                  author="Lorena Mendes"
+                  avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
+                />
+                <Link to="/review">
+                  <div className="row expand-row">
+                    <FullscreenOutlined className="expand-icon" />
+                  </div>
+                </Link>
+              </Card>
 
-              <Link to="/review">
-                <Card>
-                  <Review
-                    text="Sunt in culpa qui officia deserunt mollit anim id est laborum
-                          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                          exercitation ullamco."
-                    author="Lorena Mendes"
-                    avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
-                  />
-                </Card>
-              </Link>
+              <Card>
+                <Review
+                  type="review-item"
+                  text="Sunt in culpa qui officia deserunt mollit anim id est laborum
+                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco.Sunt in culpa qui officia deserunt mollit anim id est laborum
+                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco.Sunt in culpa qui officia deserunt mollit anim id est laborum
+                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco."
+                  author="Lorena Mendes"
+                  avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
+                />
+                <Link to="/review">
+                  <div className="row expand-row">
+                    <FullscreenOutlined className="expand-icon" />
+                  </div>
+                </Link>
+              </Card>
 
-              <Link to="/review">
-                <Card>
-                  <Review
-                    text="Sunt in culpa qui officia deserunt mollit anim id est laborum
-                          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                          exercitation ullamco."
-                    author="Lorena Mendes"
-                    avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
-                  />
-                </Card>
-              </Link>
+              <Card>
+                <Review
+                  text="Sunt in culpa qui officia deserunt mollit anim id est laborum
+                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco."
+                  author="Lorena Mendes"
+                  avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
+                />
+                <Link to="/review">
+                  <div className="row expand-row">
+                    <FullscreenOutlined className="expand-icon" />
+                  </div>
+                </Link>
+              </Card>
+
+              <Card>
+                <Review
+                  text="Sunt in culpa qui officia deserunt mollit anim id est laborum
+                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco."
+                  author="Lorena Mendes"
+                  avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
+                />
+                <Link to="/review">
+                  <div className="row expand-row">
+                    <FullscreenOutlined className="expand-icon" />
+                  </div>
+                </Link>
+              </Card>
               <br />
             </div>
           </div>
