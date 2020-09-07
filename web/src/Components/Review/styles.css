@@ -14,3 +14,22 @@
     margin-top: 25px;
     font-family: sans-serif;
 }
+
+.likes {
+    position: relative;
+    float: right;
+    color: white;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.special {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
