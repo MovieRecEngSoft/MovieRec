@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import Activity from './Pages/Activity';
 import FilmDetails from './Pages/FilmDetails';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
@@ -13,6 +14,7 @@ function Routes() {
     return (
         <BrowserRouter>
             <Route path="/" exact component={Home} />
+            <Route path="/activity" component={Activity} />
             <Route path="/login" component={Login} />
             <Route path="/movie" component={FilmDetails} />
             <Route path="/profile" component={Profile} />
