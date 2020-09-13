@@ -14,7 +14,7 @@ function Activity() {
       <Menu /> 
       <div class="wrapper">
         <div class="profile-block">
-          <div class="pfsection timeline">
+          <div class="timeline">
             <div class="timeline-node">
               <div class="avatar-box">
                 <div>
