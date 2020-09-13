@@ -37,10 +37,6 @@ function ProfileEditor() {
             </div>
             <div class="bkground">
             </div>
-            {/* <div class="bkground">
-            </div> */}
-            
-            {/* <Button type="button" htmlType="submit" name="Register" class="follow-button" /> */}
           </div>
           <div class="pfsection txtsection">
             <div class="txtblk2">

@@ -6,6 +6,8 @@ import Button from "../../Components/Button";
 
 // Gerenciar perfil
 // Como usuário, eu quero ter um ambiente no sistema que represente meu perfil, onde possa apresentar uma imagem como avatar e compartilhar informações sobre mim.
+// Seguir outros usuários
+// Como usuário, eu quero poder seguir e poder ser seguido por outras pessoas, para que minhas atividades possam ser vistas pelos outros e que eu possa ver a atividade de pessoas que considero interessantes.
 
 function Profile() {
   return (
@@ -19,12 +21,7 @@ function Profile() {
             </div>
             <div class="bkground">
             </div>
-            {/* <div class="bkground">
-            </div> */}
             <div class="follow-button" >Follow</div>
-            
-            {/* <Button type="button" htmlType="submit" name="Register" class="follow-button" /> */}
-
           </div>
           <div class="pfsection txtsection">
             <div class="txtblk1">
