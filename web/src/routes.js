@@ -18,7 +18,8 @@ function Routes() {
             <Route path="/activity" component={Activity} />
             <Route path="/login" component={Login} />
             <Route path="/movie" component={FilmDetails} />
-            <Route path="/profile/edit" component={ProfileEditor} />
+            {/* <Route path="/profile/edit" component={ProfileEditor} /> */}
+            <Route path="/editProfile" component={ProfileEditor} />
             <Route path="/profile" component={Profile} />
             <Route path="/review" component={Review} />
             <Route path="/signup" component={Register} />

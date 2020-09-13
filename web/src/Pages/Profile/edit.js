@@ -19,13 +19,18 @@ function ProfileEditor() {
             <div class="txtblk1">
               <span class="grayed">EDIT YOUR PROFILE</span>
             </div>
-            <div class="txtblk2" contentEditable="true">
-              <span class="grayed">
-              PREVIEW
+            <div class="txtblk2">
+              <span class="grayed">PREVIEW
               </span>
             </div>
           </div>
           <div class="blank-spacing"></div>
+          <div class="pfsection txtsection">
+            <div class="txtblk2">
+              <span class="grayed">EDIT YOUR AVATAR AND BACKGROUND
+              </span>
+            </div>
+          </div>
           <div class="pfsection imgsection">
             <div class="pfimgblock">
               <img class="avatar" src="https://pbs.twimg.com/profile_images/1295555226720641026/gTnCg1RF_400x400.jpg" />
@@ -34,15 +39,31 @@ function ProfileEditor() {
             </div>
             {/* <div class="bkground">
             </div> */}
-            <div class="follow-button" >Follow</div>
             
             {/* <Button type="button" htmlType="submit" name="Register" class="follow-button" /> */}
-
+          </div>
+          <div class="pfsection txtsection">
+            <div class="txtblk2">
+            <span class="grayed">UPLOAD AVATAR IMAGE</span>
+            </div>
+          </div>
+          <div class="pfsection txtsection">
+            <div class="txtblk2">
+              <span class="grayed">UPLOAD BACKGROUND IMAGE</span>
+            </div>
           </div>
           <div class="blank-spacing"></div>
+          
           <div class="pfsection txtsection">
             <div class="txtblk1">
               <span>Rusro</span>
+            </div>
+          </div>
+          <div class="blank-spacing"></div>
+          <div class="pfsection txtsection">
+            <div class="txtblk2">
+              <span class="grayed">EDIT YOUR DESCRIPTION
+              </span>
             </div>
             <div class="txtblk2" contentEditable="true">
               <span>
@@ -51,7 +72,7 @@ function ProfileEditor() {
             </div>
           </div>
           <div class="blank-spacing"></div>
-          <div class="pfsection timeline">
+          <div class="pfsection">
             <div class="timeline-node">
               <div class="avatar-box">
                 <div>
@@ -66,13 +87,12 @@ function ProfileEditor() {
                   <span class="action">está editando seu perfil</span>
                 </div>
                 <div class="text-content">
-                  Esta é uma notificação de teste.
+                  Este é um evento de teste.
                 </div>
               </div>
-            </div>
-            {/* <div class="blank-spacing"></div> */}
-            
+            </div>            
           </div>
+            <Button type="button" htmlType="submit" name="APPLY" />
         </div>
       </div>
     </>
