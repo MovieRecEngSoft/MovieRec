@@ -6,24 +6,23 @@
 }
 
 .profile-block{
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     margin: auto;
-    max-width: 600px;
+    max-width: 640px;
     background: fuchsia;
     background: #0e0c0c;
     background: #1c1b1f;
     border-bottom: 1px solid black;
-}
-
-.profile-block .pfsection{
+    font-family: system-ui;
 }
 
 .profile-block .timeline{
-    border: 1px solid green;
+    /* border: 1px solid green; */
 }
 
 .profile-block .imgsection{
     padding: 25px;
+    position: relative;
 }
 
 .profile-block .txtsection{
@@ -31,16 +30,33 @@
 }
 
 .profile-block .pfimgblock{
+    /* text-align: center; */
+    /* background: rebeccapurple; */
+    z-index: 3;
+    position: relative;
+}
+
+.bkground{
+    position: absolute;
+    height: 165px;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    background: #0e0c0c;
+    background: url("https://pbs.twimg.com/profile_banners/2196922086/1597719412/600x200");
 }
 
 .profile-block .avatar{
-    border-radius: 120px;
     width: 120px;
     height: 120px;
+    border-radius: 24px;
+    background: white;
+    border: 2px solid white;
 }
 
 .profile-block .txtblk1{
-    font-family: monospace;
+    font-family: system-ui;
     font-weight: bold;
     font-size: 24px;
     color: antiquewhite;
@@ -48,8 +64,87 @@
 }
 
 .profile-block .txtblk2{
-    font-family: monospace;
+    font-family: system-ui;
     font-size: 14px;
     text-align: justify;
     color: antiquewhite;
+}
+
+.timeline{
+    /* padding-top: 10px; */
+    margin-top: 10px;
+    border-top: 1px solid #ff2b63;
+}
+
+.timeline-node{
+    /* border: 1px solid tomato; */
+    padding: 8px 15px;
+    margin-top: 10px;
+    display: flex;
+}
+
+.avatar-box{
+    display: inline-block;
+    min-height: 64px;
+    width: 64px;
+    margin-right: 10px;
+    /* border: 1px solid  fuchsia; */
+    float: left;
+    text-align:center;
+}                
+
+.avatar-miniature{
+    height:48px;
+    width:48px;
+    border-radius: 40px;
+}
+
+.content-box{
+    display: inline-block;
+    min-height: 64px;
+    width: 536px;
+    /* border: 1px solid  yellowgreen; */
+    color: antiquewhite;
+    font-weight: 400;
+    float: left;
+}
+
+.pre-textual{
+    color: #ff2b63;
+    font-size: 12px;
+}
+
+.pre-textual .action{
+    color: #726767;
+    padding-left: 5px;
+}
+
+.text-content{
+    font-size: 14px;
+}
+
+.blank-spacing{
+    background: #232123;
+    width: 100%;
+    height: 10px;
+}
+
+.follow-button{
+    position:absolute;
+    top: 145px;
+    right: 25px;
+    background: #fe2353;
+    width: 72px;
+    height: 36px;
+    font-weight: 700;
+    color: white; 
+    text-align: center;
+    line-height: 34px;
+    font-size: 16px;
+    border-radius: 100px;
+    z-index: 999;
+}
+
+.grayed{
+    color: #5d5456;
 }
