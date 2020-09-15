@@ -31,6 +31,11 @@ const SignupForm = ({title}) => {
         console.log(values);
     };
 
+    function shoot() {
+      alert("Register!");
+      console.log("Register!");
+    }
+
     return (
       <>
         <div className="content">
@@ -53,7 +58,14 @@ const SignupForm = ({title}) => {
               placeholder="Confirm Password"
             />
 
-            <Button type="button" htmlType="submit" name="Register" />
+            <button
+              className="button"
+              type="submit"
+              onClick={shoot}
+              htmlType="submit"
+              name="Register"
+            >Register
+            </button>
 
             <p>
               Already a member? <Link to="/login">Login</Link>

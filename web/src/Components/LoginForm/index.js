@@ -31,6 +31,11 @@ const LoginForm = ({title}) => {
         console.log(values);
     };
 
+    function shoot() {
+      alert("Login!");
+      console.log("Login!");
+    }
+
     return (
       <>
         <div className="content">
@@ -48,7 +53,13 @@ const LoginForm = ({title}) => {
 
             <Checkbox className="remember-me">Remember me</Checkbox>
 
-            <Button type="button" htmlType="submit" name="Login" />
+            <button
+              className="button"
+              type="button"
+              onClick={shoot}
+              htmlType="submit"
+              name="Login"
+            >Login</button>
 
             <p>
               Not a member yet? <Link to="/signup">Register</Link>

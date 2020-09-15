@@ -15,6 +15,11 @@ import { Link } from "react-router-dom";
 function FilmDetails(url) {
   const image = getImageAddress("/HORpg5CSkmeQlAolx3bKMrKgfi.jpg");
   
+  function shoot() {
+    alert("Review!");
+    console.log("Review!");
+  }
+
   return (
     <>
       <Menu />
@@ -52,7 +57,10 @@ function FilmDetails(url) {
               <Card>
                 <div className="comment-session">
                   <Input className="add-comment-input" />
-                  <button className="add-comment-button">Add review</button>
+                  <button
+                    className="add-comment-button"
+                    onClick={shoot}
+                  >Add review</button>
                 </div>
               </Card>
               <Card>

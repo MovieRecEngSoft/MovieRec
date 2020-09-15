@@ -16,6 +16,11 @@ import './styles.css';
 function Review(){
     const image = getImageAddress("/HORpg5CSkmeQlAolx3bKMrKgfi.jpg");
 
+    function shoot() {
+      alert("Comment!");
+      console.log("Comment!");
+    }
+
     return (
       <>
         <Menu />
@@ -54,8 +59,11 @@ function Review(){
                 <Card>
                   <div className="comment-session">
                     <Input className="add-comment-input" />
-                    <button className="add-comment-button" name="Add comment">
-                      Add comment
+                    <button
+                      className="add-comment-button"
+                      name="Add comment"
+                      onClick={shoot}
+                    >Add comment
                     </button>
                   </div>
                 </Card>
