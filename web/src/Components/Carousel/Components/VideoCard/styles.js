@@ -7,10 +7,10 @@ export const VideoCardContainer = styled.a`
   cursor: pointer;
   color: white;
   flex: 0 0 298px;
-  // width: 200px;
-  width: 180px;
-  // height: 300px;
-  height: 240px;
+  width: 135px;
+  /* width: 180px; */
+  height: 201px;
+  /* height: 240px; */
   background-image: ${({ url }) => `url(${url})`};
   background-size: cover;
   background-position: center;
