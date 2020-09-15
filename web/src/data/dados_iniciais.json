@@ -63,7 +63,7 @@
       ]
     },
     {
-      "titulo": "Films You Reviewd",
+      "titulo": "Films You Reviewed",
       "cor": "orange",
       "videos": [
         {
@@ -93,7 +93,7 @@
       ]
     },
     {
-      "titulo": "Recently Reviewd By Your Friends",
+      "titulo": "Recently Reviewed By Your Friends",
       "cor": "red",
       "link_extra": {
         "text": "Formação de Jogos na Alura",

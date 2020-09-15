@@ -13,22 +13,31 @@ function Home(){
       <>
         <Menu />
         <Main background="https://d1yn1kh78jj1rr.cloudfront.net/image/thumbnail/rDtN98Qoishumwih/dark-red-blurred-background_mkP0t-_thumb.jpg">
-          <br />
-          <br />
-          <br />
-          <br />
-          <Carousel category={movies.categorias[0]} />
+          <div class="wrapper">
+            <div class="nav">
+              <div class="nav-block activity">
+                <h1>Recent Activity</h1>
+                <Feed/>    
+              </div>
+              <div class="nav-block lists">
+                <div class="carousel-wrapper">
+                  <Carousel category={movies.categorias[0]} />
+                </div>
 
-          <br />
-          <Carousel category={movies.categorias[1]} />
+                <div class="carousel-wrapper">
+                  <Carousel category={movies.categorias[1]} />
+                </div>
 
-          <br />
-          <Carousel category={movies.categorias[2]} />
+                <div class="carousel-wrapper">
+                  <Carousel category={movies.categorias[2]} />
+                </div>
 
-          <br />
-          <Carousel category={movies.categorias[3]} />
-          <br />
-        <Feed/>          
+                <div class="carousel-wrapper">
+                  <Carousel category={movies.categorias[3]} />
+                </div>
+              </div>              
+            </div>
+          </div>      
         </Main>
       </>
     );

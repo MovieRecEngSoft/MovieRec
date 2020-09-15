@@ -43,7 +43,7 @@
             ]
         },
         {
-            "titulo": "Films You Reviewd",
+            "titulo": "Films You Reviewed",
             "cor": "yellow",
             "link_extra": {},
             "videos": [
@@ -90,7 +90,7 @@
             ]
         },
         {
-            "titulo": "Recently Reviewd By Your Friends",
+            "titulo": "Recently Reviewed By Your Friends",
             "cor": "yellow",
             "link_extra": {},
             "videos": [
