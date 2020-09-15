@@ -31,7 +31,7 @@ function Profile() {
             </div>
             <div class="txtblk2">
               <span>
-              #Android is made for everyone. Follow along for the latest updates and stories behind our tech. Questions? Get assistance by using #AndroidHelp.
+                #Android is made for everyone. Follow along for the latest updates and stories behind our tech. Questions? Get assistance by using #AndroidHelp.
               </span>
             </div>
           </div>

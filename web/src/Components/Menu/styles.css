@@ -18,9 +18,10 @@
   right: 0;
   padding-left: 5%;
   padding-right: 5%;
-  background: black;
+  /* background: black; */
   /* background: #181818; */
-  /* background: #0e0c0c; */
+  background: #0e0c0c;
+  border-bottom: 2px solid #090808;
 }
 body {
   --bodyPaddingTop: 0px;
