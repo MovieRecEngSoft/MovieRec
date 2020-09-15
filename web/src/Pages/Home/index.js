@@ -6,6 +6,7 @@ import Menu from '../../Components/Menu';
 import dadosIniciais from "../../data/dados_iniciais.json";
 import movies from "../../data/movies.json";
 import Main from '../../Components/Main';
+import Feed from '../../Components/Feed';
 
 function Home(){
     return (
@@ -27,6 +28,7 @@ function Home(){
           <br />
           <Carousel category={movies.categorias[3]} />
           <br />
+        <Feed/>          
         </Main>
       </>
     );
