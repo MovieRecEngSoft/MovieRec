@@ -1,7 +1,7 @@
 .avatar {
     margin: -3px -5px;
     border-radius: 50%;
-    margin-right: 15px;
+    margin: 3px 15px 0px 3px;
     width: 50px;
     height: 50px;
 }
@@ -32,4 +32,8 @@
    display: -webkit-box;
    -webkit-line-clamp: 2; /* number of lines to show */
    -webkit-box-orient: vertical;
+}
+
+.reviewer {
+    color: #ff2b63;
 }
