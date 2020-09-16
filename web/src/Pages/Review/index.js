@@ -24,7 +24,7 @@ function Review(){
     return (
       <>
         <Menu />
-        <Main background="https://www.xmple.com/wallpaper/highlight-black-red-gradient-linear-2736x1824-c2-000000-8b0000-l-67-a-345-f-21.svg">
+        {/* <Main background="https://www.xmple.com/wallpaper/highlight-black-red-gradient-linear-2736x1824-c2-000000-8b0000-l-67-a-345-f-21.svg"> */}
           <div className="container-wrapper">
             <div className="row">
               <div className="review-leftcolumn">
@@ -110,13 +110,10 @@ function Review(){
                 <br />
               </div>
               <div className="review-rightcolumn">
-                <Card>
                   <img className="cover" src={image} />
-                </Card>
               </div>
             </div>
           </div>
-        </Main>
       </>
     );
 }
