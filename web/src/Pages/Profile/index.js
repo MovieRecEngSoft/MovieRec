@@ -32,7 +32,7 @@ function Profile() {
                 #Android is made for everyone. Follow along for the latest updates and stories behind our tech. Questions? Get assistance by using #AndroidHelp.
               </span>
             </div>
-            <div class="txtblk3">
+            <div class="followage-info">
               <div>
                 <span>1</span>
                 <span>Following </span>
@@ -41,6 +41,14 @@ function Profile() {
                 <span>3036</span>
                 <span>Followers </span>
               </div>
+            </div>
+          </div>
+          <div class="switchsection">
+            <div class="activesection">
+              <span>ACTIVITY</span>
+            </div>
+            <div>
+              <span>LISTS</span>
             </div>
           </div>
           <Feed />

@@ -1,19 +1,15 @@
 
 .wrapper{
-    /* background: rgb(19 18 19); */
     background: rgba(19 18 19 /0.8);
     min-height: 100%;
     padding-top: 100px;
 }
 
 .profile-block{
-    padding-bottom: 10px;
     margin: auto;
-    max-width: 640px;
-    background: fuchsia;
-    background: #0e0c0c;
-    background: #1c1b1f;
-    /* border-bottom: 1px solid black; */
+    max-width: 840px;
+    /* background: #1c1b1f; */
+    /* background: #131213; */
     border: 2px solid #22202b;
     font-family: system-ui;
 }
@@ -25,8 +21,45 @@
 }
 
 .profile-block .txtsection{
-    padding: 5px 25px 5px 25px;
+    padding: 5px 25px 25px 25px;
     position: relative;
+}
+
+.profile-block .switchsection{
+    position: relative;
+}
+
+.switchsection div{
+    display: inline-block;
+    padding: 10px 25px 10px 25px;
+    /* border-bottom: 1px solid #2f2929; */
+    width: 50%;
+}
+
+.switchsection div:hover{
+    background-color: #1c1b1f;
+    /* text-align: center; */
+}
+
+.switchsection div:hover span{
+    color: white;
+}
+
+.switchsection span{
+    color: #d6d5e9;
+    font-size: 14px;
+}
+
+.switchsection .activesection{
+    background-color: #1c1b1f;
+    text-align: center;
+    /* border-bottom: 1px solid #2f2929; */
+}
+
+
+
+.switchsection .activesection span{
+    /* color: #1c15a1; */
 }
 
 .profile-block .pfimgblock{
@@ -34,6 +67,7 @@
     position: absolute;
     top:80px;
 }
+
 
 .bkground{
     position: absolute;
@@ -51,10 +85,8 @@
 .profile-block .avatar{
     width: 120px;
     height: 120px;
-    /* border-radius: 24px; */
     border-radius: 60px;
     background: white;
-    /* border: 2px solid white; */
     margin: 0px;
 }
 
@@ -74,32 +106,31 @@
     color: #7f7d84;
 }
 
-.profile-block .txtblk3{
+.profile-block .followage-info{
     padding: 5px 0px;
-    /* font-size: 12px; */
     padding: 5px 10px 5px 10px;
-    border: 2px solid #2a2a2a;
-    border-radius: 100px;
+    border-radius: 4px;
     margin-top: 8px;
-    line-height: 14px;
+    line-height: 19px;
     position: absolute;
     top: 5px;
-    right: 18px;
-    display: inline-block;    
+    right: 24px;
+    display: inline-block;
+    background: #1c1b1f;  
 }
 
-.profile-block .txtblk3 div{
+.profile-block .followage-info div{
     font-family: system-ui;
     font-size: 14px;
     color: #7c7b8e;
     display: inline-block;
 }
 
-.profile-block .txtblk3 div:first-child{
+.profile-block .followage-info div:first-child{
     margin-right: 15px;
 }
 
-.profile-block .txtblk3 div span:first-child{
+.profile-block .followage-info div span:first-child{
     margin-right: 3px;
     font-weight: bold;
     color: aliceblue;
@@ -109,7 +140,7 @@
     position: absolute;
     top: 177px;
     right: 25px;
-    color: #2e2b38;
+    color: #1c1b1f;
     width: 72px;
     height: 28px;
     font-weight: 700;
@@ -125,7 +156,7 @@
     position: absolute;
     top: 177px;
     right: 25px;
-    background: #2e2b38;
+    background: #1c1b1f;
     width: 72px;
     height: 28px;
     font-weight: 700;
@@ -137,19 +168,12 @@
     z-index: 999;
 }
 
-
-.edit-button {
-    position: absolute;
-    top: 177px;
-    right: 25px;
-    background: #2e2b38;
-    width: 72px;
-    height: 28px;
-    font-weight: 700;
+.follow-button:hover{
     color: #ff2b63;
-    text-align: center;
-    line-height: 27px;
-    font-size: 14px;
-    border-radius: 4px;
-    z-index: 999;
+    background: #1c1b1f;
+}
+
+.edit-button:hover{
+    background: #ff2b63;
+    color: #1c1b1f;
 }
