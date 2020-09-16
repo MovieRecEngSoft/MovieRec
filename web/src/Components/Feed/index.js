@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import './styles.css';
 
@@ -14,9 +15,9 @@ function Feed() {
         <div class="feed-node">
           <div class="avatar-box">
             <div>
-              <a>
+              <Link to="/profile/activity">
                 <img class="avatar-miniature" src="https://i.imgur.com/UctWXrz.png" />
-              </a>
+              </Link>
             </div>
           </div>
           <div class="content-box">
@@ -34,9 +35,9 @@ function Feed() {
         <div class="feed-node">
           <div class="avatar-box">
             <div>
-              <a>
+              <Link to="/profile/activity">
                 <img class="avatar-miniature" src="https://i.imgur.com/UctWXrz.png" />
-              </a>
+              </Link>
             </div>
           </div>
           <div class="content-box">
@@ -54,9 +55,9 @@ function Feed() {
         <div class="feed-node">
           <div class="avatar-box">
             <div>
-              <a>
+              <Link to="/profile/activity">
                 <img class="avatar-miniature" src="https://i.imgur.com/UctWXrz.png" />
-              </a>
+              </Link>
             </div>
           </div>
           <div class="content-box">
@@ -74,9 +75,9 @@ function Feed() {
         <div class="feed-node">
           <div class="avatar-box">
             <div>
-              <a>
+              <Link to="/profile/activity">
                 <img class="avatar-miniature" src="https://i.imgur.com/UctWXrz.png" />
-              </a>
+              </Link>
             </div>
           </div>
           <div class="content-box">

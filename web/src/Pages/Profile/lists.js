@@ -3,6 +3,7 @@ import React from "react";
 import './styles.css';
 import Menu from "../../Components/Menu";
 import Feed from "../../Components/Feed";
+import { Link } from "react-router-dom";
 
 // Gerenciar perfil
 // Como usuário, eu quero ter um ambiente no sistema que represente meu perfil, onde possa apresentar uma imagem como avatar e compartilhar informações sobre mim.
@@ -11,7 +12,7 @@ import Feed from "../../Components/Feed";
 // para que minhas atividades possam ser vistas pelos outros e que eu possa ver 
 // a atividade de pessoas que considero interessantes.
 
-function Profile() {
+function ProfileLists() {
   return (
     <>
       <Menu /> 
@@ -19,11 +20,14 @@ function Profile() {
         <div class="profile-block">
           <div class="pfsection imgsection">
             <div class="pfimgblock">
-              <img class="avatar" src="https://pbs.twimg.com/profile_images/1295555226720641026/gTnCg1RF_400x400.jpg" />
+              <img class="avatar" src="https://i.imgur.com/UctWXrz.png" />
             </div>
             <div class="bkground">
             </div>
-            <div class="follow-button" >Follow</div>
+            {/* <div class="follow-button">Follow</div> */}
+            <Link to="/profile/edit">
+              <div class="edit-button">Edit</div>
+            </Link>
           </div>
           <div class="pfsection txtsection">
             <div class="txtblk1">
@@ -34,8 +38,33 @@ function Profile() {
                 #Android is made for everyone. Follow along for the latest updates and stories behind our tech. Questions? Get assistance by using #AndroidHelp.
               </span>
             </div>
+            <div class="followage-info">
+              <div>
+                <span>1</span>
+                <span>Following </span>
+              </div>
+              <div>
+                <span>3036</span>
+                <span>Followers </span>
+              </div>
+            </div>
           </div>
-          <Feed />
+          <div class="switchsection">
+            <div class="activesection">
+              <Link to="/profile/activity">
+                <span>ACTIVITY</span>
+              </Link>
+            </div>
+            <div>
+              <Link to="/profile/lists">
+                <span>LISTS</span>
+              </Link>
+            </div>
+          </div>
+          {/* <Feed /> */}
+          <div>
+            <marquee> UNDER CONSTRUCTION</marquee>
+          </div>
         </div>
       </div>
     </>
@@ -43,4 +72,4 @@ function Profile() {
   
 }
 
-export default Profile;
+export default ProfileLists;

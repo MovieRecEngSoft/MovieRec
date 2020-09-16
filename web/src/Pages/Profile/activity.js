@@ -3,12 +3,13 @@ import React from "react";
 import './styles.css';
 import Menu from "../../Components/Menu";
 import Feed from "../../Components/Feed";
+import { Link } from "react-router-dom";
 
 // Listas de filmes
 // Como usuário, eu quero construir listas de filmes, públicas ou secretas, 
 // para catalogar filmes de algum tópico e compartilhar com outras pessoas.
 
-function Profile() {
+function ProfileActivity() {
   return (
     <>
       <Menu /> 
@@ -45,10 +46,14 @@ function Profile() {
           </div>
           <div class="switchsection">
             <div class="activesection">
-              <span>ACTIVITY</span>
+              <Link to="/profile/activity">
+                <span>ACTIVITY</span>
+              </Link>
             </div>
             <div>
-              <span>LISTS</span>
+              <Link to="/profile/lists">
+                <span>LISTS</span>
+              </Link>
             </div>
           </div>
           <Feed />
@@ -59,4 +64,4 @@ function Profile() {
   
 }
 
-export default Profile;
+export default ProfileActivity;

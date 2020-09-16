@@ -3,6 +3,7 @@ import React from "react";
 import './styles.css';
 import Menu from "../../Components/Menu";
 import Button from "../../Components/Button";
+import { Link } from "react-router-dom";
 
 // Gerenciar perfil
 // Como usuário, eu quero ter um ambiente no sistema que represente meu perfil, onde possa apresentar uma imagem como avatar e compartilhar informações sobre mim.
@@ -88,7 +89,9 @@ function ProfileEditor() {
               </div>
             </div>            
           </div>
-            <Button type="button" htmlType="submit" name="APPLY" />
+            <Link to="/profile/activity">
+              <Button type="button" htmlType="submit" name="APPLY" />
+            </Link>
         </div>
       </div>
     </>
