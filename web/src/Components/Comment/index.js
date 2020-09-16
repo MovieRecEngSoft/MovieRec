@@ -5,13 +5,15 @@ function Comment(props){
     return (
       <>
         <div className="row">
-          <img className="avatar" src={props.avatar} />
-          <h5>
-            <strong>{props.author}</strong>
-          </h5>
-        </div>
-        <div className="row">
-          <p className="review-text">{props.text}</p>
+          <div className="col">
+            <img className="avatar" src={props.avatar} />
+          </div>
+          <div className="col">
+            <h5>
+              <strong>{props.author}</strong>
+            </h5>
+            <p className="review-text">{props.text}</p>
+          </div>
         </div>
       </>
     );
