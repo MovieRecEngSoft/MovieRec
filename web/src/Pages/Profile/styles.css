@@ -3,7 +3,6 @@
     /* background: rgb(19 18 19); */
     background: rgba(19 18 19 /0.8);
     min-height: 100%;
-    /* width: 100%; */
     padding-top: 100px;
 }
 
@@ -14,24 +13,26 @@
     background: fuchsia;
     background: #0e0c0c;
     background: #1c1b1f;
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
+    border: 2px solid #22202b;
     font-family: system-ui;
 }
 
 .profile-block .imgsection{
     padding: 25px;
     position: relative;
+    min-height: 200px;
 }
 
 .profile-block .txtsection{
     padding: 5px 25px 5px 25px;
+    position: relative;
 }
 
 .profile-block .pfimgblock{
-    /* text-align: center; */
-    /* background: rebeccapurple; */
     z-index: 3;
-    position: relative;
+    position: absolute;
+    top:80px;
 }
 
 .bkground{
@@ -42,22 +43,27 @@
     left: 0px;
     z-index: 1;
     background: #0e0c0c;
-    background: url("https://pbs.twimg.com/profile_banners/2196922086/1597719412/600x200");
+    background: url("https://images.alphacoders.com/996/996655.jpg");
+    background-size: cover;
+    border-bottom: 1px solid #2e2b38;
 }
 
 .profile-block .avatar{
     width: 120px;
     height: 120px;
-    border-radius: 24px;
+    /* border-radius: 24px; */
+    border-radius: 60px;
     background: white;
-    border: 2px solid white;
+    /* border: 2px solid white; */
+    margin: 0px;
 }
 
 .profile-block .txtblk1{
     font-family: system-ui;
-    font-weight: bold;
+    /* font-weight: bold; */
+    font-weight: 500;
     font-size: 24px;
-    color: antiquewhite;
+    color: #d6d5e9;
     padding: 5px 0px;
 }
 
@@ -65,21 +71,85 @@
     font-family: system-ui;
     font-size: 14px;
     text-align: justify;
-    color: antiquewhite;
+    color: #7f7d84;
+}
+
+.profile-block .txtblk3{
+    padding: 5px 0px;
+    /* font-size: 12px; */
+    padding: 5px 10px 5px 10px;
+    border: 2px solid #2a2a2a;
+    border-radius: 100px;
+    margin-top: 8px;
+    line-height: 14px;
+    position: absolute;
+    top: 5px;
+    right: 18px;
+    display: inline-block;    
+}
+
+.profile-block .txtblk3 div{
+    font-family: system-ui;
+    font-size: 14px;
+    color: #7c7b8e;
+    display: inline-block;
+}
+
+.profile-block .txtblk3 div:first-child{
+    margin-right: 15px;
+}
+
+.profile-block .txtblk3 div span:first-child{
+    margin-right: 3px;
+    font-weight: bold;
+    color: aliceblue;
 }
 
 .follow-button{
-    position:absolute;
-    top: 145px;
+    position: absolute;
+    top: 177px;
     right: 25px;
-    background: #fe2353;
+    color: #2e2b38;
     width: 72px;
-    height: 36px;
+    height: 28px;
     font-weight: 700;
-    color: white; 
+    background: #ff2b63;
     text-align: center;
-    line-height: 34px;
-    font-size: 16px;
-    border-radius: 100px;
+    line-height: 27px;
+    font-size: 14px;
+    border-radius: 4px;
+    z-index: 999;
+}
+
+.edit-button {
+    position: absolute;
+    top: 177px;
+    right: 25px;
+    background: #2e2b38;
+    width: 72px;
+    height: 28px;
+    font-weight: 700;
+    color: #ff2b63;
+    text-align: center;
+    line-height: 27px;
+    font-size: 14px;
+    border-radius: 4px;
+    z-index: 999;
+}
+
+
+.edit-button {
+    position: absolute;
+    top: 177px;
+    right: 25px;
+    background: #2e2b38;
+    width: 72px;
+    height: 28px;
+    font-weight: 700;
+    color: #ff2b63;
+    text-align: center;
+    line-height: 27px;
+    font-size: 14px;
+    border-radius: 4px;
     z-index: 999;
 }

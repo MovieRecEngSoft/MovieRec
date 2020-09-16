@@ -6,8 +6,7 @@
 }
 
 .feed-node{
-    /* border: 1px solid tomato; */
-    padding: 8px 15px;
+    padding: 8px;
     margin-top: 10px;
     display: flex;
 }
@@ -17,7 +16,6 @@
     min-height: 64px;
     width: 64px;
     margin-right: 10px;
-    /* border: 1px solid  fuchsia; */
     float: left;
     text-align:center;
 }                
@@ -32,8 +30,8 @@
     display: inline-block;
     min-height: 64px;
     width: 536px;
-    /* border: 1px solid  yellowgreen; */
-    color: antiquewhite;
+    /* color: antiquewhite; */
+    color: #bbbbbb;
     font-weight: 400;
     float: left;
 }

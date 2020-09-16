@@ -33,12 +33,10 @@ function Home(){
                 </div>
               </div>      
 
-
               <div class="nav-block activity">
                 <h1>Recent Activity</h1>
                 <Feed/>    
               </div>
-
             </div>
           </div>      
         </Main>

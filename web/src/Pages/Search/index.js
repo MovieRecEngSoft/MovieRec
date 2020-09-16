@@ -12,7 +12,6 @@ function Search() {
     <>
       <Menu /> 
       <div class="wrapper">       
-      <marquee>WIP</marquee>
       <Searchbar htmlType="submit" name="SearchBar" />
       </div>
     </>

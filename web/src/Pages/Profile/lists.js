@@ -4,9 +4,12 @@ import './styles.css';
 import Menu from "../../Components/Menu";
 import Feed from "../../Components/Feed";
 
-// Listas de filmes
-// Como usuário, eu quero construir listas de filmes, públicas ou secretas, 
-// para catalogar filmes de algum tópico e compartilhar com outras pessoas.
+// Gerenciar perfil
+// Como usuário, eu quero ter um ambiente no sistema que represente meu perfil, onde possa apresentar uma imagem como avatar e compartilhar informações sobre mim.
+// Seguir outros usuários
+// Como usuário, eu quero poder seguir e poder ser seguido por outras pessoas, 
+// para que minhas atividades possam ser vistas pelos outros e que eu possa ver 
+// a atividade de pessoas que considero interessantes.
 
 function Profile() {
   return (
@@ -16,12 +19,11 @@ function Profile() {
         <div class="profile-block">
           <div class="pfsection imgsection">
             <div class="pfimgblock">
-              <img class="avatar" src="https://i.imgur.com/UctWXrz.png" />
+              <img class="avatar" src="https://pbs.twimg.com/profile_images/1295555226720641026/gTnCg1RF_400x400.jpg" />
             </div>
             <div class="bkground">
             </div>
-            <div class="follow-button">Follow</div>
-            {/* <div class="edit-button">Edit</div> */}
+            <div class="follow-button" >Follow</div>
           </div>
           <div class="pfsection txtsection">
             <div class="txtblk1">
@@ -31,16 +33,6 @@ function Profile() {
               <span>
                 #Android is made for everyone. Follow along for the latest updates and stories behind our tech. Questions? Get assistance by using #AndroidHelp.
               </span>
-            </div>
-            <div class="txtblk3">
-              <div>
-                <span>1</span>
-                <span>Following </span>
-              </div>
-              <div>
-                <span>3036</span>
-                <span>Followers </span>
-              </div>
             </div>
           </div>
           <Feed />
