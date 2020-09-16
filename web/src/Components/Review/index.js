@@ -11,22 +11,23 @@ function Review(props) {
 
   return (
     <>
-      <div className="row review-header">
-        <div className="row">
-          <img className="avatar" src={props.avatar} />
-          <h5>
-            Review by <strong>{props.author}</strong>
-          </h5>
-        </div>
-        <div className="likes">
-          <p>522</p>
-          <LikeOutlined className="like-button" />
-        </div>
-      </div>
+    <div className="row">
       
-      <div className="row">
+      <div className="col">
+        <img className="avatar" src={props.avatar} />
+      </div>
+      <div className="col">
+        <h5>
+          <span>Review by </span>{" "}
+          <div className="likes">
+            <p>522</p>
+            <LikeOutlined className="like-button" />
+          </div>
+          <strong className="reviewer">{props.author}</strong>
+        </h5>
         <p className={reviewClassName}>{props.text}</p>
       </div>
+    </div>
     </>
   );
 }
