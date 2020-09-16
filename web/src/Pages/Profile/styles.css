@@ -38,7 +38,6 @@
 
 .switchsection div:hover{
     background-color: #1c1b1f;
-    /* text-align: center; */
 }
 
 .switchsection div:hover span{
@@ -55,8 +54,6 @@
     text-align: center;
     /* border-bottom: 1px solid #2f2929; */
 }
-
-
 
 .switchsection .activesection span{
     /* color: #1c15a1; */
@@ -92,7 +89,6 @@
 
 .profile-block .txtblk1{
     font-family: system-ui;
-    /* font-weight: bold; */
     font-weight: 500;
     font-size: 24px;
     color: #d6d5e9;

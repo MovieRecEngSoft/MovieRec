@@ -21,7 +21,7 @@ function Profile() {
             <div class="bkground">
             </div>
             <div class="follow-button">Follow</div>
-            <div class="edit-button">Edit</div>
+            {/* <div class="edit-button">Edit</div> */}
           </div>
           <div class="pfsection txtsection">
             <div class="txtblk1">
