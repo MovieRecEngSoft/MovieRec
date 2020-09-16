@@ -1,9 +1,10 @@
+const Movie = require('../database/models/Movie')
+
 module.exports = {
 
-    getMovies() {
-        return [
-            "Hello World"
-        ]
+    async getMovies() {
+        const movies = await Movie.find({})
+        return movies
     }
 
 }
