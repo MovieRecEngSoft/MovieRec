@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/img/Logo.png';
-import SearchBar from '../SearchBar';
+import SearchBar from '../Searchbar';
 
 import { UserOutlined } from "@ant-design/icons";
 
