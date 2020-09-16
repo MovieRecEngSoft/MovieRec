@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/img/Logo.png';
+import SearchBar from '../SearchBar';
+
 import { UserOutlined } from "@ant-design/icons";
 
 
@@ -12,6 +14,7 @@ function Menu() {
       <Link to="/">
         <img className="Logo" src={Logo} alt="Logo" />
       </Link>
+      <SearchBar/>
       <Link to="/login">
         <UserOutlined className="user-icon" />
       </Link>

@@ -26,9 +26,9 @@
 }
 
 .content-box{
+    /* width: 536px; */
     display: inline-block;
     min-height: 64px;
-    width: 536px;
     color: #bbbbbb;
     font-weight: 400;
     float: left;

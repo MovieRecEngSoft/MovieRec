@@ -4,9 +4,9 @@ import { UserOutlined } from "@ant-design/icons";
 
 import './styles.css';
 
-function Searchbar() {
+function SearchBar() {
   return (
-    <nav className="Searchbar">
+    <nav className="search-bar-nav">
       <form action="" class="search-bar">
         <input type="search" name="search" pattern=".*\S.*" required/>
         <button class="search-btn" type="submit">
@@ -17,4 +17,4 @@ function Searchbar() {
   );
 }
 
-export default Searchbar;
+export default SearchBar;
