@@ -1,5 +1,6 @@
 const csv = require('csv-parser');
 const fs = require('fs');
+const connection = require('../connection')
 const MoviesMetadata = require('./MoviesMetadata');
 const Movie = require('../models/Movie');
 const Genre = require('../models/Genre');
@@ -23,7 +24,7 @@ function decodeGenresInfo(row, moviesMetadata){
 }
 
 function decodeMovie(row, genresIds){
-	
+
 	let movie = new Movie({
 		title: row.title,
 		poster_path: row.poster_path,
@@ -64,18 +65,20 @@ function decodeMoviesMetadata(callback){
 		});
 }
 
-decodeMoviesMetadata((moviesMetadata) => {
-	Movie.insertMany(moviesMetadata.movies, function(error) {
-		if(error)
-			console.log(error);
-		else
-			console.log("movies Inserted");
-	});
-	Genre.insertMany(moviesMetadata.genres, function(error) {
-		if(error)
-			console.log(error);
-		else
-			console.log("Genres Inserted");
-	});
+connection.connect().then(_ => {
+	decodeMoviesMetadata((moviesMetadata) => {
+		Movie.insertMany(moviesMetadata.movies, function(error) {
+			if(error)
+				console.log(error);
+			else
+				console.log("movies Inserted");
+		});
+		Genre.insertMany(moviesMetadata.genres, function(error) {
+			if(error)
+				console.log(error);
+			else
+				console.log("Genres Inserted");
+		});
 
-});
+	});
+})
