@@ -15,10 +15,16 @@
     font-family: sans-serif;
 }
 
+
 .likes {
     position: relative;
-    float: right;
+    display: flex;
     color: white;
+    float: right;
+}
+
+.likes p{
+    line-height: 15px;
 }
 
 .review-header {
