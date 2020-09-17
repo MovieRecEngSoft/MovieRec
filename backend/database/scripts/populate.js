@@ -1,8 +1,8 @@
 const csv = require('csv-parser');
 const fs = require('fs');
 const MoviesMetadata = require('./MoviesMetadata');
-const Movie = require('../database/models/Movie');
-const Genre = require('../database/models/Genre');
+const Movie = require('../models/Movie');
+const Genre = require('../models/Genre');
 
 function decodeGenresInfo(row, moviesMetadata){
 	let genresInfo = {
@@ -50,7 +50,7 @@ function decodeMoviesMetadataRow(row, moviesMetadata){
 
 function decodeMoviesMetadata(callback){
 	let moviesMetadata = new MoviesMetadata()
-	fs.createReadStream('scripts/metadata/movies_metadata.csv')
+	fs.createReadStream('database/scripts/metadata/movies_metadata.csv')
 		.pipe(csv())
 		.on('data', (row) => {
 			let decodedRow = decodeMoviesMetadataRow(row, moviesMetadata);
@@ -65,16 +65,17 @@ function decodeMoviesMetadata(callback){
 }
 
 decodeMoviesMetadata((moviesMetadata) => {
-	// genre = moviesMetadata.genres[0];
-	// genre.save(function (err, fluffy) {
-	// 	if (err) return console.error(err);
-	// 	console.log("Genre Inserted");
-	// });
-	// Genre.insertMany(moviesMetadata.genres.slice(0, 2), function(error, docs) {
-	// 	if(error)
-	// 		return console.log(error);
-	// 	else
-	// 		console.log("Genres Inserted");
-	// });
-	
+	Movie.insertMany(moviesMetadata.movies, function(error) {
+		if(error)
+			console.log(error);
+		else
+			console.log("movies Inserted");
+	});
+	Genre.insertMany(moviesMetadata.genres, function(error) {
+		if(error)
+			console.log(error);
+		else
+			console.log("Genres Inserted");
+	});
+
 });
