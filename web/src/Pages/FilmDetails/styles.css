@@ -20,7 +20,9 @@
 }
 
 .film-details {
-  color: rgb(122, 122, 122)
+  color: #ff2a5b;
+  border-bottom: 1px solid #1c1a22;
+  padding-bottom: 10px;
 }
 
 .summary {
