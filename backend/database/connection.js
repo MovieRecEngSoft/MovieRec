@@ -9,6 +9,10 @@ module.exports = {
 
     async connect() {
         return mongoose.connect(databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+    },
+
+    close() {
+        mongoose.connection.close()
     }
 
 }
