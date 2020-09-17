@@ -60,7 +60,7 @@ function decodeMoviesMetadata(callback){
 				moviesMetadata.addGenres(decodedRow.genres);
 			}
 		})
-		.on('end', () => {
+		.on('end', _ => {
 			callback(moviesMetadata);
 		});
 }
