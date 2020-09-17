@@ -65,20 +65,32 @@ function decodeMoviesMetadata(callback){
 		});
 }
 
-connection.connect().then(_ => {
+connection.connect().then( _ => {
 	decodeMoviesMetadata((moviesMetadata) => {
-		Movie.insertMany(moviesMetadata.movies, function(error) {
-			if(error)
-				console.log(error);
-			else
-				console.log("movies Inserted");
-		});
-		Genre.insertMany(moviesMetadata.genres, function(error) {
-			if(error)
-				console.log(error);
-			else
-				console.log("Genres Inserted");
-		});
-
+		Promise.all([
+			new Promise((resolve, reject) => {
+				Movie.insertMany(moviesMetadata.movies, function(error) {
+					if(error)
+						reject(error);
+					else
+						console.log("Movies Inserted");
+						resolve()
+					}
+				);
+			}),
+			new Promise((resolve, reject) => {
+				Genre.insertMany(moviesMetadata.genres, function(error) {
+					if(error)
+						reject(error);
+					else
+						console.log("Genres Inserted");
+						resolve()
+				});
+			})
+		]).catch(error => {
+			console.log(error)
+		}).finally(_ => {
+			connection.close()
+		})
 	});
 })
