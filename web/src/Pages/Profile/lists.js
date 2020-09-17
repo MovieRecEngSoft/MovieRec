@@ -52,18 +52,18 @@ function ProfileLists() {
             </div>
           </div>
           <div class="switchsection">
-            <div class="activesection">
+            <div>
               <Link to="/profile/activity">
                 <span>ACTIVITY</span>
               </Link>
             </div>
-            <div>
+            <div  class="activesection">
               <Link to="/profile/lists">
                 <span>LISTS</span>
               </Link>
             </div>
           </div>
-            <div>
+            <div class="listsection">
               <div class="carousel-wrapper">
                 <Carousel category={movies.categorias[0]} />
               </div>
@@ -76,9 +76,6 @@ function ProfileLists() {
                 <Carousel category={movies.categorias[2]} />
               </div>
             </div>
-          <div>
-            <marquee> UNDER CONSTRUCTION</marquee>
-          </div>
         </div>
       </div>
     </>
