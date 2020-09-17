@@ -3,46 +3,49 @@ const fs = require('fs');
 const MoviesMetadata = require('./MoviesMetadata');
 const Movie = require('../database/models/Movie');
 const Genre = require('../database/models/Genre');
-const Company = require('../database/models/Company');
 
-function decodeGenres(moviesMetadata, row){
-	let genres = [];
-	genresMetadata = JSON.parse(row.genres.replace(/\'/g, '"'));
-	for(let genre of genresMetadata){
+function decodeGenresInfo(row, moviesMetadata){
+	let genresInfo = {
+		genresIds: [],
+		newGenres: []
+	};
+	genres = JSON.parse(row.genres.replace(/\'/g, '"'));
+	for(let genre of genres){
+		genresInfo.genresIds.push(genre.id);
 		if(!moviesMetadata.containsGenre(genre.id)){
-			genres.push(new Genre({
+			genresInfo.newGenres.push(new Genre({
 				_id: genre.id,
 				name: genre.name
 			}));
 		}
 	}
-	return genres;
+	return genresInfo;
 }
 
-function decodeCompanies(moviesMetadata, row){
-	let companies = [];
-	console.log(row.production_companies)
-	companiesMetadata = JSON.parse(row.production_companies.replace(/\'/g, '"'));
-	// for(let company of companiesMetadata){
-	// 	if(!moviesMetadata.containsCompany(company.id)){
-	// 		companies.push(new Company({
-	// 			_id: company.id,
-	// 			name: company.name
-	// 		}));
-	// 	}
-	// }
-	return companies;
+function decodeMovie(row, genresIds){
+	
+	let movie = new Movie({
+		title: row.title,
+		poster_path: row.poster_path,
+		release_date: row.release_date,
+		overview: row.overview,
+		genres: []
+	});
+	for(let genreId of genresIds){
+		movie.genres.push(genreId);
+	}
+	return movie;
+
 }
 
-function decodeMoviesMetadataRow(moviesMetadata, row){
-	console.log(row);
-	console.log(decodeCompanies(moviesMetadata, row));
-	// let decodedRow = {
-	// 	movie: {},
-	// 	genres: decodeGenres(moviesMetadata, row),
-	// 	companies: {}
-	// };
-	// return decodedRow;
+function decodeMoviesMetadataRow(row, moviesMetadata){
+	let genresInfo = decodeGenresInfo(row, moviesMetadata);
+	let decodedMovie = decodeMovie(row, genresInfo.genresIds);
+	let decodedRow = {
+		movie: decodedMovie,
+		genres: genresInfo.newGenres
+	};
+	return decodedRow;
 }
 
 function decodeMoviesMetadata(callback){
@@ -50,15 +53,28 @@ function decodeMoviesMetadata(callback){
 	fs.createReadStream('scripts/metadata/movies_metadata.csv')
 		.pipe(csv())
 		.on('data', (row) => {
-			let decodedRow = decodeMoviesMetadataRow(moviesMetadata, row);
-			// moviesMetadata.addMovie(decodedRow.movie);
-			// moviesMetadata.addGenres(decodedRow.genres);
-			// moviesMetadata.addCompanies(decodedRow.companies);
+			let decodedRow = decodeMoviesMetadataRow(row, moviesMetadata);
+			moviesMetadata.addMovie(decodedRow.movie);
+			if(decodedRow.genres.length > 0){
+				moviesMetadata.addGenres(decodedRow.genres);
+			}
 		})
 		.on('end', () => {
 			callback(moviesMetadata);
 		});
 }
 
-
-decodeMoviesMetadata((metadata) => {console.log("cabo")});
+decodeMoviesMetadata((moviesMetadata) => {
+	// genre = moviesMetadata.genres[0];
+	// genre.save(function (err, fluffy) {
+	// 	if (err) return console.error(err);
+	// 	console.log("Genre Inserted");
+	// });
+	// Genre.insertMany(moviesMetadata.genres.slice(0, 2), function(error, docs) {
+	// 	if(error)
+	// 		return console.log(error);
+	// 	else
+	// 		console.log("Genres Inserted");
+	// });
+	
+});

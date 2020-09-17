@@ -5,7 +5,6 @@ class MoviesMetadata{
     constructor(){
         this.movies = [];
         this.genreMap = new Map();
-        this.companyMap = new Map();
     }
 
     addMovie(movie){
@@ -18,28 +17,13 @@ class MoviesMetadata{
 
     addGenres(genres){
         for(let genre of genres){
-            assert(!containsGenre(genre._id), "Genero ja existente.")
-            this.genreMap.set(genre._id, genre.name);
-        }
-    }
-
-    containsCompany(id){
-        return this.companyMap.get(id) !== undefined;
-    }
-    
-    addCompanies(companies){
-        for(let company of companies){
-            assert(!containsCompany(company._id), "Compania ja existente.")
-            this.companyMap.set(company._id, company.name);
+            assert(!this.containsGenre(genre._id), "Genero ja existente.")
+            this.genreMap.set(genre._id, genre);
         }
     }
 
     get genres(){
-        return this.genreMap.values();
-    }
-
-    get companies(){
-        return this.companyMap.values();
+        return Array.from(this.genreMap.values());
     }
 
 }
