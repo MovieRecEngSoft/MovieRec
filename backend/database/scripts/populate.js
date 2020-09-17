@@ -70,21 +70,24 @@ connection.connect().then( _ => {
 		Promise.all([
 			new Promise((resolve, reject) => {
 				Movie.insertMany(moviesMetadata.movies, function(error) {
-					if(error)
+					if(error) {
 						reject(error);
-					else
+					}
+					else {
 						console.log("Movies Inserted");
 						resolve()
 					}
-				);
+				});
 			}),
 			new Promise((resolve, reject) => {
 				Genre.insertMany(moviesMetadata.genres, function(error) {
-					if(error)
+					if(error) {
 						reject(error);
-					else
+					}
+					else {
 						console.log("Genres Inserted");
 						resolve()
+					}
 				});
 			})
 		]).catch(error => {
