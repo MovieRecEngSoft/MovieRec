@@ -6,10 +6,9 @@ const UserController = require('./controllers/UserController')
 const authenticator = require('./authenticator.js')
 const routes = express.Router()
 
-routes.post('/login', authenticator.authenticate('local', { 
-    successRedirect: 'http://localhost:3000/',
-    failureRedirect: 'http://localhost:3000/login'
-}))
+routes.post('/login', authenticator.authenticate('local'),
+    (request, response) => {response.sendStatus(302)}
+)
     
 routes.post('/logout', (request, response) => {
     if(request.isAuthenticated()){
