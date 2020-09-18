@@ -1,6 +1,7 @@
 const User = require('../database/models/User')
 const assert = require('assert')
 const crypt = require('../util/crypt.js')
+const dbErrorHandler = require('../database/error/handler.js')
 
 module.exports = {
 
@@ -11,7 +12,12 @@ module.exports = {
             name: user.name,
             password: await crypt.generateHash(user.password),
         })
-        await user.save()
+        try{
+            await user.save()
+        }
+        catch(error){
+            dbErrorHandler.handle(error)
+        }
     }
 
 }
