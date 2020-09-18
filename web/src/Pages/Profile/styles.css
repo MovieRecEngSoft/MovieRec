@@ -1,4 +1,3 @@
-
 .wrapper{
     background: rgba(19 18 19 /0.8);
     min-height: 100%;
@@ -185,7 +184,7 @@
     border-bottom: 1px solid #8b000059;
 }
 
-.edit-section {
+.edit-section{
     background: #19191d;
     padding: 10px;
     border: 1px solid #211f29;

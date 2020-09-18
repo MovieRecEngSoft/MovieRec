@@ -1,0 +1,41 @@
+.result-block{
+    margin: auto;
+    max-width: 1000px;
+    /* border: 2px solid #22202b; */
+    font-family: system-ui;
+    position: relative;
+    /* background: rgb(28,27,31); */
+}
+
+.result-node{
+    background: rgb(28,27,31);
+    padding: 16px;
+    display: flex;
+    border-bottom: 1px solid #2f29296b;
+    margin-bottom: 12px;
+}
+
+.movie-box{
+    position: relative;
+    display: inline-block;
+    text-align:center;
+    min-height: 60px;
+    float: left;
+}  
+
+.content-box{
+    display: inline-block;
+    min-height: 64px;
+    color: #bbbbbb;
+    font-weight: 400;
+    float: left;
+}
+
+.movie-img{
+    max-height: 300px;
+    margin-top: 10px;
+}
+
+.result-node .summary{
+    padding-bottom: 0px;
+}
