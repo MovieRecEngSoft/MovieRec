@@ -10,12 +10,6 @@
     display: flex;
 }
 
-.review-text {
-    margin-top: 25px;
-    font-family: sans-serif;
-}
-
-
 .likes {
     position: relative;
     display: flex;

@@ -26,9 +26,9 @@ function ProfileLists() {
             </div>
             <div class="bkground">
             </div>
-            {/* <div class="follow-button">Follow</div> */}
+            {/* <div class="red-button">Follow</div> */}
             <Link to="/profile/edit">
-              <div class="edit-button">Edit</div>
+              <div class="grey-button">Edit</div>
             </Link>
           </div>
           <div class="pfsection txtsection">
