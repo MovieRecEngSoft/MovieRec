@@ -18,6 +18,28 @@ module.exports = {
         catch(error){
             dbErrorHandler.handle(error)
         }
+    },
+
+    async findById(id){
+        try{
+            return await User.findById(id).exec()
+        }
+        catch(error){
+            dbErrorHandler.handle(error)
+        }
+    },
+
+    async findOne(criteria){
+        try{
+            return await User.findOne(criteria).exec()
+        }
+        catch(error){
+            dbErrorHandler.handle(error)
+        }
+    },
+
+    async validadatePassword(user, password){
+        return await crypt.compare(password, user.password)
     }
 
 }
