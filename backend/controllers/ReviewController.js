@@ -5,7 +5,7 @@ module.exports = {
 
     async getReviews(request, response) {
         try {
-            assert(request.body.movieId, 'Missing "movieId" parameter')
+            assert(request.body.movieId, 'Missing parameter "movieId".')
 
             const movieId = request.body.movieId
 
@@ -23,16 +23,16 @@ module.exports = {
 
     async addReview(request, response) {
         try {
-            assert(request.body.text, 'Missing "text" parameter')
-            assert(request.body.movieId, 'Missing "movieId" parameter')
+            assert(request.body.text, 'Missing parameter "text".')
+            assert(request.body.movieId, 'Missing parameter "movieId".')
 
             const text = request.body.text
             const movieId = request.body.movieId
-            const userId = request.user._id
+            const sessionUserId = request.user._id
 
-            await ReviewService.addReview(text, movieId, userId)
+            await ReviewService.addReview(text, movieId, sessionUserId)
 
-            return response.sendStatus(200)
+            return response.sendStatus(204)
         } catch(error) {
             if (error instanceof assert.AssertionError)
                 response.status(400).send(error.toString())
@@ -43,11 +43,43 @@ module.exports = {
     },
 
     async editReview(request, response) {
-        return response.sendStatus(200)
+        try {
+            assert(request.body.reviewId, 'Missing parameter "reviewId".')
+            assert(request.body.text, 'Missing parameter "text".')
+
+            const reviewId = request.body.reviewId;
+            const text = request.body.text;
+            const sessionUserId = request.user._id
+
+            await ReviewService.editReview(reviewId, text, sessionUserId)
+
+            return response.sendStatus(204)
+        } catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
     },
 
     async removeReview(request, response) {
-        return response.sendStatus(200)
+        try {
+            assert(request.body.reviewId, 'Missing parameter "reviewId".')
+
+            const reviewId = request.body.reviewId;
+            const sessionUserId = request.user._id
+
+            await ReviewService.removeReview(reviewId, sessionUserId)
+
+            return response.sendStatus(204)
+        } catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
     }
 
 }
