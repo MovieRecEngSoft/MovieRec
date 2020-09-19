@@ -29,9 +29,9 @@ module.exports = {
         }
     },
 
-    async findOne(criteria){
+    async findOne(filter){
         try{
-            return await User.findOne(criteria).exec()
+            return await User.findOne(filter).exec()
         }
         catch(error){
             dbErrorHandler.handle(error)
