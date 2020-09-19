@@ -1,5 +1,6 @@
 const express = require('express')
 
+const GenreController = require('./controllers/GenreController')
 const MovieController = require('./controllers/MovieController')
 const UserController = require('./controllers/UserController')
 const ReviewController = require('./controllers/ReviewController')
@@ -29,6 +30,8 @@ routes.post('/logout', (request, response) => {
         response.sendStatus(205)
     }
 })
+
+routes.get('/genres', GenreController.index)
 
 routes.get('/movies', MovieController.index)
 
