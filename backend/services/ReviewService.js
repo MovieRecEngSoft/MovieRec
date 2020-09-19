@@ -20,6 +20,7 @@ module.exports = {
             .populate("comments.user", "name")
         const comments = review.comments.map(comment => {
             return {
+                _id: comment._id,
                 username: comment.user.name,
                 text: comment.text
             }
@@ -77,6 +78,40 @@ module.exports = {
         }
 
         return review.save()
-    }
+    },
+
+    async addComment(text, reviewId, sessionUserId) {
+        const review = await Review.findById(reviewId)
+
+        review.comments.push({
+            text,
+            user: sessionUserId
+        })
+
+        return review.save()
+    },
+
+    async editComment(reviewId, commentId, text, sessionUserId) {
+        const review = await Review.findById(reviewId)
+        const comment = review.comments.find(comment => comment._id === commentId)
+        assert(comment, "There's no comment with the given id.")
+        assert(comment.user.equals(sessionUserId), "User cannot edit another user comment.")
+
+        comment.text = text
+
+        return review.save()
+    },
+
+    async removeComment(reviewId, commentId, sessionUserId) {
+        const review = await Review.findById(reviewId)
+        const comment = review.comments.find(comment => comment._id === commentId)
+        assert(comment, "There's no comment with the given id.")
+        assert(comment.user.equals(sessionUserId), "User cannot remove another user comment.")
+
+        const commentIndex = review.comments.indexOf(comment)
+        review.comments.splice(commentIndex, 1)
+
+        return review.save()
+    },
 
 }
