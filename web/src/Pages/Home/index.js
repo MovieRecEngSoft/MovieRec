@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { Link } from 'react-router-dom';
@@ -21,24 +21,25 @@ function createCategory(title, movies){
 function Home(){
 
   const [categories, setCategories] = useState([]);
-  let aux = [];
-  
-  const fetchMovies = async () => {
-  
-    let API_URL = `localhost:3333`;
-  
-    try {
-      const result_all = await axios.get(`${API_URL}/movies`);
-      aux.push(createCategory("All movies", result_all.data));
 
-      const result_recom = await axios.get(`${API_URL}/user/recommended_movies`);
-      aux.push(createCategory("Recommended for you", result_recom.data));
-      
-      setCategories(aux);
-    } catch (error) {}
-  };
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        let categoriesAux = []
+        let API_URL = `http://localhost:3333`;
+
+        const result_all = await axios.get(`${API_URL}/movies`);
+        categoriesAux.push(createCategory("All movies", result_all.data));
+
+        // const result_recom = await axios.get(`${API_URL}/user/recommended_movies`);
+        // categoriesAux.push(createCategory("Recommended for you", result_recom.data));
+
+        setCategories(categoriesAux);
+      } catch (error) {}
+    };
 
     fetchMovies();
+  }, []);
 
     return (
       <>
@@ -53,14 +54,14 @@ function Home(){
                 <div class="carousel-wrapper">
                   <Carousel category={categories[1]} />
                 </div>
-              </div>      
+              </div>
 
               <div class="nav-block activity">
                 <h1>Recent Activity</h1>
-                <Feed/>    
+                <Feed/>
               </div>
             </div>
-          </div>      
+          </div>
         </Main>
       </>
     );
