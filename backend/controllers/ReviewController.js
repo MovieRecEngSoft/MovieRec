@@ -24,6 +24,7 @@ module.exports = {
 
     async addReview(request, response) {
         try {
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
             assert(request.body.text, 'Missing parameter "text".')
             assert(request.body.movieId, 'Missing parameter "movieId".')
 
@@ -45,6 +46,7 @@ module.exports = {
 
     async editReview(request, response) {
         try {
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
             assert(request.body.reviewId, 'Missing parameter "reviewId".')
             assert(request.body.text, 'Missing parameter "text".')
 
@@ -66,6 +68,7 @@ module.exports = {
 
     async removeReview(request, response) {
         try {
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
             assert(request.body.reviewId, 'Missing parameter "reviewId".')
 
             const reviewId = request.body.reviewId;
@@ -85,6 +88,7 @@ module.exports = {
 
     async toggleLikeReview(request, response) {
         try {
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
             assert(request.body.reviewId, 'Missing parameter "reviewId".')
 
             const reviewId = request.body.reviewId;
