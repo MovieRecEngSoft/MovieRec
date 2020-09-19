@@ -10,7 +10,8 @@ const routes = express.Router()
 function checkAuthentication(request, response, next){
     if(!request.isAuthenticated()){
         response.sendStatus(401)
-    } else {
+    } 
+    else {
         next()
     }
 }
@@ -24,7 +25,9 @@ routes.post('/logout', (request, response) => {
         request.logOut()
         response.sendStatus(200)
     }
-    response.sendStatus(205)
+    else{
+        response.sendStatus(205)
+    }
 })
 
 routes.get('/movies', MovieController.index)
