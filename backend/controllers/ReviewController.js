@@ -45,13 +45,15 @@ module.exports = {
         try {
             assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
             assert(request.body.text, 'Missing parameter "text".')
+            assert(request.body.score, 'Missing parameter "score".')
             assert(request.body.movieId, 'Missing parameter "movieId".')
 
             const text = request.body.text
+            const score = request.body.score
             const movieId = request.body.movieId
             const sessionUserId = request.user._id
 
-            await ReviewService.addReview(text, movieId, sessionUserId)
+            await ReviewService.addReview(text, score, movieId, sessionUserId)
 
             return response.sendStatus(204)
         } catch(error) {
@@ -68,12 +70,14 @@ module.exports = {
             assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
             assert(request.body.reviewId, 'Missing parameter "reviewId".')
             assert(request.body.text, 'Missing parameter "text".')
+            assert(request.body.score, 'Missing parameter "score".')
 
             const reviewId = request.body.reviewId;
             const text = request.body.text;
+            const score = request.body.score;
             const sessionUserId = request.user._id
 
-            await ReviewService.editReview(reviewId, text, sessionUserId)
+            await ReviewService.editReview(reviewId, text, score, sessionUserId)
 
             return response.sendStatus(204)
         } catch(error) {

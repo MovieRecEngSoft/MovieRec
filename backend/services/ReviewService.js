@@ -5,10 +5,16 @@ function formatReview(review, sessionUserId = null) {
     return {
         _id: review._id,
         text: review.text,
+        score: review.score,
         username: review.user.name,
+        userImgUrl: review.user.img_path,
         likes: review.likes.length,
         userLiked: !!(sessionUserId && review.likes.indexOf(sessionUserId) !== -1)
     }
+}
+
+function fixDecimalPlaces(number) {
+    return parseFloat(number.toFixed(1))
 }
 
 module.exports = {
@@ -22,6 +28,7 @@ module.exports = {
             return {
                 _id: comment._id,
                 username: comment.user.name,
+                userImgUrl: comment.user.img_path,
                 text: comment.text
             }
         })
@@ -34,7 +41,6 @@ module.exports = {
         let reviews = await Review
             .find({ movie: movieId })
             .populate("user", "name")
-            .select("text _id likes")
         reviews = reviews
             .map(review => formatReview(review, sessionUserId))
             // Sort descending by number of likes.
@@ -42,20 +48,28 @@ module.exports = {
         return reviews
     },
 
-    async addReview(text, movieId, sessionUserId) {
+    async addReview(text, score, movieId, sessionUserId) {
+        assert(typeof score === "number", 'The parameter "score" must be numeric.')
+        assert(score >= 0 && score <= 10, 'The parameter "score" msut be between 0 and 10.')
+        score = fixDecimalPlaces(score)
         const review = new Review({
             text,
+            score,
             movie: movieId,
             user: sessionUserId
         })
         return review.save()
     },
 
-    async editReview(reviewId, text, sessionUserId) {
+    async editReview(reviewId, text, score, sessionUserId) {
         const review = await Review.findById(reviewId)
         assert(review.user.equals(sessionUserId), "User cannot edit another user review.")
+        assert(typeof score === "number", 'The parameter "score" must be numeric.')
+        assert(score >= 0 && score <= 10, 'The parameter "score" msut be between 0 and 10.')
+        score = fixDecimalPlaces(score)
 
         review.text = text
+        review.score = score
 
         return review.save()
     },
