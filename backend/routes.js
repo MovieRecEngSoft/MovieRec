@@ -17,7 +17,16 @@ function checkAuthentication(request, response, next){
     }
 }
 
-routes.post('/login', authenticator.authenticate('local'),
+function checkNotAuthentication(request, response, next){
+    if(request.isAuthenticated()){
+        response.sendStatus(205)
+    }
+    else {
+        next()
+    }
+}
+
+routes.post('/login', checkNotAuthentication, authenticator.authenticate('local'),
     (request, response) => {response.sendStatus(302)}
 )
 
