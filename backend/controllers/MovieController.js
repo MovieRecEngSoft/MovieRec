@@ -21,7 +21,7 @@ module.exports = {
             let searchParams = new SearchParams(movieFilter, pageFilter)
             const movies = await MovieService.getMovies(searchParams)
             response.json(movies)
-        } 
+        }
         catch(error) {
             if (error instanceof assert.AssertionError)
                 response.status(400).send(error.toString())
