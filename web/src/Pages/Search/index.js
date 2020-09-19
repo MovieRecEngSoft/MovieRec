@@ -17,7 +17,16 @@ function Search() {
     <>
       <Menu /> 
       <div class="wrapper">       
-      {/* <Searchbar htmlType="submit" name="SearchBar" /> */}
+        <div class="search-block">
+          <Searchbar htmlType="submit" name="SearchBar" />
+          <div class="filter-section">
+            {/* <div class="grey-button">Name</div>
+            <div class="grey-button">Genre</div>
+            <div class="grey-button">Year</div>  */}
+            {/* <div class="red-button">Rating</div> */}
+          </div>
+        </div>
+      
         <div class="result-block">
           <div class="result-node">
             <div class="movie-box">

@@ -1,10 +1,26 @@
+.search-block{
+    position: relative;
+    padding-bottom: 100px;
+}
+
+.filter-section{
+    padding: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: inline-flex;
+}
+
+.filter-section .grey-button{
+    position: static;
+    margin: 5px;
+}
+
 .result-block{
     margin: auto;
     max-width: 1000px;
-    /* border: 2px solid #22202b; */
     font-family: system-ui;
     position: relative;
-    /* background: rgb(28,27,31); */
 }
 
 .result-node{
