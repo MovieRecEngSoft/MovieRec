@@ -6,19 +6,18 @@ module.exports = {
 
     async register(request, response) {
         try{
-            assert(request.body.user !== undefined)
-            assert(request.body.user.name != undefined)
-            assert(request.body.user.password != undefined)
-            await UserService.register(request.body.user);
+            assert(request.body.name != undefined, 'Missing parameter "name".')
+            assert(request.body.password != undefined, 'Missing parameter "password".')
+            await UserService.register(request.body);
             response.sendStatus(201)
         }
         catch(error){
             if(error instanceof assert.AssertionError)
-                response.sendStatus(400)
+                response.status(400).send(error.toString())
             else if(error instanceof dbErrors.DBDuplicatedKeyError)
-                response.sendStatus(409)
+                response.status(409).send(error.toString())
             else{
-                response.sendStatus(500)
+                response.status(500).send(error.toString())
             }
         } 
     }
