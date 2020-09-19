@@ -24,15 +24,14 @@ function Home(){
   let aux = [];
   
   const fetchMovies = async () => {
-  
-    let API_URL = `localhost:3333`;
+    let API_URL = `http://localhost:3333`;
   
     try {
       const result_all = await axios.get(`${API_URL}/movies`);
       aux.push(createCategory("All movies", result_all.data));
 
-      const result_recom = await axios.get(`${API_URL}/user/recommended_movies`);
-      aux.push(createCategory("Recommended for you", result_recom.data));
+      // const result_recom = await axios.get(`${API_URL}/user/recommended_movies`);
+      // aux.push(createCategory("Recommended for you", result_recom.data));
       
       setCategories(aux);
     } catch (error) {}
@@ -50,9 +49,9 @@ function Home(){
                 <div class="carousel-wrapper">
                   <Carousel category={categories[0]} />
                 </div>
-                <div class="carousel-wrapper">
+                {/* <div class="carousel-wrapper">
                   <Carousel category={categories[1]} />
-                </div>
+                </div> */}
               </div>      
 
               <div class="nav-block activity">
