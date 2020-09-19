@@ -5,9 +5,9 @@ module.exports = {
 
     async getReview(request, response) {
         try {
-            assert(request.body.reviewId, 'Missing parameter "reviewId".')
+            assert(request.query.reviewId, 'Missing parameter "reviewId".')
 
-            const reviewId = request.body.reviewId
+            const reviewId = request.query.reviewId
             const sessionUserId = request.user ? request.user._id : null
 
             const review = await ReviewService.getReview(reviewId, sessionUserId)
@@ -24,9 +24,9 @@ module.exports = {
 
     async getReviews(request, response) {
         try {
-            assert(request.body.movieId, 'Missing parameter "movieId".')
+            assert(request.query.movieId, 'Missing parameter "movieId".')
 
-            const movieId = request.body.movieId
+            const movieId = request.query.movieId
             const sessionUserId = request.user ? request.user._id : null
 
             const reviews = await ReviewService.getReviews(movieId, sessionUserId)

@@ -8,19 +8,19 @@ module.exports = {
 
     async index(request, response) {
         try{
-            let movieFilter = (request.body.movieFilter) ? 
-                new MovieFilter(request.body.movieFilter.name,
-                                request.body.movieFilter.genres,
-                                request.body.movieFilter.date,
-                                request.body.movieFilter.score) :
+            let movieFilter = (request.query.movieFilter) ?
+                new MovieFilter(request.query.movieFilter.name,
+                                request.query.movieFilter.genres,
+                                request.query.movieFilter.date,
+                                request.query.movieFilter.score) :
                 new MovieFilter()
-            let pageFilter = (request.body.pageFilter) ? 
-                new PageFilter(request.body.pageFilter.page, request.body.pageFilter.limit) :
+            let pageFilter = (request.query.pageFilter) ?
+                new PageFilter(request.query.pageFilter.page, request.query.pageFilter.limit) :
                 new PageFilter()
             let searchParams = new SearchParams(movieFilter, pageFilter)
             const movies = await MovieService.getMovies(searchParams)
             response.json(movies)
-        } 
+        }
         catch(error) {
             if (error instanceof assert.AssertionError)
                 response.status(400).send(error.toString())
