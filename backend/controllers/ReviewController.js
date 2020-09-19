@@ -8,8 +8,9 @@ module.exports = {
             assert(request.body.movieId, 'Missing parameter "movieId".')
 
             const movieId = request.body.movieId
+            const sessionUserId = request.user ? request.user._id : null
 
-            const reviews = await ReviewService.getReviews(movieId)
+            const reviews = await ReviewService.getReviews(movieId, sessionUserId)
 
             return response.json(reviews)
         } catch(error) {

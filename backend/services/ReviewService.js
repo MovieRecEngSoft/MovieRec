@@ -4,17 +4,19 @@ const { likeReview } = require('../controllers/ReviewController')
 
 module.exports = {
 
-    async getReviews(movieId) {
+    async getReviews(movieId, sessionUserId) {
         let reviews = await Review
             .find({ movie: movieId })
             .sort("-createdAt")
             .populate("user", "name")
-            .select("text _id")
+            .select("text _id likes")
         reviews = reviews.map(review => {
             return {
                 _id: review._id,
                 text: review.text,
-                username: review.user.name
+                username: review.user.name,
+                likes: review.likes.length,
+                userLiked: !!(sessionUserId && review.likes.indexOf(sessionUserId) !== -1)
             }
         })
         return reviews
