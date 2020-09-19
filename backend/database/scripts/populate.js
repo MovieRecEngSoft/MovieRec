@@ -29,7 +29,9 @@ function decodeMovie(row, genresIds){
 		poster_path: row.poster_path,
 		release_date: row.release_date,
 		overview: row.overview,
-		genres: []
+		genres: [],
+		id_tmdb: row.id,
+		recommended_movies: []
 	})
 	for(let genreId of genresIds){
 		movie.genres.push(genreId)
@@ -49,7 +51,7 @@ function decodeMoviesMetadataRow(row, moviesMetadata){
 
 function decodeMoviesMetadata(callback){
 	let moviesMetadata = new MoviesMetadata()
-	fs.createReadStream('database/scripts/metadata/movies_metadata.csv')
+	fs.createReadStream('database/metadata/movies_metadata.csv')
 		.pipe(csv())
 		.on('data', (row) => {
 			let decodedRow = decodeMoviesMetadataRow(row, moviesMetadata)

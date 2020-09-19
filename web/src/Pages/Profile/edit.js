@@ -9,6 +9,15 @@ import { Link } from "react-router-dom";
 // Como usuário, eu quero ter um ambiente no sistema que represente meu perfil, onde possa apresentar uma imagem como avatar e compartilhar informações sobre mim.
 
 function ProfileEditor() {
+
+  const uploadBackground = () => {
+    alert('UP BG');
+  };
+
+  const uploadAvatar = () => {
+    alert('UP AV');
+  };
+
   return (
     <>
       <Menu /> 
@@ -16,7 +25,7 @@ function ProfileEditor() {
         
         <div class="profile-block">
 
-        <div class="pfsection txtsection">
+          <div class="edit-header">
             <div class="txtblk1">
               <span class="grayed">EDIT YOUR PROFILE</span>
             </div>
@@ -25,51 +34,36 @@ function ProfileEditor() {
               </span>
             </div>
           </div>
-          <div class="blank-spacing"></div>
-          <div class="pfsection txtsection">
-            <div class="txtblk2">
-              <span class="grayed">EDIT YOUR AVATAR AND BACKGROUND
-              </span>
-            </div>
-          </div>
+
           <div class="pfsection imgsection">
             <div class="pfimgblock">
-              <img class="avatar" src="https://pbs.twimg.com/profile_images/1295555226720641026/gTnCg1RF_400x400.jpg" />
+              <img class="avatar" src="https://i.imgur.com/UctWXrz.png" />
             </div>
             <div class="bkground">
             </div>
           </div>
-          <div class="pfsection txtsection">
-            <div class="txtblk2">
-            <span class="grayed">UPLOAD AVATAR IMAGE</span>
-            </div>
-          </div>
-          <div class="pfsection txtsection">
-            <div class="txtblk2">
-              <span class="grayed">UPLOAD BACKGROUND IMAGE</span>
-            </div>
-          </div>
-          <div class="blank-spacing"></div>
-          
+
+          <div class="red-button upload-avatar" onClick={uploadAvatar}>Upload</div>
+          <div class="red-button upload-background" onClick={uploadBackground}>Upload</div>
+
           <div class="pfsection txtsection">
             <div class="txtblk1">
               <span>Rusro</span>
             </div>
-          </div>
-          <div class="blank-spacing"></div>
-          <div class="pfsection txtsection">
-            <div class="txtblk2">
+
+            {/* <div class="txtblk2">
               <span class="grayed">EDIT YOUR DESCRIPTION
               </span>
-            </div>
-            <div class="txtblk2" contentEditable="true">
+            </div> */}
+
+            <div class="txtblk2 edit-section" contentEditable="true">
               <span>
               #Android is (not) made for everyone. Follow along for the latest updates and stories behind our tech. Questions? Get assistance by using #AndroidHelp.
               </span>
             </div>
           </div>
-          <div class="blank-spacing"></div>
-          <div class="pfsection">
+          
+          {/* <div class="pfsection">
             <div class="timeline-node">
               <div class="avatar-box">
                 <div>
@@ -81,14 +75,15 @@ function ProfileEditor() {
               <div class="content-box">
                 <div class="pre-textual">
                   <span>Rusro</span>
-                  <span class="action">está editando seu perfil</span>
+                  <span class="action">is editing their profile</span>
                 </div>
                 <div class="text-content">
-                  Este é um evento de teste.
+                  Sample text.
                 </div>
               </div>
             </div>            
-          </div>
+          </div> */}
+          
             <Link to="/profile/activity">
               <Button type="button" htmlType="submit" name="APPLY" />
             </Link>

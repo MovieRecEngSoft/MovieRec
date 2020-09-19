@@ -6,11 +6,11 @@ const dbErrorHandler = require('../database/error/handler.js')
 module.exports = {
 
     async register(user) {
-        assert(typeof user.name === 'string')
-        assert(typeof user.password === 'string')
+        assert(typeof user.name === 'string', 'Wrong type of parameter "name".')
+        assert(typeof user.password === 'string', 'Wrong type of parameter "password".')
         user = new User({
             name: user.name,
-            password: await crypt.generateHash(user.password),
+            password: await crypt.generateHash(user.password)
         })
         try{
             await user.save()
@@ -29,9 +29,9 @@ module.exports = {
         }
     },
 
-    async findOne(criteria){
+    async findOne(filter){
         try{
-            return await User.findOne(criteria).exec()
+            return await User.findOne(filter).exec()
         }
         catch(error){
             dbErrorHandler.handle(error)

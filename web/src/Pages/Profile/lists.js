@@ -1,9 +1,11 @@
 import React from "react";
 
 import './styles.css';
+import { Link } from "react-router-dom";
 import Menu from "../../Components/Menu";
 import Feed from "../../Components/Feed";
-import { Link } from "react-router-dom";
+import movies from "../../data/movies.json";
+import Carousel from '../../Components/Carousel';
 
 // Gerenciar perfil
 // Como usuário, eu quero ter um ambiente no sistema que represente meu perfil, onde possa apresentar uma imagem como avatar e compartilhar informações sobre mim.
@@ -24,9 +26,9 @@ function ProfileLists() {
             </div>
             <div class="bkground">
             </div>
-            {/* <div class="follow-button">Follow</div> */}
+            {/* <div class="red-button">Follow</div> */}
             <Link to="/profile/edit">
-              <div class="edit-button">Edit</div>
+              <div class="grey-button">Edit</div>
             </Link>
           </div>
           <div class="pfsection txtsection">
@@ -50,21 +52,30 @@ function ProfileLists() {
             </div>
           </div>
           <div class="switchsection">
-            <div class="activesection">
+            <div>
               <Link to="/profile/activity">
                 <span>ACTIVITY</span>
               </Link>
             </div>
-            <div>
+            <div  class="activesection">
               <Link to="/profile/lists">
                 <span>LISTS</span>
               </Link>
             </div>
           </div>
-          {/* <Feed /> */}
-          <div>
-            <marquee> UNDER CONSTRUCTION</marquee>
-          </div>
+            <div class="listsection">
+              <div class="carousel-wrapper">
+                <Carousel category={movies.categorias[0]} />
+              </div>
+
+              <div class="carousel-wrapper">
+                <Carousel category={movies.categorias[1]} />
+              </div>
+
+              <div class="carousel-wrapper">
+                <Carousel category={movies.categorias[2]} />
+              </div>
+            </div>
         </div>
       </div>
     </>

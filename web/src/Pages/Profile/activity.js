@@ -10,6 +10,10 @@ import { Link } from "react-router-dom";
 // para catalogar filmes de algum tópico e compartilhar com outras pessoas.
 
 function ProfileActivity() {
+  const Follow = () => {
+    alert('Follow');
+  };
+
   return (
     <>
       <Menu /> 
@@ -21,8 +25,9 @@ function ProfileActivity() {
             </div>
             <div class="bkground">
             </div>
-            <div class="follow-button">Follow</div>
-            {/* <div class="edit-button">Edit</div> */}
+            <div class="red-button" onClick={Follow}>Follow</div>
+            {/* <div class="grey-button">Unfollow</div> */}
+            {/* <div class="grey-button">Edit</div> */}
           </div>
           <div class="pfsection txtsection">
             <div class="txtblk1">
