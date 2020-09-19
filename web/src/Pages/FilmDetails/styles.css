@@ -1,0 +1,102 @@
+.container-wrapper {
+    width: 88%;
+    height: 100%;
+    margin: 56px 68px auto;
+}
+
+.cover {
+    height: 380px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    position: relative;
+    margin-top: 10px;
+}
+
+.film-title {
+  color: white;
+  font-family: sans;
+}
+
+.film-details {
+  color: rgb(122, 122, 122)
+}
+
+.summary {
+    color:rgb(168, 168, 168);
+    font-family: sans-serif;
+}
+
+/* Left column */
+.detail-rightcolumn {   
+  float: left;
+  width: 75%;
+  padding-right: 20px;
+}
+
+/* Right column */
+.detail-leftcolumn {
+  float: left;
+  width: 25%;
+  padding-right: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+   background-color: rgb(0 0 0 / 98%);
+   padding: 10px;
+   margin-top: 10px;
+   border-radius: 0.8rem;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+h5 {
+  color: #aaa;
+}
+
+.expand-icon {
+  color: white;
+}
+
+.expand-icon:hover {
+  color: red;
+}
+
+.expand-row {
+  display: flex;
+  align-items: right;
+  justify-content: space-between;
+  position: relative;
+  text-align: right;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.review-item {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 4; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+
+.icons-area {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.limited-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}

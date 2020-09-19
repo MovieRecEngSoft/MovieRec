@@ -1,0 +1,10 @@
+button{
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.arrow{
+    font-size: 30px;
+    color: white;
+}

@@ -1,0 +1,38 @@
+.Logo {
+  max-width: 120px;
+}
+
+.Menu {
+  width: 100%;
+  height: 8vh;
+  z-index: 100;
+  max-height: 80px;
+  min-height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-left: 5%;
+  padding-right: 5%;
+  background: #0e0c0c;
+  border-bottom: 2px solid #090808;
+  background: #131213;
+  background: #121112;
+    border-bottom: 1px solid #22202b;
+}
+body {
+  --bodyPaddingTop: 0px;
+  padding-top: var(--bodyPaddingTop);
+}
+
+.user-icon {
+  border: 1px solid red;
+  border-radius: 0.9rem;
+  color: red;
+  font-size: 15px;
+  padding: 5px;
+}

@@ -1,0 +1,62 @@
+.container-wrapper {
+    width: 88%;
+    height: 100%;
+    margin: 56px 68px auto;
+}
+
+.review-text {
+    color:rgb(168, 168, 168);
+    font-family: sans-serif;
+    font-family: system-ui;
+    font-weight: 400;
+    text-align: justify;
+}
+
+/* Left column */
+.review-leftcolumn {   
+  float: left;
+  width: 75%;
+  padding-left: 20px;
+}
+
+/* Right column */
+.review-rightcolumn {
+  float: left;
+  width: 25%;
+  padding-left: 20px;
+}
+
+.comment-session {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-comment-input {
+  width: 718px;
+}
+
+.add-comment-button {
+  background-color: red;
+  float: right;
+  margin-top: 7px;
+  height: 48px;
+  width: 124px;
+  color: white;
+  border-radius: 0.3rem;
+}
+
+.likes {
+  display: flex;
+  color: white;
+  margin-left: 560px;
+}
+
+.like-button {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.like-button:hover {
+  color: pink;
+}
