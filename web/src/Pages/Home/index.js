@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from "react";
+import axios from "axios";
+
 import { Link } from 'react-router-dom';
 import Carousel from '../../Components/Carousel';
 import Menu from '../../Components/Menu';
@@ -8,7 +10,36 @@ import movies from "../../data/movies.json";
 import Main from '../../Components/Main';
 import Feed from '../../Components/Feed';
 
+function createCategory(title, movies){
+  var category = {};
+  category.title = title;
+  category.movies = movies;
+
+  return category;
+}
+
 function Home(){
+
+  const [categories, setCategories] = useState([]);
+  let aux = [];
+  
+  const fetchMovies = async () => {
+  
+    let API_URL = `localhost:3333`;
+  
+    try {
+      const result_all = await axios.get(`${API_URL}/movies`);
+      aux.push(createCategory("All movies", result_all.data));
+
+      const result_recom = await axios.get(`${API_URL}/user/recommended_movies`);
+      aux.push(createCategory("Recommended for you", result_recom.data));
+      
+      setCategories(aux);
+    } catch (error) {}
+  };
+
+    fetchMovies();
+
     return (
       <>
         <Menu />
@@ -17,19 +48,10 @@ function Home(){
             <div class="nav">
               <div class="nav-block lists">
                 <div class="carousel-wrapper">
-                  <Carousel category={movies.categorias[0]} />
+                  <Carousel category={categories[0]} />
                 </div>
-
                 <div class="carousel-wrapper">
-                  <Carousel category={movies.categorias[1]} />
-                </div>
-
-                <div class="carousel-wrapper">
-                  <Carousel category={movies.categorias[2]} />
-                </div>
-
-                <div class="carousel-wrapper">
-                  <Carousel category={movies.categorias[3]} />
+                  <Carousel category={categories[1]} />
                 </div>
               </div>      
 

@@ -9,12 +9,16 @@ import './styles.css';
 function Carousel({
     category,
 }) {
+  
+    if(category === undefined){category = []};
+    
+    const categoryTitle = category.title;
+    let movies = category.movies;
+    if(movies === undefined){movies = []};
     
     const [activeItemIndex, setActiveItemIndex] = useState(0);
     const chevronWidth = 40;
     
-    const categoryTitle = category.titulo;
-    const videos = category.videos;
 
     return (
       <div style={{ padding: `0 ${chevronWidth}px` }}>
@@ -30,12 +34,11 @@ function Carousel({
           outsideChevron
           chevronWidth={chevronWidth}
         >
-          {videos.map((video, index) => {
+          {movies.map((movie, index) => {
             return (
               <VideoCard
-                videoTitle={video.titulo}
-                videoURL={video.url}
-                videoImage={video.image}
+                videoTitle={movie.title}
+                videoImage={movie.poster_path}
               />
             );
           })}
