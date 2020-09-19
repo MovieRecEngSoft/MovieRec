@@ -155,7 +155,7 @@ module.exports = {
             assert(request.body.text, 'Missing parameter "text".')
 
             const reviewId = request.body.reviewId;
-            const commentId = request.body.reviewId;
+            const commentId = request.body.commentId;
             const text = request.body.text;
             const sessionUserId = request.user._id
 
@@ -178,10 +178,10 @@ module.exports = {
             assert(request.body.commentId, 'Missing parameter "commentId".')
 
             const reviewId = request.body.reviewId;
-            const commentId = request.body.reviewId;
+            const commentId = request.body.commentId;
             const sessionUserId = request.user._id
 
-            await ReviewService.removeComment(reviewId, sessionUserId)
+            await ReviewService.removeComment(reviewId, commentId, sessionUserId)
 
             return response.sendStatus(204)
         } catch(error) {

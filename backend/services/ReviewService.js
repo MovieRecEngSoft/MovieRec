@@ -93,7 +93,7 @@ module.exports = {
 
     async editComment(reviewId, commentId, text, sessionUserId) {
         const review = await Review.findById(reviewId)
-        const comment = review.comments.find(comment => comment._id === commentId)
+        const comment = review.comments.find(comment => comment._id.equals(commentId))
         assert(comment, "There's no comment with the given id.")
         assert(comment.user.equals(sessionUserId), "User cannot edit another user comment.")
 
@@ -104,7 +104,7 @@ module.exports = {
 
     async removeComment(reviewId, commentId, sessionUserId) {
         const review = await Review.findById(reviewId)
-        const comment = review.comments.find(comment => comment._id === commentId)
+        const comment = review.comments.find(comment => comment._id.equals(commentId))
         assert(comment, "There's no comment with the given id.")
         assert(comment.user.equals(sessionUserId), "User cannot remove another user comment.")
 
