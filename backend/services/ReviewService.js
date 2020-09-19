@@ -7,7 +7,6 @@ module.exports = {
     async getReviews(movieId, sessionUserId) {
         let reviews = await Review
             .find({ movie: movieId })
-            .sort("-createdAt")
             .populate("user", "name")
             .select("text _id likes")
         reviews = reviews.map(review => {
@@ -18,7 +17,7 @@ module.exports = {
                 likes: review.likes.length,
                 userLiked: !!(sessionUserId && review.likes.indexOf(sessionUserId) !== -1)
             }
-        })
+        }).sort((a, b) => b.likes - a.likes)
         return reviews
     },
 
