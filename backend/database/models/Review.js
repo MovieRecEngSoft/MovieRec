@@ -6,7 +6,11 @@ const Review = new mongoose.Schema({
     movie: { type: mongoose.Schema.Types.ObjectId, ref: 'Movie'},
     likes: [
         { type: mongoose.Schema.Types.ObjectId, ref: 'User'}
-    ]
+    ],
+    comments: [{
+        user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        text: String
+    }]
 }, { timestamps: true } )
 
 module.exports = mongoose.model('Review', Review)

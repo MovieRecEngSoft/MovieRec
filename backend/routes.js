@@ -10,7 +10,7 @@ const routes = express.Router()
 function checkAuthentication(request, response, next){
     if(!request.isAuthenticated()){
         response.sendStatus(401)
-    } 
+    }
     else {
         next()
     }
@@ -32,6 +32,7 @@ routes.post('/logout', (request, response) => {
 
 routes.get('/movies', MovieController.index)
 
+routes.get('/review', ReviewController.getReview)
 routes.post('/review/add', checkAuthentication, ReviewController.addReview)
 routes.post('/review/edit', checkAuthentication, ReviewController.editReview)
 routes.post('/review/remove', checkAuthentication, ReviewController.removeReview)

@@ -3,6 +3,25 @@ const assert = require('assert')
 
 module.exports = {
 
+    async getReview(request, response) {
+        try {
+            assert(request.body.reviewId, 'Missing parameter "reviewId".')
+
+            const reviewId = request.body.reviewId
+            const sessionUserId = request.user ? request.user._id : null
+
+            const review = await ReviewService.getReview(reviewId, sessionUserId)
+
+            return response.json(review)
+        } catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
+    },
+
     async getReviews(request, response) {
         try {
             assert(request.body.movieId, 'Missing parameter "movieId".')

@@ -1,23 +1,43 @@
 const Review = require('../database/models/Review')
 const assert = require('assert')
-const { likeReview } = require('../controllers/ReviewController')
+
+function formatReview(review, sessionUserId = null) {
+    return {
+        _id: review._id,
+        text: review.text,
+        username: review.user.name,
+        likes: review.likes.length,
+        userLiked: !!(sessionUserId && review.likes.indexOf(sessionUserId) !== -1)
+    }
+}
 
 module.exports = {
+
+    async getReview(reviewId, sessionUserId) {
+        let review = await Review
+            .findById(reviewId)
+            .populate("user", "name")
+            .populate("comments.user", "name")
+        const comments = review.comments.map(comment => {
+            return {
+                username: comment.user.name,
+                text: comment.text
+            }
+        })
+        review = formatReview(review, sessionUserId)
+        review.comments = comments
+        return review
+    },
 
     async getReviews(movieId, sessionUserId) {
         let reviews = await Review
             .find({ movie: movieId })
             .populate("user", "name")
             .select("text _id likes")
-        reviews = reviews.map(review => {
-            return {
-                _id: review._id,
-                text: review.text,
-                username: review.user.name,
-                likes: review.likes.length,
-                userLiked: !!(sessionUserId && review.likes.indexOf(sessionUserId) !== -1)
-            }
-        }).sort((a, b) => b.likes - a.likes)
+        reviews = reviews
+            .map(review => formatReview(review, sessionUserId))
+            // Sort descending by number of likes.
+            .sort((a, b) => b.likes - a.likes)
         return reviews
     },
 
