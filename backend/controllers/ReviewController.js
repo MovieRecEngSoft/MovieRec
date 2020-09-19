@@ -80,6 +80,25 @@ module.exports = {
                 response.status(500).send(error.toString())
             }
         }
+    },
+
+    async toggleLikeReview(request, response) {
+        try {
+            assert(request.body.reviewId, 'Missing parameter "reviewId".')
+
+            const reviewId = request.body.reviewId;
+            const sessionUserId = request.user._id
+
+            await ReviewService.toggleLikeReview(reviewId, sessionUserId)
+
+            return response.sendStatus(204)
+        } catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
     }
 
 }

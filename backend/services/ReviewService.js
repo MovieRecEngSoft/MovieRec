@@ -1,5 +1,6 @@
 const Review = require('../database/models/Review')
 const assert = require('assert')
+const { likeReview } = require('../controllers/ReviewController')
 
 module.exports = {
 
@@ -42,6 +43,19 @@ module.exports = {
         assert(review.user.equals(sessionUserId), "User cannot remove another user review.")
 
         return review.remove()
+    },
+
+    async toggleLikeReview(reviewId, sessionUserId) {
+        const review = await Review.findById(reviewId)
+
+        const likeIndex = review.likes.indexOf(sessionUserId)
+        if (likeIndex === -1) {
+            review.likes.push(sessionUserId)
+        } else {
+            review.likes.splice(likeIndex, 1)
+        }
+
+        return review.save()
     }
 
 }

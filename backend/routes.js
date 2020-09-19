@@ -32,6 +32,7 @@ routes.get('/movies', MovieController.index)
 routes.post('/review/add', checkAuthentication, ReviewController.addReview)
 routes.post('/review/edit', checkAuthentication, ReviewController.editReview)
 routes.post('/review/remove', checkAuthentication, ReviewController.removeReview)
+routes.post('/review/like', checkAuthentication, ReviewController.toggleLikeReview)
 routes.get('/reviews', ReviewController.getReviews)
 
 routes.post('/user', UserController.register)
