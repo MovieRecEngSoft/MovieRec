@@ -10,7 +10,7 @@ module.exports = {
         assert(typeof user.password === 'string')
         user = new User({
             name: user.name,
-            password: await crypt.generateHash(user.password),
+            password: await crypt.generateHash(user.password)
         })
         try{
             await user.save()
