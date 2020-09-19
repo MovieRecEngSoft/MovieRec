@@ -7,10 +7,18 @@ const ReviewController = require('./controllers/ReviewController')
 const authenticator = require('./authenticator.js')
 const routes = express.Router()
 
+function checkAuthentication(request, response, next){
+    if(!request.isAuthenticated()){
+        response.sendStatus(401)
+    } else {
+        next()
+    }
+}
+
 routes.post('/login', authenticator.authenticate('local'),
     (request, response) => {response.sendStatus(302)}
 )
-    
+
 routes.post('/logout', (request, response) => {
     if(request.isAuthenticated()){
         request.logOut()
@@ -21,7 +29,7 @@ routes.post('/logout', (request, response) => {
 
 routes.get('/movies', MovieController.index)
 
-routes.post('/review/add', ReviewController.addReview)
+routes.post('/review/add', checkAuthentication, ReviewController.addReview)
 routes.post('/review/edit', ReviewController.editReview)
 routes.post('/review/remove', ReviewController.removeReview)
 routes.get('/reviews', ReviewController.getReviews)

@@ -28,8 +28,7 @@ module.exports = {
 
             const text = request.body.text
             const movieId = request.body.movieId
-            const userId = "5f64eaadbf95823d60d59eb9"
-            // const userId = request.user._id
+            const userId = request.user._id
 
             await ReviewService.addReview(text, movieId, userId)
 
