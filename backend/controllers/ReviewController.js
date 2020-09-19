@@ -3,6 +3,25 @@ const assert = require('assert')
 
 module.exports = {
 
+    async getReview(request, response) {
+        try {
+            assert(request.body.reviewId, 'Missing parameter "reviewId".')
+
+            const reviewId = request.body.reviewId
+            const sessionUserId = request.user ? request.user._id : null
+
+            const review = await ReviewService.getReview(reviewId, sessionUserId)
+
+            return response.json(review)
+        } catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
+    },
+
     async getReviews(request, response) {
         try {
             assert(request.body.movieId, 'Missing parameter "movieId".')
@@ -24,14 +43,17 @@ module.exports = {
 
     async addReview(request, response) {
         try {
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
             assert(request.body.text, 'Missing parameter "text".')
+            assert(request.body.score, 'Missing parameter "score".')
             assert(request.body.movieId, 'Missing parameter "movieId".')
 
             const text = request.body.text
+            const score = request.body.score
             const movieId = request.body.movieId
             const sessionUserId = request.user._id
 
-            await ReviewService.addReview(text, movieId, sessionUserId)
+            await ReviewService.addReview(text, score, movieId, sessionUserId)
 
             return response.sendStatus(204)
         } catch(error) {
@@ -45,14 +67,17 @@ module.exports = {
 
     async editReview(request, response) {
         try {
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
             assert(request.body.reviewId, 'Missing parameter "reviewId".')
             assert(request.body.text, 'Missing parameter "text".')
+            assert(request.body.score, 'Missing parameter "score".')
 
             const reviewId = request.body.reviewId;
             const text = request.body.text;
+            const score = request.body.score;
             const sessionUserId = request.user._id
 
-            await ReviewService.editReview(reviewId, text, sessionUserId)
+            await ReviewService.editReview(reviewId, text, score, sessionUserId)
 
             return response.sendStatus(204)
         } catch(error) {
@@ -66,6 +91,7 @@ module.exports = {
 
     async removeReview(request, response) {
         try {
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
             assert(request.body.reviewId, 'Missing parameter "reviewId".')
 
             const reviewId = request.body.reviewId;
@@ -85,12 +111,81 @@ module.exports = {
 
     async toggleLikeReview(request, response) {
         try {
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
             assert(request.body.reviewId, 'Missing parameter "reviewId".')
 
             const reviewId = request.body.reviewId;
             const sessionUserId = request.user._id
 
             await ReviewService.toggleLikeReview(reviewId, sessionUserId)
+
+            return response.sendStatus(204)
+        } catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
+    },
+
+    async addComment(request, response) {
+        try {
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
+            assert(request.body.reviewId, 'Missing parameter "reviewId".')
+            assert(request.body.text, 'Missing parameter "text".')
+
+            const text = request.body.text
+            const reviewId = request.body.reviewId
+            const sessionUserId = request.user._id
+
+            await ReviewService.addComment(text, reviewId, sessionUserId)
+
+            return response.sendStatus(204)
+        } catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
+    },
+
+    async editComment(request, response) {
+        try {
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
+            assert(request.body.reviewId, 'Missing parameter "reviewId".')
+            assert(request.body.commentId, 'Missing parameter "commentId".')
+            assert(request.body.text, 'Missing parameter "text".')
+
+            const reviewId = request.body.reviewId;
+            const commentId = request.body.commentId;
+            const text = request.body.text;
+            const sessionUserId = request.user._id
+
+            await ReviewService.editComment(reviewId, commentId, text, sessionUserId)
+
+            return response.sendStatus(204)
+        } catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
+    },
+
+    async removeComment(request, response) {
+        try {
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
+            assert(request.body.reviewId, 'Missing parameter "reviewId".')
+            assert(request.body.commentId, 'Missing parameter "commentId".')
+
+            const reviewId = request.body.reviewId;
+            const commentId = request.body.commentId;
+            const sessionUserId = request.user._id
+
+            await ReviewService.removeComment(reviewId, commentId, sessionUserId)
 
             return response.sendStatus(204)
         } catch(error) {

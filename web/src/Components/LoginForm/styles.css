@@ -13,7 +13,7 @@
     border: 1px solid;
     border-radius: 0.8em;
     padding-top: 50px;
-    background-color: var(--black-transparency);
+    background: rgb(14 13 14 / 97%);
     margin: 0 auto -236px;
     min-height: 100vh;
 }
@@ -27,9 +27,15 @@ h1 {
 
 .ant-form {
     margin-bottom: 25px;
-    background-color: rgb(0 0 0 / 78%);
-    padding: 13px 35px;
-    border-radius: 0.8rem;
+    background-color: rgb(18 17 18);
+    border-radius: 4px;
+    border: 1px solid #27222d;
+    padding: 24px 48px; 
+    width: 32em;
+}
+
+.ant-checkbox + span{
+    line-height: 14px;
 }
 
 .remember-me {

@@ -10,7 +10,7 @@ const routes = express.Router()
 function checkAuthentication(request, response, next){
     if(!request.isAuthenticated()){
         response.sendStatus(401)
-    } 
+    }
     else {
         next()
     }
@@ -32,10 +32,14 @@ routes.post('/logout', (request, response) => {
 
 routes.get('/movies', MovieController.index)
 
-routes.post('/review/add', checkAuthentication, ReviewController.addReview)
-routes.post('/review/edit', checkAuthentication, ReviewController.editReview)
-routes.post('/review/remove', checkAuthentication, ReviewController.removeReview)
+routes.get('/review', ReviewController.getReview)
+routes.post('/review', checkAuthentication, ReviewController.addReview)
+routes.patch('/review', checkAuthentication, ReviewController.editReview)
+routes.delete('/review', checkAuthentication, ReviewController.removeReview)
 routes.post('/review/like', checkAuthentication, ReviewController.toggleLikeReview)
+routes.post('/review/comment', checkAuthentication, ReviewController.addComment)
+routes.patch('/review/comment', checkAuthentication, ReviewController.editComment)
+routes.delete('/review/comment', checkAuthentication, ReviewController.removeComment)
 routes.get('/reviews', ReviewController.getReviews)
 
 routes.post('/user', UserController.register)
