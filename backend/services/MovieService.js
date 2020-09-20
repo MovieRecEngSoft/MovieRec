@@ -1,15 +1,22 @@
 const Movie = require('../database/models/Movie')
 const Review = require('../database/models/Review')
 const assert = require('assert')
-const { compareSync } = require('bcrypt')
 
 class MovieFilter {
-    constructor(name, genres, date, score){
-        this.name = name
+    constructor(names, genres, date, score){
+        this.names = names
         this.genres = genres
         this.date = date
-        this.score = score
+        this.score = score ? score : -1
+    }   
+
+    validate(){
+        assert(!names || typeof this.names === 'object', 'Wrong type of parameter "names".')
+        assert(!genres || typeof this.genres === 'object', 'Wrong type of parameter "genres".')
+        assert(!date || typeof this.date === 'object', 'Wrong type of parameter "date".')
+        assert(typeof this.score === 'number', 'Wrong type of parameter "score".')
     }
+    
 }
 
 const DEFAULT_PAGE = 1
@@ -28,10 +35,48 @@ class PageFilter{
 }
 
 class SearchParams{
-    constructor(filterParams, pageFilter){
-        this.filterParams = filterParams ? filterParams : new FilterParams()
+    constructor(movieFilter, pageFilter){
+        this.movieFilter = movieFilter ? movieFilter : new MovieFilter()
         this.pageFilter = pageFilter ? pageFilter : new PageFilter()
     }
+}
+
+function generateRegExp(movieNames){
+    let regExpText = '[A-Za-z0-9_]*'
+    for(name of movieNames){
+        regExpText += name + '[A-Za-z0-9_]*'
+    }
+    console.log(regExpText)
+    return new RegExp(regExpText);
+}
+
+async function generateMatch(movieFilter){
+    let match = {}
+    const reviews = await Review.aggregate([
+        {
+            $group: {
+              _id: '$movie',
+              averageScore: {$avg: "$score"}
+            }
+        },
+        {
+            $match: {
+                averageScore: {$gt: 8}
+            }
+        }
+
+    ])
+    let reviewsIds = []
+    for(review of reviews){
+        reviewsIds.push(review._id)
+    }
+    console.log(reviewsIds)
+    match._id = {$in: reviewsIds}
+    if(movieFilter.names){
+        match.title = {$regex: generateRegExp(movieFilter.names), $options: 'i'}
+    }
+    console.log(match)
+    return match
 }
 
 module.exports = {
@@ -41,45 +86,14 @@ module.exports = {
     SearchParams: SearchParams,
 
     async getMovies(searchParams) {
-
-        // id = {_id: { $in : ids}}
-        const reviews = await Review.aggregate([
+        const match = await generateMatch(searchParams.movieFilter)
+        const movies = await Movie.aggregate([
             {
-                $group: {
-                  _id: '$movie',
-                  averageScore: {$avg: "$score"}
-                }
-            },
-            {
-                $match: {
-                    averageScore: {$gt: 8}
-                }
+                $match: match
             }
-
         ])
-        let reviewsIds = []
-        for(review of reviews){
-            reviewsIds.push(review._id)
-        }
-        console.log(reviewsIds)
-        // const movies = await Movie.aggregate([
-        //     {
-        //         $match: {
-        //             _id: {$in: reviewsIds}
-        //         }
-        //     },
-        //     {
-        //         $lookup:
-        //            {
-        //               from: "members",
-        //               localField: "enrollmentlist",
-        //               foreignField: "name",
-        //               as: "enrollee_info"
-        //           }
-        //      }
-        // ])
         // const movies = await Movie.paginate({}, searchParams.pageFilter)
-        const movies = await Movie.findById(reviewsIds[0]).exec()
+        // const movies = await Movie.findById(reviewsIds[0]).exec()
         return movies
     }
 

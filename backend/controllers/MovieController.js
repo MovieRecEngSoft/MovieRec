@@ -8,8 +8,10 @@ module.exports = {
 
     async index(request, response) {
         try{
+            let names = request.query.names ? [request.query.names] : undefined
+            // console.log(names)
             let movieFilter = new MovieFilter(
-                request.query.name,
+                names,
                 request.query.genres,
                 request.query.date,
                 request.query.score
