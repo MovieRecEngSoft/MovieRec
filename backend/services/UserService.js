@@ -58,6 +58,20 @@ module.exports = {
         return await crypt.compare(password, user.password)
     },
 
+    async toggleFollow(userFollowingId, userToFollowId) {
+        const userFollowing = await User.findById(userFollowingId)
+        assert(!userFollowing._id.equals(userToFollowId), "User can't follow itself.")
+
+        const followIndex = userFollowing.following.indexOf(userToFollowId)
+        if (followIndex === -1) {
+            userFollowing.following.push(userToFollowId)
+        } else {
+            userFollowing.following.splice(followIndex, 1)
+        }
+
+        return userFollowing.save()
+    },
+
     getUserSessionData(user) {
         return {
             _id: user._id,

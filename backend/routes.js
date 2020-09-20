@@ -58,5 +58,6 @@ routes.get('/reviews', ReviewController.getReviews)
 
 routes.post('/user', UserController.register)
 routes.patch('/user', checkAuthentication, UserController.edit)
+routes.post('/user/follow', checkAuthentication, UserController.toggleFollow)
 
 module.exports = routes

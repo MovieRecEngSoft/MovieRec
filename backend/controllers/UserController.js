@@ -27,7 +27,7 @@ module.exports = {
             assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
             assert(request.body.id, 'Missing parameter "id".')
             assert(request.body.img_path || request.body.description, 'Missing user parameters for updating.')
-            sessionId = request.user._id
+            const sessionId = request.user._id
             userParams = {
                 id: request.body.id,
                 img_path: request.body.img_path,
@@ -40,6 +40,26 @@ module.exports = {
             if(error instanceof assert.AssertionError)
                 response.status(400).send(error.toString())
             else{
+                response.status(500).send(error.toString())
+            }
+        }
+    },
+
+    async toggleFollow(request, response) {
+        try {
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
+            assert(request.body.userId, 'Missing parameter "userId".')
+
+            const userToFollowId = request.body.userId
+            const userFollowingId = request.user._id
+
+            await UserService.toggleFollow(userFollowingId, userToFollowId)
+
+            return response.sendStatus(204)
+        } catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
                 response.status(500).send(error.toString())
             }
         }
