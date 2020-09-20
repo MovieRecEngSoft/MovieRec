@@ -84,6 +84,18 @@ module.exports = {
         }
     },
 
+    async getFollowingActivity(request, response) {
+        try {
+            const sessionUserId = request.user ? request.user._id : null
+
+            const activity = await UserService.getFollowingActivity(sessionUserId)
+
+            return response.json(activity)
+        } catch(error) {
+            response.status(500).send(error.toString())
+        }
+    },
+
     async getUserSession(request, response) {
         try {
             let sessionData = {
@@ -92,7 +104,7 @@ module.exports = {
             if (request.isAuthenticated()) {
                 sessionData.user = UserService.getUserSessionData(request.user)
             }
-            return response.status(200).send(sessionData)
+            return response.json(sessionData)
         } catch(error) {
             response.status(500).send(error.toString())
         }

@@ -2,6 +2,7 @@ const User = require('../database/models/User')
 const assert = require('assert')
 const crypt = require('../util/crypt.js')
 const dbErrorHandler = require('../database/error/handler.js')
+const ActivityService = require('./ActivityService')
 
 function getPublicUserData(user) {
     return {
@@ -84,6 +85,7 @@ module.exports = {
     async getProfile(userId, sessionUserId = null) {
         const user = await User.findById(userId)
         const userData = getPublicUserData(user)
+        const userActivity = await ActivityService.getUserActivities(userId)
 
         if (sessionUserId && userId !== sessionUserId) {
             const sessionUser = await User.findById(sessionUserId)
@@ -93,7 +95,24 @@ module.exports = {
             userData.userIsFollowing = false
         }
 
+        userData.activities = userActivity || []
+
         return userData
+    },
+
+    async getFollowingActivity(sessionUserId = null) {
+        if (!sessionUserId) {
+            return []
+        }
+        const user = await User.findById(sessionUserId)
+        const followingUsers = user.following
+        let activity = []
+
+        if (Array.isArray(followingUsers) && followingUsers.length > 0) {
+            activity = await ActivityService.getUsersActivities(followingUsers)
+        }
+
+        return activity
     },
 
     getUserSessionData(user) {
