@@ -8,15 +8,16 @@ module.exports = {
 
     async index(request, response) {
         try{
-            let movieFilter = (request.query.movieFilter) ?
-                new MovieFilter(request.query.movieFilter.name,
-                                request.query.movieFilter.genres,
-                                request.query.movieFilter.date,
-                                request.query.movieFilter.score) :
-                new MovieFilter()
-            let pageFilter = (request.query.pageFilter) ?
-                new PageFilter(request.query.pageFilter.page, request.query.pageFilter.limit) :
-                new PageFilter()
+            let movieFilter = new MovieFilter(
+                request.query.name,
+                request.query.genres,
+                request.query.date,
+                request.query.score
+            ) 
+            let pageFilter = new PageFilter(
+                request.query.page? parseInt(request.query.page): undefined,
+                request.query.limit? parseInt(request.query.limit): undefined
+            )
             let searchParams = new SearchParams(movieFilter, pageFilter)
             const movies = await MovieService.getMovies(searchParams)
             response.json(movies)
