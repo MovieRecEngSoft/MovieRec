@@ -3,17 +3,19 @@ const Review = require('../database/models/Review')
 const assert = require('assert')
 
 class MovieFilter {
-    constructor(names, genres, date, score){
+    constructor(names, genres,date_gte, date_lte, score){
         this.names = names
         this.genres = genres
-        this.date = date
-        this.score = score ? score : -1
+        this.date_gte = date_gte
+        this.date_lte = date_lte
+        this.score = score
     }   
 
     validate(){
-        assert(!names || typeof this.names === 'object', 'Wrong type of parameter "names".')
-        assert(!genres || typeof this.genres === 'object', 'Wrong type of parameter "genres".')
-        assert(!date || typeof this.date === 'object', 'Wrong type of parameter "date".')
+        assert(!this.names || typeof this.names === 'object', 'Wrong type of parameter "names".')
+        assert(!this.genres || typeof this.genres === 'object', 'Wrong type of parameter "genres".')
+        assert(!this.date || typeof this.date_lte === 'object', 'Wrong type of parameter "date".')
+        assert(!this.date || typeof this.date_gte === 'object', 'Wrong type of parameter "date".')
         assert(typeof this.score === 'number', 'Wrong type of parameter "score".')
     }
     
@@ -31,6 +33,10 @@ class PageFilter{
     validate(){
         assert(typeof this.page === 'string', 'Wrong type of parameter "pagefilter.page".')
         assert(typeof this.limit === 'string', 'Wrong type of parameter "pagefilter.limit".')
+    }
+
+    get skip(){
+        return (this.page - 1) * this.limit
     }
 }
 
@@ -50,8 +56,15 @@ function generateRegExp(movieNames){
     return new RegExp(regExpText);
 }
 
-async function generateMatch(movieFilter){
-    let match = {}
+async function generateReviewMatch(score){
+    reviewMatch = {}
+    if(score)
+        reviewMatch.score = {$gte: score}
+    return reviewMatch
+}
+
+async function generateMovieMatch(movieFilter){
+    const reviewMatch = await generateReviewMatch(movieFilter.score)
     const reviews = await Review.aggregate([
         {
             $group: {
@@ -61,7 +74,7 @@ async function generateMatch(movieFilter){
         },
         {
             $match: {
-                averageScore: {$gt: 8}
+                averageScore: reviewMatch
             }
         }
 
@@ -71,9 +84,21 @@ async function generateMatch(movieFilter){
         reviewsIds.push(review._id)
     }
     console.log(reviewsIds)
-    match._id = {$in: reviewsIds}
+    let match = {}
+    if(reviewsIds.length > 0)
+        match._id = {$in: reviewsIds}
     if(movieFilter.names){
         match.title = {$regex: generateRegExp(movieFilter.names), $options: 'i'}
+    }
+    if(movieFilter.genres){
+        match.genres = {$in: movieFilter.genres}
+    }
+    if(movieFilter.date_gte || movieFilter.date_lte){
+        match.date = {}
+        if(movieFilter.date_gte)
+            match.date.$gte = movieFilter.date_gte
+        if(movieFilter.date_lte)
+            match.date.$lte = movieFilter.date_lte
     }
     console.log(match)
     return match
@@ -86,15 +111,42 @@ module.exports = {
     SearchParams: SearchParams,
 
     async getMovies(searchParams) {
-        const match = await generateMatch(searchParams.movieFilter)
+        const match = await generateMovieMatch(searchParams.movieFilter)
         const movies = await Movie.aggregate([
             {
                 $match: match
-            }
+            },
+            {$sort : {release_date : -1}},
+            {$skip : searchParams.pageFilter.skip},
+            {$limit : searchParams.pageFilter.limit}
         ])
-        // const movies = await Movie.paginate({}, searchParams.pageFilter)
-        // const movies = await Movie.findById(reviewsIds[0]).exec()
-        return movies
+        let moviesPopulated = []
+        for(let movieDoc of movies){
+            let reviews = await Review.find({movie: movieDoc._id}).exec()
+            let averageScore = 0
+            if(reviews.length > 0){
+                for(let review of reviews){
+                    averageScore += review.score
+                }
+                averageScore /= reviews.length
+            }
+            else{
+                averageScore = null
+            }
+            moviesPopulated.push({
+                _id: movieDoc._id ,
+                title: movieDoc.title ,
+                poster_path: movieDoc.poster_path ,
+                release_date: movieDoc.release_date ,
+                overview: movieDoc.overview ,
+                genres: movieDoc.genres ,
+                id_tmdb: movieDoc.id_tmdb ,
+                recommended_movies: movieDoc.recommended_movies,
+                score: averageScore 
+            })
+        }
+
+        return moviesPopulated
     }
 
 }
