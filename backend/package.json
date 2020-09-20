@@ -8,7 +8,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "mongoose": "^5.10.5",
+    "mongoose": "^5.10.6",
     "mongoose-paginate": "^5.0.3",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
@@ -20,6 +20,7 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "populate_database": "node database/scripts/populate.js",
-    "update_recommended_movies": "pip install -r database/scripts/ml/requirements.txt && python database/scripts/ml/update_recommended_movies.py"
+    "update_recommended_movies": "pip install -r database/scripts/ml/requirements.txt && python database/scripts/ml/update_recommended_movies.py",
+    "update_user_recommended_movies": "pip3 install -r database/scripts/ml/requirements.txt && python3 database/scripts/ml/update_user_recommended_movies.py"
   }
 }

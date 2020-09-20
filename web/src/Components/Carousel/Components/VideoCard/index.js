@@ -2,15 +2,19 @@ import React from 'react';
 import { VideoCardContainer } from './styles';
 import { Link } from 'react-router-dom';
 import getImageAddress from '../../../../assets/utils/getImageAddress';
+import checkIfUrlExists from "../../../../assets/utils/checkIfUrlExists";
 
-function VideoCard({ videoTitle, videoURL, categoryColor, videoImage }) {
-  const image = getImageAddress(videoImage);
+function VideoCard({ videoTitle, videoId, categoryColor, videoImage }) {
+  const image = checkIfUrlExists(getImageAddress(videoImage))
+    ? getImageAddress(videoImage)
+    : "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX3851270.jpg";
 
+  let path = "/movie/" + videoId;
+  
   return (
-    <Link to="/movie">
+    <Link to={path}>
       <VideoCardContainer
         url={image}
-        // href={videoURL} // colocar aqui o caminho para a página do filme
         target="_blank"
         style={{ borderColor: categoryColor || "black" }}
         title={videoTitle}

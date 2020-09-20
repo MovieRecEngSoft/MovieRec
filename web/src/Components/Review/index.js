@@ -18,12 +18,16 @@ function Review(props) {
       </div>
       <div className="col">
         <h5>
-          <span>Review by </span>{" "}
-          <div className="likes">
-            <p>522</p>
-            <LikeOutlined className="like-button" />
+          <div className="row space">
+            <div>
+              <span>Review by </span>{" "}
+              <strong className="reviewer">{props.author}</strong>
+            </div>
+            <div className="likes">
+              <p>{props.likes}</p>
+              <LikeOutlined className="like-button" />
+            </div>
           </div>
-          <strong className="reviewer">{props.author}</strong>
         </h5>
         <p className={reviewClassName}>{props.text}</p>
       </div>

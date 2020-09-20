@@ -1,24 +1,94 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 import Input from "../../Components/Input";
-import Main from "../../Components/Main";
 import Menu from "../../Components/Menu";
 import getImageAddress from "../../assets/utils/getImageAddress";
 import Card from "../../Components/Card";
 
-import { LikeOutlined, FullscreenOutlined } from "@ant-design/icons";
+import checkIfUrlExists from "../../assets/utils/checkIfUrlExists";
+
+import { FullscreenOutlined } from "@ant-design/icons";
 
 import './styles.css';
 import Review from "../../Components/Review";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-function FilmDetails(url) {
-  const image = getImageAddress("/nLvUdqgPgm3F85NMCii9gVFUcet.jpg");
+function FilmDetails() {
   
-  function shoot() {
-    alert("Review!");
-    console.log("Review!");
+  function addReview(movieId, score){
+    fetch("http://localhost:3333/review", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        movieId: movieId,
+        score: score,
+        text: input,
+      }),
+    });
+    window.location.reload(false);
   }
+    
+  let { id } = useParams();
+  
+  const [movie, setMovie] = useState([]);
+  useEffect(() => {
+    const fetchMovie = async () => {
+      try {
+        let movieAux = {};
+        let API_URL = `http://localhost:3333`;
+        
+        const result = await axios.get(`${API_URL}/movie/?id=${id}`);
+        movieAux = result.data;
+        console.log(movieAux);
+        
+        setMovie(movieAux);
+      } catch (error) {}
+    };
+    
+    fetchMovie();
+  }, []);
+  
+  let image = "";
+  if(!(movie.poster_path === undefined)){
+    image = checkIfUrlExists(getImageAddress(movie.poster_path))
+      ? getImageAddress(movie.poster_path)
+      : "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX3851270.jpg";
+  }
+
+  let year = "";
+  if(!(movie.release_date === undefined)){
+    year = movie.release_date.split("-")[0];
+  }
+
+  const [reviews, setReviews] = useState([]);
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        let reviewsAux = [];
+        let API_URL = `http://localhost:3333`;
+
+        const result = await axios.get(
+          `${API_URL}/reviews/?movieId=${id}`
+        );
+        reviewsAux = result.data;
+
+        setReviews(reviewsAux);
+      } catch (error) {}
+    };
+
+    fetchReviews();
+  }, []);
+
+  if (reviews === undefined){
+    reviews = [];
+  }
+
+  const [input, setInput] = useState("");
 
   return (
     <>
@@ -27,26 +97,15 @@ function FilmDetails(url) {
         <div className="info-block">
           <div className="row">
             <div className="detail-leftcolumn">
-                <img className="cover" src={image} />
+              <img className="cover" src={image} />
             </div>
             <div className="detail-rightcolumn">
-              
               <Card>
                 <h2 className="film-title">
-                  <strong>Skyfall - 007</strong>
+                  <strong>{movie.title}</strong>
                 </h2>
-                <h3 className="film-details">2012 - Directed by Sam Mendes</h3>
-                <p className="summary">
-                  When Bond’s latest assignment goes gravely wrong and agents
-                  around the world are exposed, MI6 is attacked forcing M to
-                  relocate the agency. These events cause her authority and
-                  position to be challenged by Gareth Mallory, the new Chairman of
-                  the Intelligence and Security Committee. With MI6 now
-                  compromised from both inside and out, M is left with one ally
-                  she can trust: Bond. 007 takes to the shadows – aided only by
-                  field agent, Eve – following a trail to the mysterious Silva,
-                  whose lethal and hidden motives have yet to reveal themselves.
-                </p>
+                <h3 className="film-details">{year}</h3>
+                <p className="summary">{movie.overview}</p>
                 <br />
               </Card>
 
@@ -55,83 +114,53 @@ function FilmDetails(url) {
 
               <Card>
                 <div className="comment-session">
-                  <Input className="add-comment-input" />
-                  <button className="add-comment-button" onClick={shoot}>
+                  <Input
+                    className="add-comment-input"
+                    placeholder="Write your review here"
+                    type="text"
+                    value={input}
+                    onInput={(e) => setInput(e.target.value)}
+                  />
+                </div>
+                <div className="comment-session">
+                  <Input
+                    className="review-score"
+                    placeholder="Score"
+                    type="number"
+                  />
+                  <button
+                    className="add-comment-button"
+                    onClick={() => addReview(id, 5.5)}
+                  >
                     Add review
                   </button>
                 </div>
               </Card>
 
-              <Card>
-                <Review
-                  text="Sunt in culpa qui officia deserunt mollit anim id est laborum
-                      consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                      exercitation ullamco."
-                  author="Lorena Mendes"
-                  avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
-                />
-                <Link to="/review">
-                  <div className="row expand-row">
-                    <FullscreenOutlined className="expand-icon" />
-                  </div>
-                </Link>
-              </Card>
-
-              <Card>
-                <Review
-                  type="review-item"
-                  text="Sunt in culpa qui officia deserunt mollit anim id est laborum
-                          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                          exercitation ullamco.Sunt in culpa qui officia deserunt mollit anim id est laborum
-                          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                          exercitation ullamco.Sunt in culpa qui officia deserunt mollit anim id est laborum
-                          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                          exercitation ullamco."
-                  author="Lorena Mendes"
-                  avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
-                />
-                <Link to="/review">
-                  <div className="row expand-row">
-                    <FullscreenOutlined className="expand-icon" />
-                  </div>
-                </Link>
-              </Card>
-
-              <Card>
-                <Review
-                  text="Sunt in culpa qui officia deserunt mollit anim id est laborum
-                          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                          exercitation ullamco."
-                  author="Lorena Mendes"
-                  avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
-                />
-                <Link to="/review">
-                  <div className="row expand-row">
-                    <FullscreenOutlined className="expand-icon" />
-                  </div>
-                </Link>
-              </Card>
-
-              <Card>
-                <Review
-                  text="Sunt in culpa qui officia deserunt mollit anim id est laborum
-                          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                          exercitation ullamco."
-                  author="Lorena Mendes"
-                  avatar="https://trello-members.s3.amazonaws.com/5ca54b957891488995401310/cd44fb76a31dbd7f303e3feac211c9e3/50.png"
-                />
-                <Link to="/review">
-                  <div className="row expand-row">
-                    <FullscreenOutlined className="expand-icon" />
-                  </div>
-                </Link>
-              </Card>
+              {reviews
+                .slice(0)
+                .reverse()
+                .map((review, index) => {
+                  return (
+                    <Card>
+                      <Review
+                        text={review.text}
+                        author={review.username}
+                        likes={review.likes}
+                        avatar={
+                          !reviews.userImgUrl
+                            ? "https://simpleicon.com/wp-content/uploads/user1.png"
+                            : reviews.userImgUrl
+                        }
+                      />
+                      <Link to={"/review/" + review._id}>
+                        <div className="row expand-row">
+                          <FullscreenOutlined className="expand-icon" />
+                        </div>
+                      </Link>
+                    </Card>
+                  );
+                })}
               <br />
             </div>
           </div>

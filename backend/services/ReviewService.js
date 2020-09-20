@@ -1,11 +1,15 @@
 const Review = require('../database/models/Review')
 const assert = require('assert')
+const ActivityService = require('./ActivityService')
 
 function formatReview(review, sessionUserId = null) {
     return {
         _id: review._id,
         text: review.text,
         score: review.score,
+        movieTitle: review.movie.title,
+        moviePosterPath: review.movie.poster_path,
+        userId: review.user._id,
         username: review.user.name,
         userImgUrl: review.user.img_path,
         likes: review.likes.length,
@@ -22,11 +26,13 @@ module.exports = {
     async getReview(reviewId, sessionUserId) {
         let review = await Review
             .findById(reviewId)
+            .populate("movie", "title poster_path")
             .populate("user", "name")
             .populate("comments.user", "name")
         const comments = review.comments.map(comment => {
             return {
                 _id: comment._id,
+                userId: comment.user._id,
                 username: comment.user.name,
                 userImgUrl: comment.user.img_path,
                 text: comment.text
@@ -40,6 +46,7 @@ module.exports = {
     async getReviews(movieId, sessionUserId) {
         let reviews = await Review
             .find({ movie: movieId })
+            .populate("movie", "title poster_path")
             .populate("user", "name")
         reviews = reviews
             .map(review => formatReview(review, sessionUserId))
@@ -58,7 +65,9 @@ module.exports = {
             movie: movieId,
             user: sessionUserId
         })
-        return review.save()
+
+        await review.save()
+        return ActivityService.createReviewActivity(review._id, sessionUserId)
     },
 
     async editReview(reviewId, text, score, sessionUserId) {
@@ -78,20 +87,31 @@ module.exports = {
         const review = await Review.findById(reviewId)
         assert(review.user.equals(sessionUserId), "User cannot remove another user review.")
 
+        await ActivityService.removeReviewActivity(reviewId)
         return review.remove()
     },
 
     async toggleLikeReview(reviewId, sessionUserId) {
         const review = await Review.findById(reviewId)
+        let likeAdded = false
+        let likeId
 
         const likeIndex = review.likes.indexOf(sessionUserId)
         if (likeIndex === -1) {
+            likeAdded = true
             review.likes.push(sessionUserId)
+            likeId = review.likes[review.likes.length - 1]._id
         } else {
+            likeId = review.likes[likeIndex]._id
             review.likes.splice(likeIndex, 1)
         }
 
-        return review.save()
+        await review.save()
+        if (likeAdded) {
+            return ActivityService.createLikeActivity(reviewId, likeId, sessionUserId)
+        } else {
+            return ActivityService.removeLikeActivity(reviewId, likeId)
+        }
     },
 
     async addComment(text, reviewId, sessionUserId) {
@@ -102,7 +122,10 @@ module.exports = {
             user: sessionUserId
         })
 
-        return review.save()
+        const commentId = review.comments[review.comments.length - 1]._id
+
+        await review.save()
+        return ActivityService.createCommentActivity(reviewId, commentId, sessionUserId)
     },
 
     async editComment(reviewId, commentId, text, sessionUserId) {
@@ -125,7 +148,8 @@ module.exports = {
         const commentIndex = review.comments.indexOf(comment)
         review.comments.splice(commentIndex, 1)
 
-        return review.save()
+        await review.save()
+        return ActivityService.removeCommentActivity(reviewId, commentId)
     },
 
 }
