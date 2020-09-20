@@ -5,10 +5,7 @@ const User = new mongoose.Schema({
     password: String,
     description: String,
     img_path: String,
-    recommended_movies: [{type: mongoose.Schema.Types.ObjectId , ref: 'Movie'}],
-    following: [
-        { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
-    ]
+    recommended_movies: [{type: mongoose.Schema.Types.ObjectId , ref: 'Movie'}]
 })
 
 module.exports = mongoose.model('User', User)

@@ -38,10 +38,10 @@ const ProfileHeader = ({activeSection}) => {
     alert('Follow');
   };
 
-  const HandleUnfollow = () => {
-    //req unfollow
-    alert('Follow');
-  };
+  // const HandleUnfollow = () => {
+  //   //req unfollow
+  //   alert('Follow');
+  // };
 
   function GetActiveSection(val,val2){
     if(val == val2){return('activesection')}
@@ -58,7 +58,8 @@ const ProfileHeader = ({activeSection}) => {
     )
     //following
     return(
-     <div class="grey-button" onClick={HandleUnfollow} >Unfollow</div> 
+     <div class="grey-button" onClick={HandleFollow} >Unfollow</div> 
+    //  <div class="grey-button" onClick={HandleUnfollow} >Unfollow</div> 
     )
   }
 

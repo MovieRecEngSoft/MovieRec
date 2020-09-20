@@ -13,12 +13,17 @@ function Carousel({
     const [activeItemIndex, setActiveItemIndex] = useState(0);
     const chevronWidth = 40;
     
-    const categoryTitle = category.titulo;
-    const videos = category.videos;
+    let movies = [];
+    let title = "";
+    if(!(category === undefined)){
+      movies = category.movies;
+      title = category.title;
+    }
 
     return (
       <div style={{ padding: `0 ${chevronWidth}px` }}>
-          <h1>{categoryTitle}</h1>
+        
+        <h1>{title}</h1>
         <ItemsCarousel
           
           requestToChangeActive={setActiveItemIndex}
@@ -30,12 +35,12 @@ function Carousel({
           outsideChevron
           chevronWidth={chevronWidth}
         >
-          {videos.map((video, index) => {
+          {movies.map((video, index) => {
             return (
               <VideoCard
-                videoTitle={video.titulo}
-                videoURL={video.url}
-                videoImage={video.image}
+                videoId={video._id}
+                videoTitle={video.title}
+                videoImage={video.poster_path}
               />
             );
           })}
