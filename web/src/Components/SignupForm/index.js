@@ -1,12 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form } from "antd";
+import axios from "axios";
 
-import "./styles.css";
+import { Link, Redirect, useHistory } from "react-router-dom";
+
 import Input from "../Input";
 import Button from "../Button";
-import { Link } from "react-router-dom";
+
+import "./styles.css";
 
 const SignupForm = ({title}) => {
+
+  let history = useHistory()
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const HandleRegister = () => {
+    alert("ACTIVATE HANDLER ON /SIGNUPFORM AND TRY AGAIN");
+    // let API_URL = 'http://localhost:3333/register';
+
+    // axios.post(API_URL, { username: name, email: email, password: password }, { withCredentials: true })
+    // .then(response => {
+    //   if (response.status == 204) {
+    //     //NICE
+    //     history.push('/login');
+    //   } else {
+    //     const error = new Error(response.error);
+    //     throw error;
+    //   }
+    // })
+    // .catch(err => {console.error(err);alert('Error signing up. Please try again');});
+    
+  }
+
     const layout = {
           labelCol: {
           span: 8,
@@ -46,22 +75,18 @@ const SignupForm = ({title}) => {
             validateMessages={validateMessages}
           >
             <h1 className="form-title">{title}</h1>
-            <Input name="name" placeholder="Name" />
+            <Input name="name" placeholder="Name" onChange={e => setName(e.target.value)}/>
 
-            <Input name="email" placeholder="Email" />
+            <Input name="email" placeholder="Email" onChange={e => setEmail(e.target.value)}/>
 
-            <Input name="password" type="password" placeholder="Password" />
+            <Input name="password" type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
 
-            <Input
-              name="c-password"
-              type="password"
-              placeholder="Confirm Password"
-            />
+            <Input name="c-password" type="password" placeholder="Confirm Password" onChange={e => setConfirmPassword(e.target.value)}/>
 
             <button
               className="button"
-              type="submit"
-              onClick={shoot}
+              type="button"
+              onClick={HandleRegister}
               htmlType="submit"
               name="Register"
             >Register

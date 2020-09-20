@@ -14,10 +14,7 @@ const Home = () => {
 
     let history = useHistory()
     
-    let jjja = "hoi"
-
     function CheckLogged(){    
-      
       let API_URL = 'http://localhost:3333/session';
 
       axios.get(API_URL,{ withCredentials: true })
@@ -34,10 +31,7 @@ const Home = () => {
           }
         }else{const error = new Error(response.error);throw error;}
       })
-      .catch(err => {
-        alert('ERR');
-        history.push('/login');
-      });
+      .catch(err => {alert('ERR');history.push('/login');});
     }
     CheckLogged()
 

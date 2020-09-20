@@ -3,7 +3,6 @@ import axios from "axios";
 
 import { Form, Checkbox } from "antd";
 import { Link, Redirect, useHistory } from "react-router-dom";
-import { withRouter } from "react-router";
 
 import "./styles.css";
 import Input from "../Input";
@@ -18,22 +17,6 @@ const LoginForm = (props) => {
     const HandleLogin = () => {
       let API_URL = 'http://localhost:3333/login';
 
-      // const instance = axios.create({
-      //   withCredentials: true
-      // })
-
-      // instance.post(API_URL, { username: email, password: password }, )
-      // .then(response => {
-      //   if (response.status == 204) {
-      //     //NICE
-      //     history.push('/');
-      //   } else {
-      //     const error = new Error(response.error);
-      //     throw error;
-      //   }
-      // })
-      // .catch(err => {console.error(err);alert('Error logging in. Please try again');});
-
       axios.post(API_URL, { username: email, password: password }, { withCredentials: true })
       .then(response => {
         if (response.status == 204) {
@@ -45,7 +28,6 @@ const LoginForm = (props) => {
         }
       })
       .catch(err => {console.error(err);alert('Error logging in. Please try again');});
-        
       
     }
 
