@@ -66,14 +66,15 @@ const Home = () => {
     return (
       <>
         <Menu />
-
-        <Main background="https://d1yn1kh78jj1rr.cloudfront.net/image/thumbnail/rDtN98Qoishumwih/dark-red-blurred-background_mkP0t-_thumb.jpg">
           <div class="wrapper">
             <div class="nav">
               <div class="nav-block lists">
                 <div class="carousel-wrapper">
                   <Carousel category={categories[0]} />
                 </div>
+                {/* <div class="carousel-wrapper">
+                  <Carousel category={categories[1]} />
+                </div> */}
               </div>
               <div class="nav-block activity">
                 <h1>Recent Activity</h1>
@@ -81,7 +82,6 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </Main>
       </>
     );
 }
