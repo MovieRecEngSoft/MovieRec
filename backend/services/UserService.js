@@ -3,7 +3,6 @@ const assert = require('assert')
 const crypt = require('../util/crypt.js')
 const dbErrorHandler = require('../database/error/handler.js')
 const ActivityService = require('./ActivityService')
-const Movie = require('../database/models/Movie')
 const MovieService = require('../services/MovieService.js')
 const MovieFilter = MovieService.MovieFilter
 const SearchParams = MovieService.SearchParams
@@ -118,22 +117,28 @@ module.exports = {
 
     async getMoviesHistory(sessionUserId, pageFilter){
         let movieFilter = new MovieFilter(
-            undefined, undefined, undefined, undefined, undefined, sessionUserId
+            undefined, undefined, undefined, undefined, undefined,
+            sessionUserId, undefined
         ) 
         let searchParams = new SearchParams(movieFilter, pageFilter)
         const movies = await MovieService.getMovies(searchParams)
         return movies
     },
 
-    async getRecommendedMovies(sessionUserId){
+    async getRecommendedMovies(sessionUserId, pageFilter){
         const user = await User.findById(sessionUserId)
-        let movieIds = []
+        let moviesIds = []
         for(movieId of user.recommended_movies){
-            movieIds.push(movieId)
+            moviesIds.push(movieId)
         }
         let movies = []
-        if(movieIds){
-            movies = await Movie.find({_id : {$in: movieIds}})
+        if(moviesIds){
+            let movieFilter = new MovieFilter(
+                undefined, undefined, undefined, undefined, undefined,
+                undefined, moviesIds
+            ) 
+            let searchParams = new SearchParams(movieFilter, pageFilter)
+            movies = await MovieService.getMovies(searchParams)
         }
         return movies
     },

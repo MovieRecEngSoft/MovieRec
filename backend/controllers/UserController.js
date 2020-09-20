@@ -119,7 +119,11 @@ module.exports = {
         try {
             assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
             const userId = request.user._id
-            const movies = await UserService.getRecommendedMovies(userId);
+            let pageFilter = new PageFilter(
+                request.query.page? parseInt(request.query.page): undefined,
+                request.query.limit? parseInt(request.query.limit): undefined
+            )
+            const movies = await UserService.getRecommendedMovies(userId, pageFilter);
             return response.json(movies)
         }
         catch(error) {

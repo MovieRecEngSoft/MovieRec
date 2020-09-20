@@ -8,13 +8,14 @@ const SCORE_MIN = 0
 const SCORE_MAX = 10
 
 class MovieFilter {
-    constructor(names, genres,date_gte, date_lt, score, userId){
+    constructor(names, genres,date_gte, date_lt, score, userId, moviesIds){
         this.names = names
         this.genres = genres
         this.date_gte = date_gte
         this.date_lt = date_lt
         this.score = score
         this.userId = userId
+        this.moviesIds = moviesIds
     }   
 
     validate(){
@@ -27,6 +28,7 @@ class MovieFilter {
             assert(this.score >= SCORE_MIN && this.score <= SCORE_MAX,
                 'Parameter "score" must be between ' + SCORE_MIN + ' and ' + SCORE_MAX + '.')
         }
+        assert(!this.moviesIds || typeof this.moviesIds === 'object', 'Wrong type of parameter "moviesIds".')
     }
     
 }
@@ -82,17 +84,19 @@ function generateReviewMatchByScore(score){
     return reviewMatch
 }
 
-function generateReviewMatchByUser(userId){
+function generateReviewMatchByUserAndMovies(userId, moviesIds){
     reviewMatch = {}
     if(userId)
         reviewMatch.user = userId
+    if(moviesIds)
+        reviewMatch.movie = {$in: moviesIds}
     return reviewMatch
 }
 
 async function generateMovieMatch(movieFilter){
     let match = {}
     if(movieFilter.score || movieFilter.userId){
-        const reviewBeforGroupMatch = generateReviewMatchByUser(movieFilter.userId)
+        const reviewBeforGroupMatch = generateReviewMatchByUserAndMovies(movieFilter.userId, movieFilter.moviesIds)
         const reviewMatch = generateReviewMatchByScore(movieFilter.score)
         const reviews = await Review.aggregate([
             {
@@ -115,6 +119,9 @@ async function generateMovieMatch(movieFilter){
         }
         match._id = {$in: reviewsIds}
     }
+    else if(movieFilter.moviesIds){
+        match._id = {$in: movieFilter.moviesIds}
+    }
     
     if(movieFilter.names){
         match.title = {$regex: generateRegExp(movieFilter.names), $options: 'i'}
@@ -130,6 +137,17 @@ async function generateMovieMatch(movieFilter){
             match.release_date.$lt = movieFilter.date_lt
     }
     return match
+}
+
+function formatMovie(movie, score){
+    return{
+        _id: movie._id ,
+        title: movie.title ,
+        poster_path: movie.poster_path ,
+        release_date: movie.release_date ,
+        genres: movie.genres ,
+        score: score ? score : null
+    }
 }
 
 module.exports = {
@@ -172,16 +190,8 @@ module.exports = {
         }
         let moviesPopulated = movies.map((movie) =>{
             let score = reviewMap.get(movie._id.toString())
-            return{
-                _id: movie._id ,
-                title: movie.title ,
-                poster_path: movie.poster_path ,
-                release_date: movie.release_date ,
-                genres: movie.genres ,
-                score: score ? score : null
-            }
+            return formatMovie(movie, score)
         })
-
         return moviesPopulated
     },
 
