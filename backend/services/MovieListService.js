@@ -18,6 +18,16 @@ module.exports = {
         await movieList.save()
     },
 
+    async deleteMovieList(sesionUserId, name){
+        assert(typeof name === 'string', 'Wrong type of parameter "name".')
+        let filter = {
+            user: sesionUserId,
+            name: name
+        }
+        let status = await MovieList.deleteOne(filter)
+        assert(status.deletedCount === 1, 'Movie list ' + name + ' does not exist.')
+    },
+
     async addMovieToMovieList(sesionUserId, name, movieId) {
         assert(typeof name === 'string', 'Wrong type of parameter "name".')
         const movie = await Movie.findById(movieId)
@@ -35,6 +45,16 @@ module.exports = {
         assert(movieList, 'Movie list ' + name + ' does not exist.')
         movieList.movies.push(movieId)
         await movieList.save()
+    },
+
+    async deleteMovieFromMovieList(sesionUserId, name, movieId){
+        assert(typeof name === 'string', 'Wrong type of parameter "name".')
+        let filter = {
+            user: sesionUserId,
+            name: name
+        }
+        let status = await MovieList.updateOne(filter, {$pullAll: {movies: [movieId]}})
+        assert(status.nModified === 1, 'Movie list ' + name + ' does not exist.')
     },
 
     async getMovieLists(sesionUserId) {

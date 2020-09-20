@@ -70,6 +70,8 @@ routes.get('/user/recommendedMovies', UserController.getRecommendedMovies)
 routes.get('/movieLists', MovieListController.getMovieLists)
 routes.get('/movieList', MovieListController.getMovieListMovies)
 routes.put('/movieList', MovieListController.addMovieList)
+routes.delete('/movieList', MovieListController.deleteMovieList)
 routes.put('/movieList/movie', MovieListController.addMovieToMovieList)
+routes.delete('/movieList/movie', MovieListController.deleteMovieFromMovieList)
 
 module.exports = routes
