@@ -55,5 +55,6 @@ routes.delete('/review/comment', checkAuthentication, ReviewController.removeCom
 routes.get('/reviews', ReviewController.getReviews)
 
 routes.post('/user', UserController.register)
+routes.patch('/user', checkAuthentication, UserController.edit)
 
 module.exports = routes

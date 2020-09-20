@@ -2,6 +2,7 @@ const User = require('../database/models/User')
 const assert = require('assert')
 const crypt = require('../util/crypt.js')
 const dbErrorHandler = require('../database/error/handler.js')
+const { edit } = require('../controllers/UserController')
 
 module.exports = {
 
@@ -18,6 +19,17 @@ module.exports = {
         catch(error){
             dbErrorHandler.handle(error)
         }
+    },
+
+    async edit(sessionId, userParams){
+        assert(typeof user.id === 'string', 'Wrong type of parameter "id".')
+        assert(user.id.equals(sessionId), "User cannot delete another user.")
+        assert(typeof user.poster_path === 'string', 'Wrong type of parameter "poster_path".')
+        assert(typeof user.description === 'string', 'Wrong type of parameter "description".')
+        const user = await User.findById(userParams._id)
+        user.poster_path = poster_path
+        user.description = description
+        await user.save()
     },
 
     async findById(id){
