@@ -19,21 +19,20 @@ const SignupForm = ({title}) => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const HandleRegister = () => {
-    alert("ACTIVATE HANDLER ON /SIGNUPFORM AND TRY AGAIN");
-    // let API_URL = 'http://localhost:3333/register';
+    // alert("ACTIVATE HANDLER ON /SIGNUPFORM AND TRY AGAIN");
+    let API_URL = 'http://localhost:3333/signUp';
 
-    // axios.post(API_URL, { username: name, email: email, password: password }, { withCredentials: true })
-    // .then(response => {
-    //   if (response.status == 204) {
-    //     //NICE
-    //     history.push('/login');
-    //   } else {
-    //     const error = new Error(response.error);
-    //     throw error;
-    //   }
-    // })
-    // .catch(err => {console.error(err);alert('Error signing up. Please try again');});
-    
+    axios.post(API_URL, { username: name, email: email, password: password, confirmPassword: confirmPassword }, { withCredentials: true })
+    .then(response => {
+      if (response.status == 204) {
+        //NICE
+        history.push('/login');
+      } else {
+        const error = new Error(response.error);
+        throw error;
+      }
+    })
+    .catch(err => {console.error(err);alert('Error signing up. Please try again');});
   }
 
     const layout = {
