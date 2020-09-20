@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+
 import { Form, Checkbox } from "antd";
 import { Link } from 'react-router-dom';
 
@@ -27,13 +29,32 @@ const LoginForm = ({title}) => {
         },
     };
 
+    const [email, setEmail] = useState("nm");
+    const [password, setPassword] = useState("pss");
+
     const onFinish = (values) => {
         console.log(values);
     };
 
-    function shoot() {
-      alert("Login!");
-      console.log("Login!");
+    const shoot = () => {
+      let API_URL = 'http://localhost:3333/login';
+      axios.post(API_URL, {
+        username: email,
+        password: password
+      })
+      .then(response => {
+        if (response.status == 302) {
+          this.props.history.push('/');
+        } else {
+          const error = new Error(response.error);
+          throw error;
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Error logging in. Please try again');
+      });
+
     }
 
     return (
@@ -47,9 +68,9 @@ const LoginForm = ({title}) => {
           >
             <h1 className="form-title">{title}</h1>
 
-            <Input name="email" placeholder="Email" />
+            <Input name="email" placeholder="Email" onChange={e => setEmail(e.target.value)}/>
 
-            <Input name="password" type="password" placeholder="Password" />
+            <Input name="password" type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
 
             <Checkbox className="remember-me">Remember me</Checkbox>
 

@@ -16,28 +16,29 @@ import ProfileHeader from './header.js';
 // para que minhas atividades possam ser vistas pelos outros e que eu possa ver 
 // a atividade de pessoas que considero interessantes.
 
-function ProfileLists() {
+function ProfileLists(props) {
+  
+  function ExtractProfileLists(props){
+    return Object.keys(props).map((key) => {
+      return(
+        <div class="listsection">
+          <div class="carousel-wrapper">
+            <Carousel category={movies.categorias[0]} />
+            {/* <Carousel category={props.?} /> */}
+          </div>
+        </div>
+      )
+    }); 
+  }
+
   return (
     <>
       <Menu /> 
       <div class="wrapper">
-        <div class="profile-block">
+        <div class="profile-block">ExtractProfileLists
 
-            <ProfileHeader activeSection={1} />
-          
-            <div class="listsection">
-              <div class="carousel-wrapper">
-                <Carousel category={movies.categorias[0]} />
-              </div>
-
-              <div class="carousel-wrapper">
-                <Carousel category={movies.categorias[1]} />
-              </div>
-
-              <div class="carousel-wrapper">
-                <Carousel category={movies.categorias[2]} />
-              </div>
-            </div>
+            <ProfileHeader activeSection={1} />          
+            {ExtractProfileLists(props)}
             
         </div>
       </div>
