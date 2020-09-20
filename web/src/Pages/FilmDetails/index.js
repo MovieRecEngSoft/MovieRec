@@ -14,7 +14,7 @@ import './styles.css';
 import Review from "../../Components/Review";
 import { Link, useParams } from "react-router-dom";
 
-function FilmDetails(url) {
+function FilmDetails() {
   
   function addReview(movieId, score){
     fetch("http://localhost:3333/review", {
@@ -60,6 +60,11 @@ function FilmDetails(url) {
       : "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX3851270.jpg";
   }
 
+  let year = "";
+  if(!(movie.release_date === undefined)){
+    year = movie.release_date.split("-")[0];
+  }
+
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
     const fetchReviews = async () => {
@@ -69,7 +74,6 @@ function FilmDetails(url) {
 
         const result = await axios.get(
           `${API_URL}/reviews/?movieId=${id}`
-          // `${API_URL}/reviews/?movieId=5f660646599def1cc4333928`
         );
         reviewsAux = result.data;
 
@@ -100,7 +104,7 @@ function FilmDetails(url) {
                 <h2 className="film-title">
                   <strong>{movie.title}</strong>
                 </h2>
-                <h3 className="film-details">2012 - Directed by Sam Mendes</h3>
+                <h3 className="film-details">{year}</h3>
                 <p className="summary">{movie.overview}</p>
                 <br />
               </Card>
@@ -133,13 +137,14 @@ function FilmDetails(url) {
                       <Review
                         text={review.text}
                         author={review.username}
+                        likes={review.likes}
                         avatar={
                           !reviews.userImgUrl
                             ? "https://simpleicon.com/wp-content/uploads/user1.png"
                             : reviews.userImgUrl
                         }
                       />
-                      <Link to="/review">
+                      <Link to={"/review/" + review._id}>
                         <div className="row expand-row">
                           <FullscreenOutlined className="expand-icon" />
                         </div>
