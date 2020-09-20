@@ -27,8 +27,8 @@ module.exports = {
         let review = await Review
             .findById(reviewId)
             .populate("movie", "title poster_path")
-            .populate("user", "name")
-            .populate("comments.user", "name")
+            .populate("user", "name img_path _id")
+            .populate("comments.user", "name img_path _id")
         const comments = review.comments.map(comment => {
             return {
                 _id: comment._id,
@@ -47,7 +47,7 @@ module.exports = {
         let reviews = await Review
             .find({ movie: movieId })
             .populate("movie", "title poster_path")
-            .populate("user", "name")
+            .populate("user", "name img_path _id")
         reviews = reviews
             .map(review => formatReview(review, sessionUserId))
             // Sort descending by number of likes.

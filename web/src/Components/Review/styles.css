@@ -42,3 +42,8 @@
     display: flex;
     justify-content: space-between;
 }
+
+.delete-button {
+    color: white;
+    padding-right: 15px;
+}

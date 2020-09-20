@@ -9,6 +9,7 @@ import Input from '../../Components/Input';
 import ReviewItem from '../../Components/Review';
 import Comment from '../../Components/Comment';
 import getImageAddress from "../../assets/utils/getImageAddress";
+import checkIfUrlExists from "../../assets/utils/checkIfUrlExists";
 
 import './styles.css';
 
@@ -50,12 +51,15 @@ function Review(){
 
   if (!review.comments) review.comments = [];
   
-  const image = getImageAddress("/HORpg5CSkmeQlAolx3bKMrKgfi.jpg");
-
+  let image;
+  if(review.moviePosterPath)
+  image = checkIfUrlExists(getImageAddress(review.moviePosterPath))
+  ? getImageAddress(review.moviePosterPath)
+  : "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX3851270.jpg";
 
 
   const [input, setInput] = useState("");
-
+  console.log(review)
   return (
     <>
       <Menu />
@@ -66,7 +70,7 @@ function Review(){
               <div className="row">
                 <Card>
                   <h2 className="film-title">
-                    <strong>Skyfall - 007</strong>
+                    <strong>{review.movieTitle}</strong>
                   </h2>
                   <br />
 
@@ -80,6 +84,7 @@ function Review(){
                         ? "https://simpleicon.com/wp-content/uploads/user1.png"
                         : review.userImgUrl
                     }
+                    userId={review.userId}
                   />
                   <br />
                 </Card>
@@ -115,7 +120,8 @@ function Review(){
                         avatar={
                           !review.userImgUrl
                             ? "https://simpleicon.com/wp-content/uploads/user1.png"
-                            : review.userImgUrl}
+                            : review.userImgUrl
+                        }
                       />
                     </Card>
                   );
