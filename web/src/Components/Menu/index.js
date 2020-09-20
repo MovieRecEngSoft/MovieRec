@@ -17,25 +17,31 @@ function Menu() {
   const HandleLogout = () =>{
       let API_URL = 'http://localhost:3333/logout';
   
-      axios.post(API_URL, { withCredentials: true })
-      .then(response => {
-        if (response.status == 200) {
-          //NICE
-          // sessionStorage.clear();
-          history.push('/login');
-        } else {
-          const error = new Error(response.error);
-          throw error;
+      fetch("http://localhost:3333/logout", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         }
-      })
-      .catch(err => {console.error(err);alert('Error logging out. Please try again');});    
+      }).then(response => {
+          if (response.status == 200) {
+            //NICE
+            sessionStorage.clear();
+            history.push('/login');
+          } else {
+            const error = new Error(response.error);
+            throw error;
+          }
+        })
+        .catch(err => {console.error(err);alert('Error logging out. Please try again');});   
   }
 
   const SetUp = () =>{
     setTimeout(function() { //Start the timer
       setAvatarSrc(sessionStorage.getItem('img_path'))
 
-    }.bind(this), 500)
+    }.bind(this), 350)
   }
 
   return (
@@ -43,10 +49,9 @@ function Menu() {
       <Link to="/">
         <img className="Logo" src={Logo} alt="Logo" />
       </Link>
+      
       <SearchBar/>
-      {/* <Link to="/login">
-        <UserOutlined className="user-icon" />
-      </Link> */}
+
       <div>
         <button class="grey-button logout-button" onClick={HandleLogout}>LOGOUT</button>
         <img class="avatar" src={avatarSrc}/>
