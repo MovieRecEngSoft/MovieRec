@@ -19,6 +19,7 @@
   },
   "scripts": {
     "start": "nodemon src/index.js",
-    "populate_database": "node database/scripts/populate.js"
+    "populate_database": "node database/scripts/populate.js",
+    "update_recommended_movies": "pip install -r database/scripts/ml/requirements.txt && python database/scripts/ml/update_recommended_movies.py"
   }
 }
