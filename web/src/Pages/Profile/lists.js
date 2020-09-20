@@ -41,7 +41,6 @@ const ProfileLists = (props) => {
         <div class="profile-block">
         <ProfileHeader activeSection={1} userId={id}/>
             {ExtractProfileLists(props)}
-            
         </div>
       </div>
     </>
