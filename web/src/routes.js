@@ -20,7 +20,7 @@ function Routes() {
             <Route path="/profile/edit" component={ProfileEditor} />
             <Route path="/profile/activity" component={ProfileActivity} />
             <Route path="/profile/lists" component={ProfileLists} />
-            <Route path="/review" component={Review} />
+            <Route path="/review/:id" component={Review} />
             <Route path="/signup" component={Register} />
             <Route path="/search" component={Search} />
         </BrowserRouter>
