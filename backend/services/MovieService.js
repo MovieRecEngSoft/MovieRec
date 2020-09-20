@@ -64,28 +64,30 @@ async function generateReviewMatch(score){
 }
 
 async function generateMovieMatch(movieFilter){
-    const reviewMatch = await generateReviewMatch(movieFilter.score)
-    const reviews = await Review.aggregate([
-        {
-            $group: {
-              _id: '$movie',
-              averageScore: {$avg: "$score"}
-            }
-        },
-        {
-            $match: {
-                averageScore: reviewMatch
-            }
-        }
-
-    ])
-    let reviewsIds = []
-    for(review of reviews){
-        reviewsIds.push(review._id)
-    }
     let match = {}
-    if(reviewsIds.length > 0)
+    if(movieFilter.score){
+        const reviewMatch = await generateReviewMatch(movieFilter.score)
+        const reviews = await Review.aggregate([
+            {
+                $group: {
+                _id: '$movie',
+                averageScore: {$avg: "$score"}
+                }
+            },
+            {
+                $match: {
+                    averageScore: reviewMatch
+                }
+            }
+
+        ])
+        let reviewsIds = []
+        for(review of reviews){
+            reviewsIds.push(review._id)
+        }
         match._id = {$in: reviewsIds}
+    }
+    
     if(movieFilter.names){
         match.title = {$regex: generateRegExp(movieFilter.names), $options: 'i'}
     }
