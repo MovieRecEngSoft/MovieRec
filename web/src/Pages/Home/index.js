@@ -53,7 +53,7 @@ const Home = () => {
           const result_all = await axios.get(`${API_URL}/movies`);
           categoriesAux.push(createCategory("All movies", result_all.data));
 
-          // const result_recom = await axios.get(`${API_URL}/user/recommended_movies`);
+          // const result_recom = await axios.get(`${API_URL}/user/recommendedMovies`);
           // categoriesAux.push(createCategory("Recommended for you", result_recom.data));
 
           setCategories(categoriesAux);

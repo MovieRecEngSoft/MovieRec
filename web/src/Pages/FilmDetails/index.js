@@ -144,6 +144,8 @@ function FilmDetails() {
                   return (
                     <Card>
                       <Review
+                        reviewId={review._id}
+                        type="review-item"
                         text={review.text}
                         author={review.username}
                         likes={review.likes}
@@ -152,6 +154,8 @@ function FilmDetails() {
                             ? "https://simpleicon.com/wp-content/uploads/user1.png"
                             : reviews.userImgUrl
                         }
+                        userId={review.userId}
+                        activeUser={"5f660ce7b1370c2a681999ca"}
                       />
                       <Link to={"/review/" + review._id}>
                         <div className="row expand-row">

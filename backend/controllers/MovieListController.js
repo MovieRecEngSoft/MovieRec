@@ -10,7 +10,24 @@ module.exports = {
             assert(request.body.name, 'Missing parameter "name".')
             const userId = request.user._id
             await MovieListService.addMovieList(userId, request.body.name)
-            return response.sendStatus(204)
+            response.sendStatus(204)
+        }
+        catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
+    },
+
+    async deleteMovieList(request, response){
+        try{
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
+            assert(request.body.name, 'Missing parameter "name".')
+            const userId = request.user._id
+            await MovieListService.deleteMovieList(userId, request.body.name)
+            response.sendStatus(204)
         }
         catch(error) {
             if (error instanceof assert.AssertionError)
@@ -28,7 +45,25 @@ module.exports = {
             assert(request.body.movieId, 'Missing parameter "movieId".')
             const userId = request.user._id
             await MovieListService.addMovieToMovieList(userId, request.body.name, request.body.movieId)
-            return response.sendStatus(204)
+            response.sendStatus(204)
+        }
+        catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
+    },
+
+    async deleteMovieFromMovieList(request, response){
+        try{
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
+            assert(request.body.name, 'Missing parameter "name".')
+            assert(request.body.movieId, 'Missing parameter "movieId".')
+            const userId = request.user._id
+            await MovieListService.deleteMovieFromMovieList(userId, request.body.name, request.body.movieId)
+            response.sendStatus(204)
         }
         catch(error) {
             if (error instanceof assert.AssertionError)

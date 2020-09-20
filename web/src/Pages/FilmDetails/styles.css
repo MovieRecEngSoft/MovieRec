@@ -75,6 +75,11 @@ h5 {
   margin-right: 0;
 }
 
+.right-like {
+    position: absolute !important;
+    right: 40px;
+}
+
 .review-item {
    overflow: hidden;
    text-overflow: ellipsis;
