@@ -19,7 +19,7 @@ const SignupForm = ({title}) => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const HandleRegister = () => {
-    // alert("ACTIVATE HANDLER ON /SIGNUPFORM AND TRY AGAIN");
+    alert("No /singUp on Backend");
     let API_URL = 'http://localhost:3333/signUp';
 
     axios.post(API_URL, { username: name, email: email, password: password, confirmPassword: confirmPassword }, { withCredentials: true })

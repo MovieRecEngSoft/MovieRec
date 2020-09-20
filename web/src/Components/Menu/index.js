@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Redirect, useHistory } from "react-router-dom";
 import Logo from '../../assets/img/Logo.png';
 import SearchBar from '../Searchbar';
@@ -9,6 +9,8 @@ import { UserOutlined } from "@ant-design/icons";
 import './styles.css';
 
 function Menu() {
+
+  const [avatarSrc, setAvatarSrc] = useState(sessionStorage.getItem('img_path'));
 
   let history = useHistory()
 
@@ -26,12 +28,18 @@ function Menu() {
           throw error;
         }
       })
-      .catch(err => {console.error(err);alert('Error logging out. Please try again');});
-    
+      .catch(err => {console.error(err);alert('Error logging out. Please try again');});    
+  }
+
+  const SetUp = () =>{
+    setTimeout(function() { //Start the timer
+      setAvatarSrc(sessionStorage.getItem('img_path'))
+
+    }.bind(this), 500)
   }
 
   return (
-    <nav className="Menu">
+    <nav className="Menu" onLoad={SetUp}>
       <Link to="/">
         <img className="Logo" src={Logo} alt="Logo" />
       </Link>
@@ -41,7 +49,7 @@ function Menu() {
       </Link> */}
       <div>
         <button class="grey-button logout-button" onClick={HandleLogout}>LOGOUT</button>
-        <img class="avatar" src={sessionStorage.getItem('img_path')}/>
+        <img class="avatar" src={avatarSrc}/>
       </div>
     </nav>
   );
