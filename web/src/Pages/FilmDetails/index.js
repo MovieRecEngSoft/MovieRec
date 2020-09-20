@@ -116,8 +116,17 @@ function FilmDetails() {
                 <div className="comment-session">
                   <Input
                     className="add-comment-input"
+                    placeholder="Write your review here"
+                    type="text"
                     value={input}
                     onInput={(e) => setInput(e.target.value)}
+                  />
+                </div>
+                <div className="comment-session">
+                  <Input
+                    className="review-score"
+                    placeholder="Score"
+                    type="number"
                   />
                   <button
                     className="add-comment-button"
