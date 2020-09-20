@@ -16,7 +16,7 @@ function Routes() {
         <BrowserRouter>
             <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
-            <Route path="/movie" component={FilmDetails} />
+            <Route path="/movie/:id" component={FilmDetails} />
             <Route path="/profile/edit" component={ProfileEditor} />
             <Route path="/profile/activity" component={ProfileActivity} />
             <Route path="/profile/lists" component={ProfileLists} />
