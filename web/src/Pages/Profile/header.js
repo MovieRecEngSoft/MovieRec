@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import './styles.css';
@@ -10,38 +10,58 @@ import { Link } from "react-router-dom";
 // Como usuário, eu quero construir listas de filmes, públicas ou secretas, 
 // para catalogar filmes de algum tópico e compartilhar com outras pessoas.
 
-const ProfileHeader = ({activeSection}) => {
+const ProfileHeader = (props) => {
 
-  const [name, setName] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [background, setBackground] = useState("");
-  const [description, setDescription] = useState("");
-  const [followers, setFollowers] = useState(""); 
-  const [following, setFollowing] = useState(""); 
+  // const [name, setName] = useState("");
+  // const [avatar, setAvatar] = useState("");
+  // const [background, setBackground] = useState("");
+  // const [description, setDescription] = useState("");
+  // const [followers, setFollowers] = useState(""); 
+  // const [following, setFollowing] = useState(""); 
 
-  const fetchData  = async () => {
-    let API_URL = `localhost:3333`;
+  const [profileInfo, setProfileInfo] = useState([]);
+  useEffect(() => {
+    const fetchProfileInfo = async () => {
+      try {
+        let profileInfoAux = {};
+        let API_URL = `http://localhost:3333`;
+        
+        const result = await axios.get(`${API_URL}/user/?userId=${props.userId}`);
+        profileInfoAux = result.data;
+        console.log(profileInfoAux);
+        
+        setProfileInfo(profileInfoAux);
+      } catch (error) {}
+    };
+    
+    fetchProfileInfo();
+  }, []);
 
-    try {
-      //fetch 
-        //avatar
-        //description
-        //name
-        //background
-        //following
-        //followers
-    } catch (error) {}
-  }
 
   const HandleFollow = () => {
-    //req follow
-    alert('Follow');
-  };
+    // alert('Follow');
 
-  // const HandleUnfollow = () => {
-  //   //req unfollow
-  //   alert('Follow');
-  // };
+    let API_URL = `http://localhost:3333/user/follow`;
+
+    axios.post(API_URL,{ userId: props.userId },{ withCredentials: true })
+      .then(response => {
+        if (response.status == 204) {
+          // console.log(response.data)
+          // console.log(response.data.authenticated)
+          // if(response.data.authenticated == false){ history.push('/login'); return}
+          // else{
+          //   sessionStorage.setItem('_id', response.data.user._id );
+          //   sessionStorage.setItem('name', response.data.user.nam );
+          //   sessionStorage.setItem('img_path', response.data.user.img_path );
+          //   sessionStorage.setItem('description', response.data.user.description );
+          // }
+          // history.push('/profile/activity/${props.userId }')
+          window.location.reload(false);
+        }else{const error = new Error(response.error);throw error;}
+      })
+      .catch(err => {alert('Error on Follow request. Please try again.');});
+
+  };
 
   function GetActiveSection(val,val2){
     if(val == val2){return('activesection')}
@@ -49,18 +69,14 @@ const ProfileHeader = ({activeSection}) => {
   
   function InteractionInfo(props){
     //self
-    return(
-     <div class="grey-button">Edit</div> 
-    )
-    //not following
-    return(
-      <div class="red-button" onClick={HandleFollow}>Follow</div>
-    )
+    if(sessionStorage.getItem("_id")==props.userId){
+      return(<Link to={`/profile/edit/${props.userId}`}><div class="grey-button">Edit</div></Link>)
+    }
     //following
-    return(
-     <div class="grey-button" onClick={HandleFollow} >Unfollow</div> 
-    //  <div class="grey-button" onClick={HandleUnfollow} >Unfollow</div> 
-    )
+    if(profileInfo.userIsFollowing)
+      return(<div class="grey-button" onClick={HandleFollow} >Unfollow</div>)
+    //not following
+    return(<div class="red-button" onClick={HandleFollow}>Follow</div>)
   }
 
   return (
@@ -68,40 +84,40 @@ const ProfileHeader = ({activeSection}) => {
       <div>
         <div class="pfsection imgsection">
           <div class="pfimgblock">
-            <img class="avatar" src="https://i.imgur.com/UctWXrz.png" />
+            <img class="avatar" src={profileInfo.img_path} />
           </div>
           <div class="bkground">
           </div>
-          {InteractionInfo()}
+          {InteractionInfo(props)}
         </div>
         <div class="pfsection txtsection">
           <div class="txtblk1">
-            <span>Rusro</span>
+            <span>{profileInfo.name}</span>
           </div>
           <div class="txtblk2">
             <span>
-              #Android is made for everyone. Follow along for the latest updates and stories behind our tech. Questions? Get assistance by using #AndroidHelp.
+              {profileInfo.description}
             </span>
           </div>
           <div class="followage-info">
             <div>
-              <span>1</span>
+              <span>{profileInfo.numFollowing}</span>
               <span>Following </span>
             </div>
             <div>
-              <span>3036</span>
+              <span>{profileInfo.numFollowers}</span>
               <span>Followers </span>
             </div>
           </div>
         </div>
         <div class="switchsection">
-          <div class={GetActiveSection(0,activeSection)}>
-            <Link to="/profile/activity">
+          <div class={GetActiveSection(0,props.activeSection)}>
+            <Link to={`/profile/activity/${props.userId}`}>
               <span>ACTIVITY</span>
             </Link>
           </div>
-          <div class={GetActiveSection(1,activeSection)}>
-            <Link to="/profile/lists">
+          <div class={GetActiveSection(1,props.activeSection)}>
+            <Link to={`/profile/lists/${props.userId}`}>
               <span>LISTS</span>
             </Link>
           </div>

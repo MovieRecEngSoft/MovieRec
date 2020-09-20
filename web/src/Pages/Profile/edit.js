@@ -1,54 +1,69 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import './styles.css';
 import Menu from "../../Components/Menu";
 import Button from "../../Components/Button";
-import { Link } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 
 // Gerenciar perfil
 // Como usuário, eu quero ter um ambiente no sistema que represente meu perfil, onde possa apresentar uma imagem como avatar e compartilhar informações sobre mim.
 
 function ProfileEditor() {
 
+  let history = useHistory()
+  let { id } = useParams();
+
+  const checkIntegrity = () =>{
+    if(id != sessionStorage.getItem("_id")){
+      let errURL  = `/profile/activity/${id}`;
+      history.push(errURL);
+    }
+  }
+  checkIntegrity()
+
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
   const [background, setBackground] = useState("");
   const [description, setDescription] = useState("");
 
-  const fetchData  = async () => {
-    let API_URL = `localhost:3333`;
+  const [profileInfo, setProfileInfo] = useState([]);
+  useEffect(() => {
+    const fetchProfileInfo = async () => {
+      try {
+        let profileInfoAux = {};
+        let API_URL = `http://localhost:3333`;
+        
+        const result = await axios.get(`${API_URL}/user/?userId=${id}`);
+        profileInfoAux = result.data;
+        console.log(profileInfoAux);
 
-    try {
-      //fetch 
-        //avatar
-        //description
-        //name
-        //background
+        setName(profileInfoAux.name);
+        setDescription(profileInfoAux.description);
+        setAvatar(profileInfoAux.avatar);
 
-    //     const result_all = await axios.get(`${API_URL}/movies`);
-    //     aux.push(createCategory("All movies", result_all.data));
+        setProfileInfo(profileInfoAux);
 
-    //     const result_recom = await axios.get(`${API_URL}/user/recommended_movies`);
-    //     aux.push(createCategory("Recommended for you", result_recom.data));
+      } catch (error) {}
+    };
+    fetchProfileInfo();
+  }, []);
 
-    //     setCategories(aux);
-    } catch (error) {}
-  }
-
-  fetchData();
 
   const handleSubmit = async () => {
-    // alert(`:: ${description}`)
+    alert("Handler Activation required")
 
-    let API_URL = `localhost:3333`;
+    // let API_URL = 'http://localhost:3333/?';
+    // let errURL  = `/profile/activity/${id}`;
 
-    try {
-      //post avatar change
-      //post background change
-      //post description change
-    }catch(error){}
+    // axios.get(API_URL,{description: description, img_path: avatar},{ withCredentials: true })
+    // .then(response => {
+    //   if (response.status == 200) {
+
+    //   }else{const error = new Error(response.error);throw error;}
+    // })
+    // .catch(err => {alert('ERR');history.push(errURL);});
   };
 
   return (
@@ -70,7 +85,7 @@ function ProfileEditor() {
 
           <div class="pfsection imgsection">
             <div class="pfimgblock">
-              <img class="avatar" src="https://i.imgur.com/UctWXrz.png" />
+              <img class="avatar" src={profileInfo.img_path}/>
             </div>
             <div class="bkground">
             </div>
@@ -84,11 +99,11 @@ function ProfileEditor() {
 
           <div class="pfsection txtsection">
             <div class="txtblk1">
-              <span>Rusro</span>
+              <span>{profileInfo.name}</span>
             </div>
 
             <div class="txtblk2 edit-section" contentEditable="true" onInput={e => setDescription(e.target.textContent)}>
-              #Android is (not) made for everyone. Follow along for the latest updates and stories behind our tech. Questions? Get assistance by using #AndroidHelp.
+              {profileInfo.description}
             </div>
           </div>   
           
