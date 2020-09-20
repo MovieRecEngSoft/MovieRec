@@ -10,7 +10,7 @@ import './styles.css';
 
 function Menu() {
 
-  const [avatarSrc, setAvatarSrc] = useState("");
+  const [avatarSrc, setAvatarSrc] = useState(sessionStorage.getItem('img_path'));
 
   let history = useHistory()
 
@@ -32,7 +32,10 @@ function Menu() {
   }
 
   const SetUp = () =>{
-    setAvatarSrc(sessionStorage.getItem('img_path'))
+    setTimeout(function() { //Start the timer
+      setAvatarSrc(sessionStorage.getItem('img_path'))
+
+    }.bind(this), 500)
   }
 
   return (
