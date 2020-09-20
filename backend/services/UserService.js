@@ -3,6 +3,7 @@ const assert = require('assert')
 const crypt = require('../util/crypt.js')
 const dbErrorHandler = require('../database/error/handler.js')
 const ActivityService = require('./ActivityService')
+const Movie = require('../database/models/Movie')
 const MovieService = require('../services/MovieService.js')
 const MovieFilter = MovieService.MovieFilter
 const SearchParams = MovieService.SearchParams
@@ -121,6 +122,19 @@ module.exports = {
         ) 
         let searchParams = new SearchParams(movieFilter, pageFilter)
         const movies = await MovieService.getMovies(searchParams)
+        return movies
+    },
+
+    async getRecommendedMovies(sessionUserId){
+        const user = await User.findById(sessionUserId)
+        let movieIds = []
+        for(movieId of user.recommended_movies){
+            movieIds.push(movieId)
+        }
+        let movies = []
+        if(movieIds){
+            movies = await Movie.find({_id : {$in: movieIds}})
+        }
         return movies
     },
 
