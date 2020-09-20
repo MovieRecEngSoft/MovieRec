@@ -58,11 +58,13 @@ const Home = () => {
                 <div class="carousel-wrapper">
                   <Carousel category={movies.categorias[3]} />
                 </div>
-              </div>      
+              </div>   
+
               <div class="nav-block activity">
                 <h1>Recent Activity</h1>
-                <Feed/>    
+                <Feed scope="followingUsers" />    
               </div>
+
             </div>
           </div>      
         </Main>
