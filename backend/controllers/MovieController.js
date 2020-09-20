@@ -38,7 +38,10 @@ module.exports = {
         try{
             assert(request.query.id, 'Missing parameter "id".')
             const movie = await MovieService.getMovie(request.query.id)
-            response.json(movie)
+            if(movie)
+                response.json(movie)
+            else
+                response.sendStatus(404)
         }
         catch(error) {
             if (error instanceof assert.AssertionError)
