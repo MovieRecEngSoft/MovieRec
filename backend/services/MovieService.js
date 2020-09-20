@@ -186,7 +186,7 @@ module.exports = {
             } 
             catch(error){
                 if(error instanceof dbErrors.DBCastError)
-                    assert(false, "Wrong format of movieId")
+                    assert(false, 'Wrong format of parameter "id".')
                 else 
                     throw error
             }
