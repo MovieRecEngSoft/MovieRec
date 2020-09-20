@@ -29,6 +29,7 @@ module.exports = {
         const comments = review.comments.map(comment => {
             return {
                 _id: comment._id,
+                userId: comment.user._id,
                 username: comment.user.name,
                 userImgUrl: comment.user.img_path,
                 text: comment.text
