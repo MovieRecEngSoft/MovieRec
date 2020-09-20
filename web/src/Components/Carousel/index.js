@@ -38,6 +38,7 @@ function Carousel({
           {movies.map((video, index) => {
             return (
               <VideoCard
+                videoId={video._id}
                 videoTitle={video.title}
                 videoImage={video.poster_path}
               />
