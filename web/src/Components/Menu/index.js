@@ -11,7 +11,7 @@ import './styles.css';
 function Menu() {
 
   const [avatarSrc, setAvatarSrc] = useState(sessionStorage.getItem('img_path'));
-  const [profileLink, setProfileLink] = useState(`/profile/activity?id=${sessionStorage.getItem('_id')}`);
+  const [profileLink, setProfileLink] = useState(`/profile/activity/${sessionStorage.getItem('_id')}`);
 
 
   let history = useHistory()
@@ -42,7 +42,7 @@ function Menu() {
   const SetUp = () =>{
     setTimeout(function() { //Start the timer
       setAvatarSrc(sessionStorage.getItem('img_path'))
-      setProfileLink(`/profile/activity?id=${sessionStorage.getItem('_id')}`)
+      setProfileLink(`/profile/activity/${sessionStorage.getItem('_id')}`)
     }.bind(this), 350)
   }
 
