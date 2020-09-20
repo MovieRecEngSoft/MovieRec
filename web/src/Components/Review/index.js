@@ -24,7 +24,7 @@ function Review(props) {
               <strong className="reviewer">{props.author}</strong>
             </div>
             <div className="likes">
-              <p>522</p>
+              <p>{props.likes}</p>
               <LikeOutlined className="like-button" />
             </div>
           </div>
