@@ -16,7 +16,7 @@ class MovieFilter {
         assert(!this.genres || typeof this.genres === 'object', 'Wrong type of parameter "genres".')
         assert(!this.date || typeof this.date_lte === 'object', 'Wrong type of parameter "date".')
         assert(!this.date || typeof this.date_gte === 'object', 'Wrong type of parameter "date".')
-        assert(typeof this.score === 'number', 'Wrong type of parameter "score".')
+        assert(!this.score || typeof this.score === 'number', 'Wrong type of parameter "score".')
     }
     
 }
@@ -83,7 +83,6 @@ async function generateMovieMatch(movieFilter){
     for(review of reviews){
         reviewsIds.push(review._id)
     }
-    console.log(reviewsIds)
     let match = {}
     if(reviewsIds.length > 0)
         match._id = {$in: reviewsIds}
@@ -100,7 +99,6 @@ async function generateMovieMatch(movieFilter){
         if(movieFilter.date_lte)
             match.date.$lte = movieFilter.date_lte
     }
-    console.log(match)
     return match
 }
 

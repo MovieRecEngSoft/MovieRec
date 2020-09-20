@@ -15,7 +15,7 @@ module.exports = {
                 (genres) ? genres.map((genre) => {return parseInt(genre)}) : undefined,
                 request.query.date_gte ? new Date(request.query.date_gte) : undefined,
                 request.query.date_lte ? new Date(request.query.date_lte) : undefined,
-                request.query.score
+                request.query.score? parseInt(request.query.score) : undefined
             ) 
             let pageFilter = new PageFilter(
                 request.query.page? parseInt(request.query.page): undefined,
