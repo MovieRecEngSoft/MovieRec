@@ -37,3 +37,8 @@
 .reviewer {
     color: #ff2b63;
 }
+
+.space {
+    display: flex;
+    justify-content: space-between;
+}
