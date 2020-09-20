@@ -60,6 +60,7 @@ module.exports = {
 
     getUserSessionData(user) {
         return {
+            _id: user._id,
             name: user.name,
             description: user.description,
             img_path: user.img_path,
