@@ -13,7 +13,6 @@ function Menu() {
   const [avatarSrc, setAvatarSrc] = useState(sessionStorage.getItem('img_path'));
   const [profileLink, setProfileLink] = useState(`/profile/activity/${sessionStorage.getItem('_id')}`);
 
-
   let history = useHistory()
 
   const HandleLogout = () =>{
