@@ -4,6 +4,7 @@ const GenreController = require('./controllers/GenreController')
 const MovieController = require('./controllers/MovieController')
 const UserController = require('./controllers/UserController')
 const ReviewController = require('./controllers/ReviewController')
+const MovieListController = require('./controllers/MovieListController')
 
 const authenticator = require('./authenticator.js')
 const routes = express.Router()
@@ -65,5 +66,8 @@ routes.get('/user/activity', UserController.getUserActivity)
 routes.get('/user/followingActivity', UserController.getFollowingActivity)
 routes.get('/user/moviesHistory', UserController.getMoviesHistory)
 routes.get('/user/recommendedMovies', UserController.getRecommendedMovies)
+
+routes.put('/movieList', MovieListController.addMovieList)
+routes.put('/movieList/movie', MovieListController.addMovieToMovieList)
 
 module.exports = routes
