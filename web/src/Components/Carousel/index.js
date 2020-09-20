@@ -14,13 +14,16 @@ function Carousel({
     const chevronWidth = 40;
     
     let movies = [];
+    let title = "";
     if(!(category === undefined)){
       movies = category.movies;
+      title = category.title;
     }
 
     return (
       <div style={{ padding: `0 ${chevronWidth}px` }}>
-        <h1>All movies (temp)</h1>
+        
+        <h1>{title}</h1>
         <ItemsCarousel
           
           requestToChangeActive={setActiveItemIndex}
@@ -36,7 +39,7 @@ function Carousel({
             return (
               <VideoCard
                 videoTitle={video.title}
-                videoImage={video.image}
+                videoImage={video.poster_path}
               />
             );
           })}
