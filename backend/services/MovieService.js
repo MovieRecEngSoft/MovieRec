@@ -12,7 +12,7 @@ class MovieFilter {
     }   
 
     validate(){
-        assert(!this.names || typeof this.names === 'object', 'Wrong type of parameter "names".')
+        assert(!this.names || typeof this.names === 'string', 'Wrong type of parameter "names".')
         assert(!this.genres || typeof this.genres === 'object', 'Wrong type of parameter "genres".')
         assert(!this.date || typeof this.date_lte === 'object', 'Wrong type of parameter "date".')
         assert(!this.date || typeof this.date_gte === 'object', 'Wrong type of parameter "date".')
@@ -31,8 +31,8 @@ class PageFilter{
     }
 
     validate(){
-        assert(typeof this.page === 'string', 'Wrong type of parameter "pagefilter.page".')
-        assert(typeof this.limit === 'string', 'Wrong type of parameter "pagefilter.limit".')
+        assert(typeof this.page === 'number', 'Wrong type of parameter "page".')
+        assert(typeof this.limit === 'number', 'Wrong type of parameter "limit".')
     }
 
     get skip(){
@@ -45,18 +45,27 @@ class SearchParams{
         this.movieFilter = movieFilter ? movieFilter : new MovieFilter()
         this.pageFilter = pageFilter ? pageFilter : new PageFilter()
     }
+
+    validate(){
+        this.movieFilter.validate()
+        this.pageFilter.validate()
+    }
 }
 
 function generateRegExp(movieNames){
     let regExpText = '[A-Za-z0-9_]*'
-    for(name of movieNames){
-        regExpText += name + '[A-Za-z0-9_]*'
-    }
-    console.log(regExpText)
+    regExpText += movieNames + '[A-Za-z0-9_]*'
     return new RegExp(regExpText);
 }
 
-async function generateReviewMatch(score){
+function generateReviewMatchByMovies(movieIds){
+    reviewMatch = {}
+    if(movieIds.length > 0)
+        reviewMatch.score = {$in: movieIds}
+    return reviewMatch
+}
+
+function generateReviewMatchByScore(score){
     reviewMatch = {}
     if(score)
         reviewMatch.score = {$gte: score}
@@ -66,7 +75,7 @@ async function generateReviewMatch(score){
 async function generateMovieMatch(movieFilter){
     let match = {}
     if(movieFilter.score){
-        const reviewMatch = await generateReviewMatch(movieFilter.score)
+        const reviewMatch = generateReviewMatchByScore(movieFilter.score)
         const reviews = await Review.aggregate([
             {
                 $group: {
@@ -111,7 +120,9 @@ module.exports = {
     SearchParams: SearchParams,
 
     async getMovies(searchParams) {
+        searchParams.validate()
         const match = await generateMovieMatch(searchParams.movieFilter)
+        console.log(match)
         const movies = await Movie.aggregate([
             {
                 $match: match
@@ -120,31 +131,44 @@ module.exports = {
             {$skip : searchParams.pageFilter.skip},
             {$limit : searchParams.pageFilter.limit}
         ])
-        let moviesPopulated = []
-        for(let movieDoc of movies){
-            let reviews = await Review.find({movie: movieDoc._id}).exec()
-            let averageScore = 0
-            if(reviews.length > 0){
-                for(let review of reviews){
-                    averageScore += review.score
-                }
-                averageScore /= reviews.length
-            }
-            else{
-                averageScore = null
-            }
-            moviesPopulated.push({
-                _id: movieDoc._id ,
-                title: movieDoc.title ,
-                poster_path: movieDoc.poster_path ,
-                release_date: movieDoc.release_date ,
-                overview: movieDoc.overview ,
-                genres: movieDoc.genres ,
-                id_tmdb: movieDoc.id_tmdb ,
-                recommended_movies: movieDoc.recommended_movies,
-                score: averageScore 
-            })
+
+        let moviesIds = []
+        for(let movie of movies){
+            moviesIds.push(movie._id)
         }
+        const matchReview = generateReviewMatchByMovies(moviesIds)
+        const reviews = await Review.aggregate([
+            {
+                $match: {
+                    movie: matchReview
+                }
+            },
+            {
+                $group: {
+                _id: '$movie',
+                averageScore: {$avg: "$score"}
+                }
+            }
+
+        ])
+        let reviewMap = new Map()
+        for(let review of reviews){
+            reviewMap.set(review._id, review.averageScore)
+        }
+        let moviesPopulated = movies.map((movie) =>{
+            let score = reviewMap.get(movie._id)
+            return{
+                _id: movie._id ,
+                title: movie.title ,
+                poster_path: movie.poster_path ,
+                release_date: movie.release_date ,
+                overview: movie.overview ,
+                genres: movie.genres ,
+                id_tmdb: movie.id_tmdb ,
+                recommended_movies: movie.recommended_movies,
+                score: score ? score : null
+            }
+        })
 
         return moviesPopulated
     }

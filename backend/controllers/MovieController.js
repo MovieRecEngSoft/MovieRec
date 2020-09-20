@@ -11,7 +11,7 @@ module.exports = {
             let genres = request.query.genres ? request.query.genres.split(' ') : undefined
             
             let movieFilter = new MovieFilter(
-                request.query.names ? request.query.names.split(' ') : undefined,
+                request.query.names ? request.query.names : undefined,
                 (genres) ? genres.map((genre) => {return parseInt(genre)}) : undefined,
                 request.query.date_gte ? new Date(request.query.date_gte) : undefined,
                 request.query.date_lte ? new Date(request.query.date_lte) : undefined,
