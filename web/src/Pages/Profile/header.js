@@ -39,7 +39,28 @@ const ProfileHeader = (props) => {
 
 
   const HandleFollow = () => {
-    alert('Follow');
+    // alert('Follow');
+
+    let API_URL = `http://localhost:3333/user/follow`;
+
+    axios.post(API_URL,{ userId: props.userId },{ withCredentials: true })
+      .then(response => {
+        if (response.status == 204) {
+          // console.log(response.data)
+          // console.log(response.data.authenticated)
+          // if(response.data.authenticated == false){ history.push('/login'); return}
+          // else{
+          //   sessionStorage.setItem('_id', response.data.user._id );
+          //   sessionStorage.setItem('name', response.data.user.nam );
+          //   sessionStorage.setItem('img_path', response.data.user.img_path );
+          //   sessionStorage.setItem('description', response.data.user.description );
+          // }
+          // history.push('/profile/activity/${props.userId }')
+          window.location.reload(false);
+        }else{const error = new Error(response.error);throw error;}
+      })
+      .catch(err => {alert('Error on Follow request. Please try again.');});
+
   };
 
   function GetActiveSection(val,val2){
