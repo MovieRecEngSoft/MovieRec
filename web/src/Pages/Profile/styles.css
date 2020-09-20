@@ -1,4 +1,3 @@
-
 .wrapper{
     background: rgba(19 18 19 /0.8);
     min-height: 100%;
@@ -8,10 +7,9 @@
 .profile-block{
     margin: auto;
     max-width: 840px;
-    /* background: #1c1b1f; */
-    /* background: #131213; */
     border: 2px solid #22202b;
     font-family: system-ui;
+    position: relative;
 }
 
 .profile-block .imgsection{
@@ -38,6 +36,7 @@
 
 .switchsection div:hover{
     background-color: #1c1b1f;
+    cursor: pointer;
 }
 
 .switchsection div:hover span{
@@ -132,7 +131,7 @@
     color: aliceblue;
 }
 
-.follow-button{
+.red-button{
     position: absolute;
     top: 177px;
     right: 25px;
@@ -148,7 +147,7 @@
     z-index: 999;
 }
 
-.edit-button {
+.grey-button {
     position: absolute;
     top: 177px;
     right: 25px;
@@ -164,12 +163,46 @@
     z-index: 999;
 }
 
-.follow-button:hover{
+.red-button:hover{
     color: #ff2b63;
+    background: #1c1b1f;
+    cursor: pointer;
+}
+
+.grey-button:hover{
+    background: #ff2b63;
+    color: #1c1b1f;
+    cursor: pointer;
+}
+
+.listsection{
     background: #1c1b1f;
 }
 
-.edit-button:hover{
-    background: #ff2b63;
-    color: #1c1b1f;
+.edit-header{
+    padding: 5px 15px 10px 15px;
+    border-bottom: 1px solid #8b000059;
+}
+
+.edit-section{
+    background: #19191d;
+    padding: 10px;
+    border: 1px solid #211f29;
+    border-radius: 5px;
+}
+
+.upload-avatar{
+    top: 250px;
+    left: 50px;
+}
+
+.upload-background{
+    /* left: 50%;
+    transform: translate(-50%, 0); */
+    right: 10px;
+    top: 200px;
+}
+
+.hidden {
+    display: none;
 }
