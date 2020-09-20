@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import Input from "../../Components/Input";
-import Main from "../../Components/Main";
 import Menu from "../../Components/Menu";
 import getImageAddress from "../../assets/utils/getImageAddress";
 import Card from "../../Components/Card";
 
 import checkIfUrlExists from "../../assets/utils/checkIfUrlExists";
 
-import { LikeOutlined, FullscreenOutlined } from "@ant-design/icons";
+import { FullscreenOutlined } from "@ant-design/icons";
 
 import './styles.css';
 import Review from "../../Components/Review";
@@ -17,11 +16,23 @@ import { Link, useParams } from "react-router-dom";
 
 function FilmDetails(url) {
   
-  function shoot() {
-    alert("Review!");
-    console.log("Review!");
+  function addReview(movieId, score){
+    fetch("http://localhost:3333/review", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        movieId: movieId,
+        score: score,
+        text: input,
+      }),
+    });
+    window.location.reload(false);
   }
-  
+    
   let { id } = useParams();
   
   const [movie, setMovie] = useState([]);
@@ -57,7 +68,8 @@ function FilmDetails(url) {
         let API_URL = `http://localhost:3333`;
 
         const result = await axios.get(
-          `${API_URL}/reviews/?movieId=5f660646599def1cc4333928`
+          `${API_URL}/reviews/?movieId=${id}`
+          // `${API_URL}/reviews/?movieId=5f660646599def1cc4333928`
         );
         reviewsAux = result.data;
 
@@ -71,6 +83,8 @@ function FilmDetails(url) {
   if (reviews === undefined){
     reviews = [];
   }
+
+  const [input, setInput] = useState("");
 
   return (
     <>
@@ -96,33 +110,43 @@ function FilmDetails(url) {
 
               <Card>
                 <div className="comment-session">
-                  <Input className="add-comment-input" />
-                  <button className="add-comment-button" onClick={shoot}>
+                  <Input
+                    className="add-comment-input"
+                    value={input}
+                    onInput={(e) => setInput(e.target.value)}
+                  />
+                  <button
+                    className="add-comment-button"
+                    onClick={() => addReview(id, 5.5)}
+                  >
                     Add review
                   </button>
                 </div>
               </Card>
 
-              {reviews.map((review, index) => {
-                return (
-                  <Card>
-                    <Review
-                      text={review.text}
-                      author={review.username}
-                      avatar={
-                        !reviews.userImgUrl
-                          ? "https://simpleicon.com/wp-content/uploads/user1.png"
-                          : reviews.userImgUrl
-                      }
-                    />
-                    <Link to="/review">
-                      <div className="row expand-row">
-                        <FullscreenOutlined className="expand-icon" />
-                      </div>
-                    </Link>
-                  </Card>
-                );
-              })}
+              {reviews
+                .slice(0)
+                .reverse()
+                .map((review, index) => {
+                  return (
+                    <Card>
+                      <Review
+                        text={review.text}
+                        author={review.username}
+                        avatar={
+                          !reviews.userImgUrl
+                            ? "https://simpleicon.com/wp-content/uploads/user1.png"
+                            : reviews.userImgUrl
+                        }
+                      />
+                      <Link to="/review">
+                        <div className="row expand-row">
+                          <FullscreenOutlined className="expand-icon" />
+                        </div>
+                      </Link>
+                    </Card>
+                  );
+                })}
               <br />
             </div>
           </div>
