@@ -6,6 +6,8 @@ import Menu from "../../Components/Menu";
 import Feed from "../../Components/Feed";
 import movies from "../../data/movies.json";
 import Carousel from '../../Components/Carousel';
+import ProfileHeader from './header.js';
+
 
 // Gerenciar perfil
 // Como usuário, eu quero ter um ambiente no sistema que represente meu perfil, onde possa apresentar uma imagem como avatar e compartilhar informações sobre mim.
@@ -20,49 +22,9 @@ function ProfileLists() {
       <Menu /> 
       <div class="wrapper">
         <div class="profile-block">
-          <div class="pfsection imgsection">
-            <div class="pfimgblock">
-              <img class="avatar" src="https://i.imgur.com/UctWXrz.png" />
-            </div>
-            <div class="bkground">
-            </div>
-            {/* <div class="red-button">Follow</div> */}
-            <Link to="/profile/edit">
-              <div class="grey-button">Edit</div>
-            </Link>
-          </div>
-          <div class="pfsection txtsection">
-            <div class="txtblk1">
-              <span>Rusro</span>
-            </div>
-            <div class="txtblk2">
-              <span>
-                #Android is made for everyone. Follow along for the latest updates and stories behind our tech. Questions? Get assistance by using #AndroidHelp.
-              </span>
-            </div>
-            <div class="followage-info">
-              <div>
-                <span>1</span>
-                <span>Following </span>
-              </div>
-              <div>
-                <span>3036</span>
-                <span>Followers </span>
-              </div>
-            </div>
-          </div>
-          <div class="switchsection">
-            <div>
-              <Link to="/profile/activity">
-                <span>ACTIVITY</span>
-              </Link>
-            </div>
-            <div  class="activesection">
-              <Link to="/profile/lists">
-                <span>LISTS</span>
-              </Link>
-            </div>
-          </div>
+
+            <ProfileHeader activeSection={1} />
+          
             <div class="listsection">
               <div class="carousel-wrapper">
                 <Carousel category={movies.categorias[0]} />
@@ -76,6 +38,7 @@ function ProfileLists() {
                 <Carousel category={movies.categorias[2]} />
               </div>
             </div>
+            
         </div>
       </div>
     </>
