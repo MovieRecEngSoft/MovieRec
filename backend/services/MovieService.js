@@ -1,8 +1,8 @@
 const Movie = require('../database/models/Movie')
 const Review = require('../database/models/Review')
 const assert = require('assert')
-const mongoose = require('mongoose')
-const ObjectId = mongoose.Types.ObjectId
+const dbErrors = require('../database/error/errors.js')
+const dbErrorHandler = require('../database/error/handler.js')
 
 const SCORE_MIN = 0
 const SCORE_MAX = 10
@@ -173,6 +173,25 @@ module.exports = {
         })
 
         return moviesPopulated
-    }
+    },
+
+    async getMovie(movieId){
+        try{
+            const movie = await Movie.findById(movieId)
+            return movie
+        }
+        catch(error){
+            try{
+                dbErrorHandler.handle(error)
+            } 
+            catch(error){
+                if(error instanceof dbErrors.DBCastError)
+                    assert(false, "Wrong format of movieId")
+                else 
+                    throw error
+            }
+        }
+        return movie
+    } 
 
 }

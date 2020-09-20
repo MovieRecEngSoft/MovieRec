@@ -12,7 +12,15 @@ class DBDuplicatedKeyError extends DBOperationError{
     }
 }
 
+class DBCastError extends DBOperationError{
+    constructor(message){
+        super(message)
+        this.name = "DBCastError"
+    }
+}
+
 module.exports = {
     DBOperationError: DBOperationError,
-    DBDuplicatedKeyError: DBDuplicatedKeyError
+    DBDuplicatedKeyError: DBDuplicatedKeyError,
+    DBCastError: DBCastError
 }

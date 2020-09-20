@@ -32,6 +32,21 @@ module.exports = {
                 response.status(500).send(error.toString())
             }
         }
+    },
+
+    async getMovie(request, response){
+        try{
+            assert(request.query.id, 'Missing parameter "id".')
+            const movie = await MovieService.getMovie(request.query.id)
+            response.json(movie)
+        }
+        catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
     }
 
 }
