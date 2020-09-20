@@ -17,12 +17,13 @@ function Routes() {
             <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/movie/:id" component={FilmDetails} />
-            <Route path="/profile/edit" component={ProfileEditor} />
-            <Route path="/profile/activity" component={ProfileActivity} />
-            <Route path="/profile/lists" component={ProfileLists} />
+            <Route path="/profile/edit/:id" component={ProfileEditor} />
+            <Route path="/profile/activity/:id" component={ProfileActivity} />
+            <Route path="/profile/lists/:id" component={ProfileLists} />
             <Route path="/review/:id" component={Review} />
             <Route path="/signup" component={Register} />
-            <Route path="/search" component={Search} />
+            <Route path="/search/:query" component={Search} />
+            {/* <Route path="/search" component={Search} /> */}
         </BrowserRouter>
     );
 }
