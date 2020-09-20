@@ -56,6 +56,7 @@ routes.patch('/review/comment', checkAuthentication, ReviewController.editCommen
 routes.delete('/review/comment', checkAuthentication, ReviewController.removeComment)
 routes.get('/reviews', ReviewController.getReviews)
 
+routes.get('/user', UserController.getProfile)
 routes.post('/user', UserController.register)
 routes.patch('/user', checkAuthentication, UserController.edit)
 routes.post('/user/follow', checkAuthentication, UserController.toggleFollow)

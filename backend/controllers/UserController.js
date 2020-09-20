@@ -65,6 +65,25 @@ module.exports = {
         }
     },
 
+    async getProfile(request, response) {
+        try {
+            assert(request.query.userId, 'Missing parameter "userId".')
+
+            const userId = request.query.userId
+            const sessionUserId = request.user ? request.user._id : null
+
+            const profile = await UserService.getProfile(userId, sessionUserId)
+
+            return response.json(profile)
+        } catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
+    },
+
     async getUserSession(request, response) {
         try {
             let sessionData = {

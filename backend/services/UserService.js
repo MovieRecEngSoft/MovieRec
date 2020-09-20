@@ -3,6 +3,15 @@ const assert = require('assert')
 const crypt = require('../util/crypt.js')
 const dbErrorHandler = require('../database/error/handler.js')
 
+function getPublicUserData(user) {
+    return {
+        _id: user._id,
+        name: user.name,
+        description: user.description,
+        img_path: user.img_path
+    }
+}
+
 module.exports = {
 
     async register(user) {
@@ -72,13 +81,23 @@ module.exports = {
         return userFollowing.save()
     },
 
-    getUserSessionData(user) {
-        return {
-            _id: user._id,
-            name: user.name,
-            description: user.description,
-            img_path: user.img_path,
+    async getProfile(userId, sessionUserId = null) {
+        const user = await User.findById(userId)
+        const userData = getPublicUserData(user)
+
+        if (sessionUserId && userId !== sessionUserId) {
+            const sessionUser = await User.findById(sessionUserId)
+            const followIndex = sessionUser.following.indexOf(userId)
+            userData.userIsFollowing = followIndex !== -1
+        } else {
+            userData.userIsFollowing = false
         }
+
+        return userData
+    },
+
+    getUserSessionData(user) {
+        return getPublicUserData(user)
     }
 
 }
