@@ -7,6 +7,8 @@ function formatReview(review, sessionUserId = null) {
         _id: review._id,
         text: review.text,
         score: review.score,
+        movieTitle: review.movie.title,
+        moviePosterPath: review.movie.poster_path,
         userId: review.user._id,
         username: review.user.name,
         userImgUrl: review.user.img_path,
@@ -24,6 +26,7 @@ module.exports = {
     async getReview(reviewId, sessionUserId) {
         let review = await Review
             .findById(reviewId)
+            .populate("movie", "title poster_path")
             .populate("user", "name")
             .populate("comments.user", "name")
         const comments = review.comments.map(comment => {
@@ -43,6 +46,7 @@ module.exports = {
     async getReviews(movieId, sessionUserId) {
         let reviews = await Review
             .find({ movie: movieId })
+            .populate("movie", "title poster_path")
             .populate("user", "name")
         reviews = reviews
             .map(review => formatReview(review, sessionUserId))
