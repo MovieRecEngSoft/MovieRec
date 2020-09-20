@@ -35,7 +35,7 @@ routes.post('/login', checkNotAuthentication, authenticator.authenticate('local'
 routes.post('/logout', (request, response) => {
     if(request.isAuthenticated()){
         request.logOut()
-        response.sendStatus(200)
+        response.sendStatus(204)
     }
     else{
         response.sendStatus(205)
