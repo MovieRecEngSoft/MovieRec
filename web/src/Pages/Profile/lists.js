@@ -8,7 +8,6 @@ import movies from "../../data/movies.json";
 import Carousel from '../../Components/Carousel';
 import ProfileHeader from './header.js';
 
-
 // Gerenciar perfil
 // Como usuário, eu quero ter um ambiente no sistema que represente meu perfil, onde possa apresentar uma imagem como avatar e compartilhar informações sobre mim.
 // Seguir outros usuários
@@ -16,7 +15,7 @@ import ProfileHeader from './header.js';
 // para que minhas atividades possam ser vistas pelos outros e que eu possa ver 
 // a atividade de pessoas que considero interessantes.
 
-function ProfileLists(props) {
+const ProfileLists = (props) => {
   
   function ExtractProfileLists(props){
     return Object.keys(props).map((key) => {
@@ -35,8 +34,7 @@ function ProfileLists(props) {
     <>
       <Menu /> 
       <div class="wrapper">
-        <div class="profile-block">ExtractProfileLists
-
+        <div class="profile-block">
             <ProfileHeader activeSection={1} />          
             {ExtractProfileLists(props)}
             

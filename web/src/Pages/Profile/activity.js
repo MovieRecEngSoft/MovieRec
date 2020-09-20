@@ -10,7 +10,7 @@ import ProfileHeader from './header.js';
 // Como usuário, eu quero construir listas de filmes, públicas ou secretas, 
 // para catalogar filmes de algum tópico e compartilhar com outras pessoas.
 
-function ProfileActivity() {
+const ProfileActivity = (props) =>{
 
   return (
     <>
@@ -18,7 +18,7 @@ function ProfileActivity() {
       <div class="wrapper">
         <div class="profile-block">
           <ProfileHeader activeSection={0}/>
-          <Feed/>
+          <Feed scope="singleUser" userId={props.userId}/>
         </div>
       </div>
     </>
