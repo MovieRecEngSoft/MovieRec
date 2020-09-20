@@ -20,6 +20,22 @@ module.exports = {
         }
     },
 
+    async edit(sessionId, userParams){
+        assert(typeof userParams.id === 'string', 'Wrong type of parameter "id".')
+        assert(sessionId.equals(userParams.id), "User cannot delete another user.")
+        const user = await User.findById(userParams.id)
+        if(userParams.img_path){
+            console.log(userParams.img_path)
+            assert(typeof userParams.img_path === 'string', 'Wrong type of parameter "img_path".')
+            user.img_path = userParams.img_path
+        }
+        if(userParams.description){
+            assert(typeof userParams.description === 'string', 'Wrong type of parameter "description".')
+            user.description = userParams.description
+        }
+        await user.save()
+    },
+
     async findById(id){
         try{
             return await User.findById(id).exec()
