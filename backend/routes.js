@@ -27,7 +27,7 @@ function checkNotAuthentication(request, response, next){
 }
 
 routes.post('/login', checkNotAuthentication, authenticator.authenticate('local'),
-    (request, response) => {response.sendStatus(302)}
+    (request, response) => {response.sendStatus(204)}
 )
 
 routes.post('/logout', (request, response) => {
