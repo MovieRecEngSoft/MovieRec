@@ -1,6 +1,8 @@
 const Movie = require('../database/models/Movie')
 const Review = require('../database/models/Review')
 const assert = require('assert')
+const mongoose = require('mongoose')
+const ObjectId = mongoose.Types.ObjectId
 
 class MovieFilter {
     constructor(names, genres,date_gte, date_lte, score){
@@ -58,17 +60,17 @@ function generateRegExp(movieNames){
     return new RegExp(regExpText);
 }
 
-function generateReviewMatchByMovies(movieIds){
+function generateReviewMatchGroupByMovies(movieIds){
     reviewMatch = {}
     if(movieIds.length > 0)
-        reviewMatch.score = {$in: movieIds}
+        reviewMatch.movie = {$in: movieIds}
     return reviewMatch
 }
 
 function generateReviewMatchByScore(score){
     reviewMatch = {}
     if(score)
-        reviewMatch.score = {$gte: score}
+        reviewMatch.averageScore = {$gte: score}
     return reviewMatch
 }
 
@@ -79,14 +81,12 @@ async function generateMovieMatch(movieFilter){
         const reviews = await Review.aggregate([
             {
                 $group: {
-                _id: '$movie',
-                averageScore: {$avg: "$score"}
+                    _id: '$movie',
+                    averageScore: {$avg: "$score"}
                 }
             },
             {
-                $match: {
-                    averageScore: reviewMatch
-                }
+                $match: reviewMatch
             }
 
         ])
@@ -122,7 +122,6 @@ module.exports = {
     async getMovies(searchParams) {
         searchParams.validate()
         const match = await generateMovieMatch(searchParams.movieFilter)
-        console.log(match)
         const movies = await Movie.aggregate([
             {
                 $match: match
@@ -136,27 +135,24 @@ module.exports = {
         for(let movie of movies){
             moviesIds.push(movie._id)
         }
-        const matchReview = generateReviewMatchByMovies(moviesIds)
+        const matchReview = generateReviewMatchGroupByMovies(moviesIds)
         const reviews = await Review.aggregate([
             {
-                $match: {
-                    movie: matchReview
-                }
+                $match: matchReview
             },
             {
                 $group: {
-                _id: '$movie',
-                averageScore: {$avg: "$score"}
+                    _id: '$movie',
+                    averageScore: {$avg: "$score"}
                 }
             }
-
         ])
         let reviewMap = new Map()
         for(let review of reviews){
-            reviewMap.set(review._id, review.averageScore)
+            reviewMap.set(review._id.toString(), review.averageScore)
         }
         let moviesPopulated = movies.map((movie) =>{
-            let score = reviewMap.get(movie._id)
+            let score = reviewMap.get(movie._id.toString())
             return{
                 _id: movie._id ,
                 title: movie.title ,
