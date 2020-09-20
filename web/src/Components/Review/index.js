@@ -57,7 +57,7 @@ function Review(props) {
               </h5>
             </div>
             <div className={likesClassName}>
-              {props.userId == props.activeUser && (
+              {props.userId == sessionStorage.getItem("_id") && (
                 <DeleteOutlined
                   onClick={() => deleteReview(props.reviewId)}
                   className="delete-button"

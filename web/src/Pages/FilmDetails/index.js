@@ -155,7 +155,6 @@ function FilmDetails() {
                             : reviews.userImgUrl
                         }
                         userId={review.userId}
-                        activeUser={"5f660ce7b1370c2a681999ca"}
                       />
                       <Link to={"/review/" + review._id}>
                         <div className="row expand-row">
