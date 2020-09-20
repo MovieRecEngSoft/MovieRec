@@ -3,6 +3,10 @@ const assert = require('assert')
 const crypt = require('../util/crypt.js')
 const dbErrorHandler = require('../database/error/handler.js')
 const ActivityService = require('./ActivityService')
+const Movie = require('../database/models/Movie')
+const MovieService = require('../services/MovieService.js')
+const MovieFilter = MovieService.MovieFilter
+const SearchParams = MovieService.SearchParams
 
 function getPublicUserData(user) {
     return {
@@ -31,11 +35,8 @@ module.exports = {
     },
 
     async edit(sessionId, userParams){
-        assert(typeof userParams.id === 'string', 'Wrong type of parameter "id".')
-        assert(sessionId.equals(userParams.id), "User cannot delete another user.")
-        const user = await User.findById(userParams.id)
+        const user = await User.findById(sessionId)
         if(userParams.img_path){
-            console.log(userParams.img_path)
             assert(typeof userParams.img_path === 'string', 'Wrong type of parameter "img_path".')
             user.img_path = userParams.img_path
         }
@@ -113,6 +114,28 @@ module.exports = {
         }
 
         return activity
+    },
+
+    async getMoviesHistory(sessionUserId, pageFilter){
+        let movieFilter = new MovieFilter(
+            undefined, undefined, undefined, undefined, undefined, sessionUserId
+        ) 
+        let searchParams = new SearchParams(movieFilter, pageFilter)
+        const movies = await MovieService.getMovies(searchParams)
+        return movies
+    },
+
+    async getRecommendedMovies(sessionUserId){
+        const user = await User.findById(sessionUserId)
+        let movieIds = []
+        for(movieId of user.recommended_movies){
+            movieIds.push(movieId)
+        }
+        let movies = []
+        if(movieIds){
+            movies = await Movie.find({_id : {$in: movieIds}})
+        }
+        return movies
     },
 
     getUserSessionData(user) {

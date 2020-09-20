@@ -8,12 +8,13 @@ const SCORE_MIN = 0
 const SCORE_MAX = 10
 
 class MovieFilter {
-    constructor(names, genres,date_gte, date_lt, score){
+    constructor(names, genres,date_gte, date_lt, score, userId){
         this.names = names
         this.genres = genres
         this.date_gte = date_gte
         this.date_lt = date_lt
         this.score = score
+        this.userId = userId
     }   
 
     validate(){
@@ -81,11 +82,22 @@ function generateReviewMatchByScore(score){
     return reviewMatch
 }
 
+function generateReviewMatchByUser(userId){
+    reviewMatch = {}
+    if(userId)
+        reviewMatch.user = userId
+    return reviewMatch
+}
+
 async function generateMovieMatch(movieFilter){
     let match = {}
-    if(movieFilter.score){
+    if(movieFilter.score || movieFilter.userId){
+        const reviewBeforGroupMatch = generateReviewMatchByUser(movieFilter.userId)
         const reviewMatch = generateReviewMatchByScore(movieFilter.score)
         const reviews = await Review.aggregate([
+            {
+                $match: reviewBeforGroupMatch
+            },
             {
                 $group: {
                     _id: '$movie',
@@ -165,10 +177,7 @@ module.exports = {
                 title: movie.title ,
                 poster_path: movie.poster_path ,
                 release_date: movie.release_date ,
-                overview: movie.overview ,
                 genres: movie.genres ,
-                id_tmdb: movie.id_tmdb ,
-                recommended_movies: movie.recommended_movies,
                 score: score ? score : null
             }
         })

@@ -9,13 +9,13 @@ module.exports = {
     async getMovies(request, response) {
         try{
             let genres = request.query.genres ? request.query.genres.split(' ') : undefined
-            
             let movieFilter = new MovieFilter(
                 request.query.names ? request.query.names : undefined,
                 (genres) ? genres.map((genre) => {return parseInt(genre)}) : undefined,
                 request.query.date_gte ? new Date(request.query.date_gte) : undefined,
                 request.query.date_lt ? new Date(request.query.date_lt) : undefined,
-                request.query.score? parseInt(request.query.score) : undefined
+                request.query.score? parseInt(request.query.score) : undefined,
+                undefined
             ) 
             let pageFilter = new PageFilter(
                 request.query.page? parseInt(request.query.page): undefined,
