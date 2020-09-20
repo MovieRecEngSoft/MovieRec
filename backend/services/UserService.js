@@ -1,4 +1,5 @@
 const User = require('../database/models/User')
+const Follow = require('../database/models/Follow')
 const assert = require('assert')
 const crypt = require('../util/crypt.js')
 const dbErrorHandler = require('../database/error/handler.js')
@@ -69,46 +70,51 @@ module.exports = {
     },
 
     async toggleFollow(userFollowingId, userToFollowId) {
-        const userFollowing = await User.findById(userFollowingId)
-        assert(!userFollowing._id.equals(userToFollowId), "User can't follow itself.")
+        assert(userFollowingId !== userToFollowId, "User can't follow itself.")
+        let follow = await Follow.findOne({ userFollowing: userFollowingId, userFollowed: userToFollowId })
 
-        const followIndex = userFollowing.following.indexOf(userToFollowId)
-        if (followIndex === -1) {
-            userFollowing.following.push(userToFollowId)
+        if (follow === null) {
+            follow = new Follow({ userFollowing: userFollowingId, userFollowed: userToFollowId })
+            return follow.save()
         } else {
-            userFollowing.following.splice(followIndex, 1)
+            return Follow.deleteOne({ userFollowing: userFollowingId, userFollowed: userToFollowId })
         }
-
-        return userFollowing.save()
     },
 
     async getProfile(userId, sessionUserId = null) {
         const user = await User.findById(userId)
         const userData = getPublicUserData(user)
-        const userActivity = await ActivityService.getUserActivities(userId)
 
         if (sessionUserId && userId !== sessionUserId) {
-            const sessionUser = await User.findById(sessionUserId)
-            const followIndex = sessionUser.following.indexOf(userId)
-            userData.userIsFollowing = followIndex !== -1
+            const follow = await Follow.findOne({ userFollowing: sessionUserId, userFollowed: userId })
+            userData.userIsFollowing = follow !== null
         } else {
             userData.userIsFollowing = false
         }
 
-        userData.activities = userActivity || []
+        const following = await Follow.find({ userFollowing: userId })
+        const followers = await Follow.find({ userFollowed: userId })
+
+        userData.numFollowing = following.length
+        userData.numFollowers = followers.length
 
         return userData
+    },
+
+    async getUserActivity(userId) {
+        const userActivity = await ActivityService.getUserActivities(userId)
+        return userActivity || []
     },
 
     async getFollowingActivity(sessionUserId = null) {
         if (!sessionUserId) {
             return []
         }
-        const user = await User.findById(sessionUserId)
-        const followingUsers = user.following
+        const follows = await Follow.find({ userFollowing: sessionUserId })
+        const followingUsers = follows.map(follow => follow.userFollowed)
         let activity = []
 
-        if (Array.isArray(followingUsers) && followingUsers.length > 0) {
+        if (followingUsers.length > 0) {
             activity = await ActivityService.getUsersActivities(followingUsers)
         }
 
@@ -119,7 +125,7 @@ module.exports = {
         let movieFilter = new MovieFilter(
             undefined, undefined, undefined, undefined, undefined,
             sessionUserId, undefined
-        ) 
+        )
         let searchParams = new SearchParams(movieFilter, pageFilter)
         const movies = await MovieService.getMovies(searchParams)
         return movies
@@ -136,7 +142,7 @@ module.exports = {
             let movieFilter = new MovieFilter(
                 undefined, undefined, undefined, undefined, undefined,
                 undefined, moviesIds
-            ) 
+            )
             let searchParams = new SearchParams(movieFilter, pageFilter)
             movies = await MovieService.getMovies(searchParams)
         }
