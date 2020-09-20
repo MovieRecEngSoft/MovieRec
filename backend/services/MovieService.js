@@ -21,10 +21,11 @@ class MovieFilter {
         assert(!this.genres || typeof this.genres === 'object', 'Wrong type of parameter "genres".')
         assert(!this.date || typeof this.date_lte === 'object', 'Wrong type of parameter "date".')
         assert(!this.date || typeof this.date_gte === 'object', 'Wrong type of parameter "date".')
-        if(this.score)
+        if(this.score){
             assert(typeof this.score === 'number', 'Wrong type of parameter "score".')
             assert(this.score >= SCORE_MIN && this.score <= SCORE_MAX,
                 'Parameter "score" must be between ' + SCORE_MIN + ' and ' + SCORE_MAX + '.')
+        }
     }
     
 }

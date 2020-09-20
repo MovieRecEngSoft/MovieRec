@@ -44,7 +44,7 @@ routes.post('/logout', (request, response) => {
 
 routes.get('/genres', GenreController.index)
 
-routes.get('/movies', MovieController.index)
+routes.get('/movies', MovieController.getMovies)
 routes.get('/movie', MovieController.getMovie)
 
 routes.get('/review', ReviewController.getReview)

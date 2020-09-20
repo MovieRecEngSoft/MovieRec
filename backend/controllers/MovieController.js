@@ -6,7 +6,7 @@ const SearchParams = MovieService.SearchParams
 
 module.exports = {
 
-    async index(request, response) {
+    async getMovies(request, response) {
         try{
             let genres = request.query.genres ? request.query.genres.split(' ') : undefined
             
