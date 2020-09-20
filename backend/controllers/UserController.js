@@ -83,6 +83,24 @@ module.exports = {
         }
     },
 
+    async getUserActivity(request, response) {
+        try {
+            assert(request.query.userId, 'Missing parameter "userId".')
+
+            const userId = request.query.userId
+
+            const activity = await UserService.getUserActivity(userId)
+
+            return response.json(activity)
+        } catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
+    },
+
     async getFollowingActivity(request, response) {
         try {
             const sessionUserId = request.user ? request.user._id : null
