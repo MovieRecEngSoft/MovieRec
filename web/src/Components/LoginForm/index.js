@@ -2,41 +2,51 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import { Form, Checkbox } from "antd";
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useHistory } from "react-router-dom";
+import { withRouter } from "react-router";
 
 import "./styles.css";
 import Input from "../Input";
 import Button from "../Button";
 
 const LoginForm = (props) => {
+    let history = useHistory()
 
-  const [email, setEmail] = useState("nm");
-    const [password, setPassword] = useState("pss");
-
-    // const onFinish = (values) => {
-    //     console.log(values);
-    // };
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const HandleLogin = () => {
       let API_URL = 'http://localhost:3333/login';
-      axios.post(API_URL, {
-        username: email,
-        password: password
-      })
+
+      // const instance = axios.create({
+      //   withCredentials: true
+      // })
+
+      // instance.post(API_URL, { username: email, password: password }, )
+      // .then(response => {
+      //   if (response.status == 204) {
+      //     //NICE
+      //     history.push('/');
+      //   } else {
+      //     const error = new Error(response.error);
+      //     throw error;
+      //   }
+      // })
+      // .catch(err => {console.error(err);alert('Error logging in. Please try again');});
+
+      axios.post(API_URL, { username: email, password: password }, { withCredentials: true })
       .then(response => {
-        if (response.status == 200) {
+        if (response.status == 204) {
           //NICE
-          // this.props.history.push('/');
+          history.push('/');
         } else {
           const error = new Error(response.error);
           throw error;
         }
       })
-      .catch(err => {
-        console.error(err);
-        alert('Error logging in. Please try again');
-      });
-
+      .catch(err => {console.error(err);alert('Error logging in. Please try again');});
+        
+      
     }
 
     const layout = {
@@ -65,7 +75,6 @@ const LoginForm = (props) => {
           <Form
             {...layout}
             name="nest-messages"
-            // onFinish={onFinish}
             validateMessages={validateMessages}
           >
             <h1 className="form-title">{props.title}</h1>
