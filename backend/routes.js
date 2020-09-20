@@ -62,5 +62,6 @@ routes.post('/user', UserController.register)
 routes.patch('/user', checkAuthentication, UserController.edit)
 routes.post('/user/follow', checkAuthentication, UserController.toggleFollow)
 routes.get('/user/followingActivity', UserController.getFollowingActivity)
+routes.get('/user/moviesHistory', UserController.getMoviesHistory)
 
 module.exports = routes

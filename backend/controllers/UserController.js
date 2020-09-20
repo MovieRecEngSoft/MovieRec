@@ -1,6 +1,7 @@
 const UserService = require('../services/UserService.js')
 const assert = require('assert')
 const dbErrors = require('../database/error/errors.js')
+const PageFilter = require('../services/MovieService.js').PageFilter
 
 module.exports = {
 
@@ -25,11 +26,9 @@ module.exports = {
     async edit(request, response){
         try{
             assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
-            assert(request.body.id, 'Missing parameter "id".')
             assert(request.body.img_path || request.body.description, 'Missing user parameters for updating.')
             const sessionId = request.user._id
             userParams = {
-                id: request.body.id,
                 img_path: request.body.img_path,
                 description: request.body.description
             }
@@ -93,6 +92,26 @@ module.exports = {
             return response.json(activity)
         } catch(error) {
             response.status(500).send(error.toString())
+        }
+    },
+
+    async getMoviesHistory(request, response){
+        try {
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
+            const userId = request.user._id
+            let pageFilter = new PageFilter(
+                request.query.page? parseInt(request.query.page): undefined,
+                request.query.limit? parseInt(request.query.limit): undefined
+            )
+            const movies = await UserService.getMoviesHistory(userId, pageFilter);
+            return response.json(movies)
+        }
+        catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
         }
     },
 
