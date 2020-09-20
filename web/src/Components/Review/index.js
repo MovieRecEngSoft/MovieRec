@@ -23,7 +23,9 @@ function Review(props) {
             <div className="row space">
               <div>
                 <span>Review by </span>{" "}
-                <strong className="reviewer">{props.author}</strong>
+                <Link to={"/profile/activity?id=" + props.userId}>
+                  <strong className="reviewer">{props.author}</strong>
+                </Link>
               </div>
               <div className="likes">
                 <p>{props.likes}</p>
