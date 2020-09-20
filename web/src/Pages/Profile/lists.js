@@ -22,8 +22,8 @@ function ProfileLists() {
       <Menu /> 
       <div class="wrapper">
         <div class="profile-block">
-          
-            <ProfileHeader/>
+
+            <ProfileHeader activeSection={1} />
           
             <div class="listsection">
               <div class="carousel-wrapper">

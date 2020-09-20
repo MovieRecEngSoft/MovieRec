@@ -11,16 +11,13 @@ import ProfileHeader from './header.js';
 // para catalogar filmes de algum tópico e compartilhar com outras pessoas.
 
 function ProfileActivity() {
-  const Follow = () => {
-    alert('Follow');
-  };
 
   return (
     <>
       <Menu /> 
       <div class="wrapper">
         <div class="profile-block">
-          <ProfileHeader/>
+          <ProfileHeader activeSection={0}/>
           <Feed/>
         </div>
       </div>

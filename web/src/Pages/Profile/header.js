@@ -10,10 +10,57 @@ import { Link } from "react-router-dom";
 // Como usuário, eu quero construir listas de filmes, públicas ou secretas, 
 // para catalogar filmes de algum tópico e compartilhar com outras pessoas.
 
-function ProfileHeader() {
-  const Follow = () => {
+const ProfileHeader = ({activeSection}) => {
+
+  const [name, setName] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [background, setBackground] = useState("");
+  const [description, setDescription] = useState("");
+  const [followers, setFollowers] = useState(""); 
+  const [following, setFollowing] = useState(""); 
+
+  const fetchData  = async () => {
+    let API_URL = `localhost:3333`;
+
+    try {
+      //fetch 
+        //avatar
+        //description
+        //name
+        //background
+        //following
+        //followers
+    } catch (error) {}
+  }
+
+  const HandleFollow = () => {
+    //req follow
     alert('Follow');
   };
+
+  const HandleUnfollow = () => {
+    //req unfollow
+    alert('Follow');
+  };
+
+  function GetActiveSection(val,val2){
+    if(val == val2){return('activesection')}
+  }
+  
+  function InteractionInfo(props){
+    //self
+    return(
+     <div class="grey-button">Edit</div> 
+    )
+    //not following
+    return(
+      <div class="red-button" onClick={HandleFollow}>Follow</div>
+    )
+    //following
+    return(
+     <div class="grey-button" onClick={HandleUnfollow} >Unfollow</div> 
+    )
+  }
 
   return (
     <>      
@@ -24,9 +71,7 @@ function ProfileHeader() {
           </div>
           <div class="bkground">
           </div>
-          <div class="red-button" onClick={Follow}>Follow</div>
-          {/* <div class="grey-button">Unfollow</div> */}
-          {/* <div class="grey-button">Edit</div> */}
+          {InteractionInfo()}
         </div>
         <div class="pfsection txtsection">
           <div class="txtblk1">
@@ -49,12 +94,12 @@ function ProfileHeader() {
           </div>
         </div>
         <div class="switchsection">
-          <div class="activesection">
+          <div class={GetActiveSection(0,activeSection)}>
             <Link to="/profile/activity">
               <span>ACTIVITY</span>
             </Link>
           </div>
-          <div>
+          <div class={GetActiveSection(1,activeSection)}>
             <Link to="/profile/lists">
               <span>LISTS</span>
             </Link>

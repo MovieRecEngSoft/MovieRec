@@ -27,7 +27,6 @@ function ProfileEditor() {
         //name
         //background
 
-
     //     const result_all = await axios.get(`${API_URL}/movies`);
     //     aux.push(createCategory("All movies", result_all.data));
 
