@@ -1,5 +1,7 @@
 const Movie = require('../database/models/Movie')
+const Review = require('../database/models/Review')
 const assert = require('assert')
+const { compareSync } = require('bcrypt')
 
 class MovieFilter {
     constructor(name, genres, date, score){
@@ -39,7 +41,45 @@ module.exports = {
     SearchParams: SearchParams,
 
     async getMovies(searchParams) {
-        const movies = await Movie.paginate({}, searchParams.pageFilter)
+
+        // id = {_id: { $in : ids}}
+        const reviews = await Review.aggregate([
+            {
+                $group: {
+                  _id: '$movie',
+                  averageScore: {$avg: "$score"}
+                }
+            },
+            {
+                $match: {
+                    averageScore: {$gt: 8}
+                }
+            }
+
+        ])
+        let reviewsIds = []
+        for(review of reviews){
+            reviewsIds.push(review._id)
+        }
+        console.log(reviewsIds)
+        // const movies = await Movie.aggregate([
+        //     {
+        //         $match: {
+        //             _id: {$in: reviewsIds}
+        //         }
+        //     },
+        //     {
+        //         $lookup:
+        //            {
+        //               from: "members",
+        //               localField: "enrollmentlist",
+        //               foreignField: "name",
+        //               as: "enrollee_info"
+        //           }
+        //      }
+        // ])
+        // const movies = await Movie.paginate({}, searchParams.pageFilter)
+        const movies = await Movie.findById(reviewsIds[0]).exec()
         return movies
     }
 
