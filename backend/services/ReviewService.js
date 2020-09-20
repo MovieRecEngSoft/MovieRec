@@ -7,6 +7,7 @@ function formatReview(review, sessionUserId = null) {
         _id: review._id,
         text: review.text,
         score: review.score,
+        userId: review.user._id,
         username: review.user.name,
         userImgUrl: review.user.img_path,
         likes: review.likes.length,
