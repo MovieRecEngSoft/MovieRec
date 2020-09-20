@@ -8,19 +8,19 @@ const SCORE_MIN = 0
 const SCORE_MAX = 10
 
 class MovieFilter {
-    constructor(names, genres,date_gte, date_lte, score){
+    constructor(names, genres,date_gte, date_lt, score){
         this.names = names
         this.genres = genres
         this.date_gte = date_gte
-        this.date_lte = date_lte
+        this.date_lt = date_lt
         this.score = score
     }   
 
     validate(){
         assert(!this.names || typeof this.names === 'string', 'Wrong type of parameter "names".')
         assert(!this.genres || typeof this.genres === 'object', 'Wrong type of parameter "genres".')
-        assert(!this.date || typeof this.date_lte === 'object', 'Wrong type of parameter "date".')
-        assert(!this.date || typeof this.date_gte === 'object', 'Wrong type of parameter "date".')
+        assert(!this.date_lt || typeof this.date_lt === 'object', 'Wrong type of parameter "date".')
+        assert(!this.date_gte || typeof this.date_gte === 'object', 'Wrong type of parameter "date".')
         if(this.score){
             assert(typeof this.score === 'number', 'Wrong type of parameter "score".')
             assert(this.score >= SCORE_MIN && this.score <= SCORE_MAX,
@@ -110,12 +110,12 @@ async function generateMovieMatch(movieFilter){
     if(movieFilter.genres){
         match.genres = {$in: movieFilter.genres}
     }
-    if(movieFilter.date_gte || movieFilter.date_lte){
-        match.date = {}
+    if(movieFilter.date_gte || movieFilter.date_lt){
+        match.release_date = {}
         if(movieFilter.date_gte)
-            match.date.$gte = movieFilter.date_gte
-        if(movieFilter.date_lte)
-            match.date.$lte = movieFilter.date_lte
+            match.release_date.$gte = movieFilter.date_gte
+        if(movieFilter.date_lt)
+            match.release_date.$lt = movieFilter.date_lt
     }
     return match
 }
