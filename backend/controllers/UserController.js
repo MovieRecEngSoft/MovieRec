@@ -19,7 +19,7 @@ module.exports = {
             else{
                 response.status(500).send(error.toString())
             }
-        } 
+        }
     },
 
     async edit(request, response){
@@ -42,7 +42,21 @@ module.exports = {
             else{
                 response.status(500).send(error.toString())
             }
-        } 
+        }
+    },
+
+    async getUserSession(request, response) {
+        try {
+            let sessionData = {
+                authenticated: request.isAuthenticated()
+            }
+            if (request.isAuthenticated()) {
+                sessionData.user = UserService.getUserSessionData(request.user)
+            }
+            return response.status(200).send(sessionData)
+        } catch(error) {
+            response.status(500).send(error.toString())
+        }
     }
 
 }

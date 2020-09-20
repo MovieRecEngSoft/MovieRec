@@ -56,6 +56,14 @@ module.exports = {
 
     async validadatePassword(user, password){
         return await crypt.compare(password, user.password)
+    },
+
+    getUserSessionData(user) {
+        return {
+            name: user.name,
+            description: user.description,
+            img_path: user.img_path,
+        }
     }
 
 }

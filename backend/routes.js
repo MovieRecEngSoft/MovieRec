@@ -26,6 +26,8 @@ function checkNotAuthentication(request, response, next){
     }
 }
 
+routes.get("/session", UserController.getUserSession)
+
 routes.post('/login', checkNotAuthentication, authenticator.authenticate('local'),
     (request, response) => {response.sendStatus(204)}
 )
