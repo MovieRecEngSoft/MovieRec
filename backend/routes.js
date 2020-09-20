@@ -67,6 +67,8 @@ routes.get('/user/followingActivity', UserController.getFollowingActivity)
 routes.get('/user/moviesHistory', UserController.getMoviesHistory)
 routes.get('/user/recommendedMovies', UserController.getRecommendedMovies)
 
+routes.get('/movieLists', MovieListController.getMovieLists)
+routes.get('/movieList', MovieListController.getMovieListMovies)
 routes.put('/movieList', MovieListController.addMovieList)
 routes.put('/movieList/movie', MovieListController.addMovieToMovieList)
 
