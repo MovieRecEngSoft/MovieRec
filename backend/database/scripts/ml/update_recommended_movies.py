@@ -84,5 +84,5 @@ for row in tqdm(df.itertuples(name=None), position=0, leave=True):
         print(e)
         break
 else:
-    print("Error updating database. Operation terminated early.")
+    print("Database updated successfully.")
 print("Done.")
