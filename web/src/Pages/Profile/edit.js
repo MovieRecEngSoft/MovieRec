@@ -1,4 +1,6 @@
-import React from "react";
+
+import React, { useState } from "react";
+import axios from "axios";
 
 import './styles.css';
 import Menu from "../../Components/Menu";
@@ -10,12 +12,44 @@ import { Link } from "react-router-dom";
 
 function ProfileEditor() {
 
-  const uploadBackground = () => {
-    alert('UP BG');
-  };
+  const [name, setName] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [background, setBackground] = useState("");
+  const [description, setDescription] = useState("");
 
-  const uploadAvatar = () => {
-    alert('UP AV');
+  const fetchData  = async () => {
+    let API_URL = `localhost:3333`;
+
+    try {
+      //fetch 
+        //avatar
+        //description
+        //name
+        //background
+
+
+    //     const result_all = await axios.get(`${API_URL}/movies`);
+    //     aux.push(createCategory("All movies", result_all.data));
+
+    //     const result_recom = await axios.get(`${API_URL}/user/recommended_movies`);
+    //     aux.push(createCategory("Recommended for you", result_recom.data));
+
+    //     setCategories(aux);
+    } catch (error) {}
+  }
+
+  fetchData();
+
+  const handleSubmit = async () => {
+    // alert(`:: ${description}`)
+
+    let API_URL = `localhost:3333`;
+
+    try {
+      //post avatar change
+      //post background change
+      //post description change
+    }catch(error){}
   };
 
   return (
@@ -33,7 +67,7 @@ function ProfileEditor() {
               <span class="grayed">PREVIEW
               </span>
             </div>
-          </div>
+          </div>          
 
           <div class="pfsection imgsection">
             <div class="pfimgblock">
@@ -42,51 +76,33 @@ function ProfileEditor() {
             <div class="bkground">
             </div>
           </div>
+          
+          <input class="hidden" accept="image/*" id="contained-button-file" type="file" onChange={e => setAvatar(e.target.value)}/>
+          <label class="red-button upload-avatar" for="contained-button-file">Upload</label>
 
-          <div class="red-button upload-avatar" onClick={uploadAvatar}>Upload</div>
-          <div class="red-button upload-background" onClick={uploadBackground}>Upload</div>
+          <input class="hidden" accept="image/*" id="contained-button-file" type="file" onChange={e => setBackground(e.target.value)}/>
+          <label class="red-button upload-background" for="contained-button-file">Upload</label>
 
           <div class="pfsection txtsection">
             <div class="txtblk1">
               <span>Rusro</span>
             </div>
 
-            {/* <div class="txtblk2">
-              <span class="grayed">EDIT YOUR DESCRIPTION
-              </span>
-            </div> */}
-
-            <div class="txtblk2 edit-section" contentEditable="true">
-              <span>
+            <div class="txtblk2 edit-section" contentEditable="true" onInput={e => setDescription(e.target.textContent)}>
               #Android is (not) made for everyone. Follow along for the latest updates and stories behind our tech. Questions? Get assistance by using #AndroidHelp.
-              </span>
             </div>
-          </div>
+          </div>   
           
-          {/* <div class="pfsection">
-            <div class="timeline-node">
-              <div class="avatar-box">
-                <div>
-                  <a>
-                    <img class="avatar-miniature" src="https://i.imgur.com/UctWXrz.png" />
-                  </a>
-                </div>
-              </div>
-              <div class="content-box">
-                <div class="pre-textual">
-                  <span>Rusro</span>
-                  <span class="action">is editing their profile</span>
-                </div>
-                <div class="text-content">
-                  Sample text.
-                </div>
-              </div>
-            </div>            
-          </div> */}
-          
-            <Link to="/profile/activity">
-              <Button type="button" htmlType="submit" name="APPLY" />
-            </Link>
+            {/* <Link to="/profile/activity"> */}
+              <button
+              className="button"
+              type="button"
+              onClick={handleSubmit}
+              htmlType="submit"
+              name="Apply">
+                APPLY
+              </button>
+            {/* </Link> */}
         </div>
       </div>
     </>
