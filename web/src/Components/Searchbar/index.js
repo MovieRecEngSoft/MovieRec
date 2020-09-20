@@ -5,6 +5,11 @@ import { UserOutlined } from "@ant-design/icons";
 import './styles.css';
 
 function SearchBar() {
+  
+  const HandleSearch = () =>{
+
+  }
+
   return (
     <nav className="search-bar-nav">
       <form action="" class="search-bar">
