@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 import './styles.css';
 import { Link, useParams } from "react-router-dom";
@@ -21,18 +22,43 @@ const ProfileLists = (props) => {
   
   let { id } = useParams();
 
-  function ExtractProfileLists(props){
-    // return Object.keys(props).map((key) => {
-    //   return(
-    //     <div class="listsection">
-    //       <div class="carousel-wrapper">
-    //         <Carousel category={movies.categorias[0]} />
-    //         {/* <Carousel category={props.?} /> */}
-    //       </div>
-    //     </div>
-    //   )
-    // }); 
-  }
+  // ALTERNATIVE USING FETCH
+  // const HandleListsFetch = () => {
+  //   let API_URL = 'http://localhost:3333/movieLists';
+  //   fetch(API_URL, {
+  //     method: "GET",
+  //     credentials: "include",
+  //     headers: {
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/json'
+  //     }
+  //   }).then(response => response.json())
+  //   .then(response => {
+  //       if (response.status > 300) {
+  //         const error = new Error(response.error);
+  //         throw error;
+  //       } else {
+  //         console.log("LISTS RRR")
+  //         console.log(response)
+  //       }
+  //     })
+  //     .catch(err => {console.error(err);alert('Error logging out. Please try again');});   
+  // }
+  // HandleListsFetch()
+
+  const [ListsInfo, setListsInfo] = useState([]);
+  useEffect(() => {
+    const fetchActivity = async () => {
+      try {
+        let ListsInfoAux = {};
+        console.log(props)
+          let API_URL = `http://localhost:3333/movieLists`;
+          const result = await axios.get(API_URL,{withCredentials: true});
+          setListsInfo(result.data);
+      } catch (error) {}
+    };
+    fetchActivity();
+  }, []);
 
   return (
     <>
@@ -40,7 +66,16 @@ const ProfileLists = (props) => {
       <div class="wrapper">
         <div class="profile-block">
         <ProfileHeader activeSection={1} userId={id}/>
-            {ExtractProfileLists(props)}
+          {ListsInfo.map((list, index) => {
+            return (
+              <div class="listsection">
+                <div class="carousel-wrapper">
+                  <Carousel category={movies.categorias[0]} />
+                  {/* <Carousel category={list.?} /> */}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </>
