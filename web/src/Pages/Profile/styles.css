@@ -83,7 +83,7 @@
     width: 120px;
     height: 120px;
     border-radius: 60px;
-    background: #91ff00;
+    background: #1c1b1f;
     margin: 0px;
 }
 
@@ -206,4 +206,15 @@
 
 .hidden {
     display: none;
+}
+
+.select-list {
+    display: flex;
+    right: 15px;
+    position: absolute;
+}
+
+.add-list {
+    margin-right: 15px;
+    margin-left: 15px;
 }

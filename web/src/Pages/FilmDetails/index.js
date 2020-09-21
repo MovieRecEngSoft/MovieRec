@@ -39,7 +39,6 @@ function FilmDetails() {
   }
   
   function addToList(listName, movieId){
-    console.log("------> " + movieId)
     fetch("http://localhost:3333/movieList/movie", {
       method: "PUT",
       credentials: "include",
@@ -71,7 +70,6 @@ function FilmDetails() {
 
         const result = await axios.get(`${API_URL}/movie/?id=${id}`);
         movieAux = result.data;
-        console.log(movieAux);
 
         setMovie(movieAux);
       } catch (error) {}
@@ -85,7 +83,7 @@ function FilmDetails() {
   if(!(movie.poster_path === undefined)){
     image = checkIfUrlExists(getImageAddress(movie.poster_path))
       ? getImageAddress(movie.poster_path)
-      : "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX3851270.jpg";
+      : "https://pngimage.net/wp-content/uploads/2018/06/image-not-available-png-5.png";
   }
 
   let year = "";
@@ -134,10 +132,6 @@ function FilmDetails() {
 
     fetchLists();
   }, []);
-
-  console.log("+++++++");
-  console.log(lists);
-  console.log("+++++++");
   
   function onScoreChange(event) {
     const value = event.target.value;
@@ -167,11 +161,10 @@ function FilmDetails() {
               <div className="row add-to-list">
                 <select
                   value={select}
-                  onInput={(e) => setSelect(e.target.value)}>
+                  onChange={(e) => setSelect(e.target.value)}>
                   {lists.map((list, index) => {
                     return <option key={index}>{list.name}</option>;
-                  })}
-                  ;
+                  })};
                 </select>
                 <span>
                   <PlusOutlined
@@ -225,7 +218,7 @@ function FilmDetails() {
                 </div>
               </Card>
 
-              {reviews.slice(0).map((review, index) => {
+              {reviews.map((review, index) => {
                 return (
                   <Card key={index}>
                     <Review

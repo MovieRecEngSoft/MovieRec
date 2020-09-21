@@ -54,8 +54,8 @@ function Review(){
   let image;
   if(review.moviePosterPath)
   image = checkIfUrlExists(getImageAddress(review.moviePosterPath))
-  ? getImageAddress(review.moviePosterPath)
-  : "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX3851270.jpg";
+    ? getImageAddress(review.moviePosterPath)
+    : "https://pngimage.net/wp-content/uploads/2018/06/image-not-available-png-5.png";
 
 
   const [input, setInput] = useState("");

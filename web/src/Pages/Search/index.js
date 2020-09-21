@@ -73,33 +73,38 @@ function Search() {
         </div>
       
         <div class="result-block">
-          {ResultList.map((result,index)=>{return(
-
+          {ResultList.map((result,index)=>{return (
             <div class="result-node">
               <div class="movie-box">
-              <Link to={`/movie/${result._id}`}>
-                  <img class="movie-img" src={ checkIfUrlExists(getImageAddress(result.poster_path)) ? getImageAddress(result.poster_path): "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX3851270.jpg"} />
-                </Link> 
+                <Link to={`/movie/${result._id}`}>
+                  <img
+                    class="movie-img"
+                    src={
+                      checkIfUrlExists(getImageAddress(result.poster_path))
+                        ? getImageAddress(result.poster_path)
+                        : "https://pngimage.net/wp-content/uploads/2018/06/image-not-available-png-5.png"
+                    }
+                  />
+                </Link>
               </div>
               <div class="content-box">
                 <Card>
                   <h2 className="film-title">
                     <strong>{result.title}</strong>
                   </h2>
-                    {FormatDate(result.release_date)}
-                  <h3 className="film-details">{ (result.score != null) ? result.score : "-"}</h3>
+                  {FormatDate(result.release_date)}
+                  <h3 className="film-details">
+                    {result.score != null ? result.score : "-"}
+                  </h3>
                   <div class="film-result-genres">
-                    {result.genres.map((genre, key)=>{
-                      return(
-                        <span>{genre.name} </span>
-                      )
+                    {result.genres.map((genre, key) => {
+                      return <span>{genre.name} </span>;
                     })}
                   </div>
                   <br />
                 </Card>
               </div>
             </div>
-
           );})}
         </div>
       </div>
