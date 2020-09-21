@@ -29,8 +29,13 @@ function FilmDetails() {
         score: score,
         text: input,
       }),
-    });
-    window.location.reload(false);
+    })
+      .then((response) => {
+        window.location.reload(false);
+      })
+      .catch((response) => {
+        // Error
+      });
   }
     
   let { id } = useParams();
@@ -139,10 +144,9 @@ function FilmDetails() {
 
               {reviews
                 .slice(0)
-                .reverse()
                 .map((review, index) => {
                   return (
-                    <Card>
+                    <Card key={index}>
                       <Review
                         reviewId={review._id}
                         type="review-item"
@@ -155,7 +159,6 @@ function FilmDetails() {
                             : reviews.userImgUrl
                         }
                         userId={review.userId}
-                        activeUser={"5f660ce7b1370c2a681999ca"}
                       />
                       <Link to={"/review/" + review._id}>
                         <div className="row expand-row">

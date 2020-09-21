@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from "react-router-dom";
 import { LikeOutlined, DeleteOutlined } from "@ant-design/icons";
 import './styles.css';
 
@@ -38,26 +38,33 @@ function Review(props) {
       body: JSON.stringify({
         reviewId: reviewId,
       }),
+    }).then(response => {
+      window.location.reload(false);
+    }).catch(response => {
+      // Error
     });
-    window.location.reload(false);
   }
 
   return (
     <>
       <div className="row">
         <div className="col">
-          <img className="avatar" src={props.avatar} />
+          <Link to={"/profile/activity/"+props.userId}>
+            <img className="avatar" src={props.avatar} />
+          </Link>
         </div>
         <div className="col">
           <div className="row">
             <div>
               <h5>
                 <span>Review by </span>{" "}
-                <strong className="reviewer">{props.author}</strong>
+                <Link to={"/profile/activity/"+props.userId}>
+                  <strong className="reviewer">{props.author}</strong>
+                </Link>
               </h5>
             </div>
             <div className={likesClassName}>
-              {props.userId == props.activeUser && (
+              {props.userId == sessionStorage.getItem("_id") && (
                 <DeleteOutlined
                   onClick={() => deleteReview(props.reviewId)}
                   className="delete-button"

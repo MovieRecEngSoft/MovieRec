@@ -145,7 +145,12 @@ function formatMovie(movie, score){
         title: movie.title ,
         poster_path: movie.poster_path ,
         release_date: movie.release_date ,
-        genres: movie.genres ,
+        genres: movie.genres_data.map((genre) => {
+            return {
+                _id: genre._id,
+                name: genre.name
+            } 
+        }),
         score: score ? score : null
     }
 }
@@ -165,9 +170,16 @@ module.exports = {
             },
             {$sort : {release_date : -1}},
             {$skip : searchParams.pageFilter.skip},
-            {$limit : searchParams.pageFilter.limit}
+            {$limit : searchParams.pageFilter.limit},
+            {
+                $lookup: {
+                    from: 'genres',
+                    localField: 'genres',
+                    foreignField: '_id',
+                    as: 'genres_data'
+                }
+            }
         ])
-
         let moviesIds = []
         for(let movie of movies){
             moviesIds.push(movie._id)
