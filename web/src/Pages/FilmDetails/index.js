@@ -153,6 +153,7 @@ function FilmDetails() {
                         text={review.text}
                         author={review.username}
                         likes={review.likes}
+                        liked={review.userLiked}
                         avatar={
                           !reviews.userImgUrl
                             ? "https://simpleicon.com/wp-content/uploads/user1.png"
