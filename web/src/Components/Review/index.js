@@ -8,12 +8,12 @@ function Review(props) {
   let likesClassName = 'likes';
   let likedClassName = "like-button";
   
-  if(props.type == "review-item"){
+  if(props.type === "review-item"){
     reviewClassName += ' review-item';
     likesClassName += ' right-like';
   }
 
-  if(props.liked == false){
+  if(props.liked === false){
     likedClassName += ' liked';
   }
 
@@ -88,6 +88,7 @@ function Review(props) {
             </div>
           </div>
           <p className={reviewClassName}>{props.text}</p>
+          <span className="score">Given score: {props.score}</span>
         </div>
       </div>
     </>
