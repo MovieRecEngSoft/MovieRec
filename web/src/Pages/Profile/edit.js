@@ -52,18 +52,21 @@ function ProfileEditor() {
 
 
   const handleSubmit = async () => {
-    alert("Handler Activation required")
+    console.log("Handler Activation required")
+    console.log(avatar)
+    console.log(description)
 
-    // let API_URL = 'http://localhost:3333/?';
-    // let errURL  = `/profile/activity/${id}`;
+    let API_URL = 'http://localhost:3333/user';
+    let redirectURL  = `/profile/activity/${id}`;
 
-    // axios.get(API_URL,{description: description, img_path: avatar},{ withCredentials: true })
-    // .then(response => {
-    //   if (response.status == 200) {
-
-    //   }else{const error = new Error(response.error);throw error;}
-    // })
-    // .catch(err => {alert('ERR');history.push(errURL);});
+    axios.patch(API_URL,{description: description, img_path: avatar},{ withCredentials: true })
+    .then(response => {
+      if (response.status == 204) {
+        console.log("GREAT SUCCESS")
+        history.push(redirectURL);
+      }else{const error = new Error(response.error);throw error;}
+    })
+    .catch(err => {alert('ERR'); history.push(redirectURL);});
   };
 
   return (
@@ -91,20 +94,26 @@ function ProfileEditor() {
             </div>
           </div>
           
-          <input class="hidden" accept="image/*" id="contained-button-file" type="file" onChange={e => setAvatar(e.target.value)}/>
+          {/* <input class="hidden" accept="image/*" id="contained-button-file" type="file" onChange={e => setAvatar(e.target.value)}/>
           <label class="red-button upload-avatar" for="contained-button-file">Upload</label>
 
           <input class="hidden" accept="image/*" id="contained-button-file" type="file" onChange={e => setBackground(e.target.value)}/>
-          <label class="red-button upload-background" for="contained-button-file">Upload</label>
+          <label class="red-button upload-background" for="contained-button-file">Upload</label> */}
 
           <div class="pfsection txtsection">
             <div class="txtblk1">
               <span>{profileInfo.name}</span>
             </div>
-
+            <span class="txtblk2">Edit your description below</span>
             <div class="txtblk2 edit-section" contentEditable="true" onInput={e => setDescription(e.target.textContent)}>
               {profileInfo.description}
             </div>
+
+            <span class="txtblk2">Paste your new avatar URL below</span>
+            <div class="txtblk2 edit-section" contentEditable="true" onInput={e => setAvatar(e.target.textContent)}>
+              {profileInfo.description}
+            </div>
+
           </div>   
             <button
               className="button"

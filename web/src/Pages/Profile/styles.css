@@ -73,7 +73,8 @@
     left: 0px;
     z-index: 1;
     background: #0e0c0c;
-    background: url("https://images.alphacoders.com/996/996655.jpg");
+    /* background: url("https://images.alphacoders.com/996/996655.jpg"); */
+    background: #2b294c;
     background-size: cover;
     border-bottom: 1px solid #2e2b38;
 }
@@ -82,7 +83,7 @@
     width: 120px;
     height: 120px;
     border-radius: 60px;
-    background: white;
+    background: #91ff00;
     margin: 0px;
 }
 

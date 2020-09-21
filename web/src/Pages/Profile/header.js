@@ -46,16 +46,6 @@ const ProfileHeader = (props) => {
     axios.post(API_URL,{ userId: props.userId },{ withCredentials: true })
       .then(response => {
         if (response.status == 204) {
-          // console.log(response.data)
-          // console.log(response.data.authenticated)
-          // if(response.data.authenticated == false){ history.push('/login'); return}
-          // else{
-          //   sessionStorage.setItem('_id', response.data.user._id );
-          //   sessionStorage.setItem('name', response.data.user.nam );
-          //   sessionStorage.setItem('img_path', response.data.user.img_path );
-          //   sessionStorage.setItem('description', response.data.user.description );
-          // }
-          // history.push('/profile/activity/${props.userId }')
           window.location.reload(false);
         }else{const error = new Error(response.error);throw error;}
       })
@@ -84,7 +74,7 @@ const ProfileHeader = (props) => {
       <div>
         <div class="pfsection imgsection">
           <div class="pfimgblock">
-            <img class="avatar" src={profileInfo.img_path} />
+            <img class="avatar" src={profileInfo.img_path==undefined ? "https://simpleicon.com/wp-content/uploads/user1.png" :profileInfo.img_path} />
           </div>
           <div class="bkground">
           </div>
