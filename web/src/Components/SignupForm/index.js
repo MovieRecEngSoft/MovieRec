@@ -20,11 +20,11 @@ const SignupForm = ({title}) => {
 
   const HandleRegister = () => {
     alert("No /singUp on Backend");
-    let API_URL = 'http://localhost:3333/signUp';
+    let API_URL = 'http://localhost:3333/user';
 
-    axios.post(API_URL, { username: name, email: email, password: password, confirmPassword: confirmPassword }, { withCredentials: true })
+    axios.post(API_URL, { name: name, email: email, password: password, confirmPassword: confirmPassword }, { withCredentials: true })
     .then(response => {
-      if (response.status == 204) {
+      if (response.status == 201) {
         //NICE
         history.push('/login');
       } else {

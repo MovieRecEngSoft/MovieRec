@@ -73,7 +73,7 @@ const Home = () => {
               </div>
               <div class="nav-block activity">
                 <h1>Recent Activity</h1>
-                <Feed />
+                <Feed scope="followingUsers" userId={sessionStorage.getItem('_id')}/>
               </div>
 
             </div>

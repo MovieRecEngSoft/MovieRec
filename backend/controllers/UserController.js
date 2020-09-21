@@ -103,9 +103,11 @@ module.exports = {
 
     async getFollowingActivity(request, response) {
         try {
-            const sessionUserId = request.user ? request.user._id : null
+            assert(request.query.userId, 'Missing parameter "userId".')
 
-            const activity = await UserService.getFollowingActivity(sessionUserId)
+            const userId = request.query.userId
+            
+            const activity = await UserService.getFollowingActivity(userId)
 
             return response.json(activity)
         } catch(error) {

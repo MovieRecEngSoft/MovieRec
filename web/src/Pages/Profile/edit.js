@@ -106,17 +106,14 @@ function ProfileEditor() {
               {profileInfo.description}
             </div>
           </div>   
-          
-            {/* <Link to="/profile/activity"> */}
-              <button
+            <button
               className="button"
               type="button"
               onClick={handleSubmit}
               htmlType="submit"
               name="Apply">
-                APPLY
-              </button>
-            {/* </Link> */}
+              APPLY
+            </button>
         </div>
       </div>
     </>
