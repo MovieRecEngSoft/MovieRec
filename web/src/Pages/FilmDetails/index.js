@@ -15,7 +15,7 @@ import Review from "../../Components/Review";
 import { Link, useParams } from "react-router-dom";
 
 function FilmDetails() {
-  
+
   function addReview(movieId, score){
     fetch("http://localhost:3333/review", {
       method: "POST",
@@ -37,27 +37,27 @@ function FilmDetails() {
         // Error
       });
   }
-    
+
   let { id } = useParams();
-  
+
   const [movie, setMovie] = useState([]);
   useEffect(() => {
     const fetchMovie = async () => {
       try {
         let movieAux = {};
         let API_URL = `http://localhost:3333`;
-        
+
         const result = await axios.get(`${API_URL}/movie/?id=${id}`);
         movieAux = result.data;
         console.log(movieAux);
-        
+
         setMovie(movieAux);
       } catch (error) {}
     };
-    
+
     fetchMovie();
   }, []);
-  
+
   let image = "";
   if(!(movie.poster_path === undefined)){
     image = checkIfUrlExists(getImageAddress(movie.poster_path))
@@ -91,6 +91,13 @@ function FilmDetails() {
 
   if (reviews === undefined){
     reviews = [];
+  }
+
+  function onScoreChange(event) {
+    const value = event.target.value;
+    if (!value || value < 0 || value > 10) {
+      event.target.value = "";
+    }
   }
 
   const [input, setInput] = useState("");
@@ -132,6 +139,10 @@ function FilmDetails() {
                     className="review-score"
                     placeholder="Score"
                     type="number"
+                    min="0"
+                    max="10"
+                    step="0.1"
+                    onChange={onScoreChange}
                   />
                   <button
                     className="add-comment-button"
