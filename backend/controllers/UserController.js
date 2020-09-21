@@ -153,6 +153,23 @@ module.exports = {
         }
     },
 
+    async delete(request, response){
+        try{
+            assert(request.isAuthenticated(), 'User must be authenticated to execute this operation.')
+            const userId = request.user._id
+            await UserService.delete(userId)
+            request.logOut()
+            return response.sendStatus(204)
+        }
+        catch(error) {
+            if (error instanceof assert.AssertionError)
+                response.status(400).send(error.toString())
+            else {
+                response.status(500).send(error.toString())
+            }
+        }
+    },
+
     async getUserSession(request, response) {
         try {
             let sessionData = {

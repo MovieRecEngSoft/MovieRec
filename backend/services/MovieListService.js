@@ -28,6 +28,13 @@ module.exports = {
         assert(status.deletedCount === 1, 'Movie list ' + name + ' does not exist.')
     },
 
+    async deleteMovieLists(sesionUserId){
+        let filter = {
+            user: sesionUserId
+        }
+        await MovieList.deleteMany(filter)
+    },
+
     async addMovieToMovieList(sesionUserId, name, movieId) {
         assert(typeof name === 'string', 'Wrong type of parameter "name".')
         const movie = await Movie.findById(movieId)
