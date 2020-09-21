@@ -21,7 +21,7 @@ function Carousel({
     }
 
     return (
-      <div style={{ padding: `0 ${chevronWidth}px` }}>
+      <div style={{ width: '100%', padding: `0 ${chevronWidth}px` }}>
         
         <h1>{title}</h1>
         <ItemsCarousel
