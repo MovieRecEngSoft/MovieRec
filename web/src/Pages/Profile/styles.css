@@ -207,3 +207,14 @@
 .hidden {
     display: none;
 }
+
+.select-list {
+    display: flex;
+    right: 15px;
+    position: absolute;
+}
+
+.add-list {
+    margin-right: 15px;
+    margin-left: 15px;
+}
