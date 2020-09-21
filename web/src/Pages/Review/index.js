@@ -121,9 +121,9 @@ function Review(){
                         reviewId={id}
                         commentId={comment._id}
                         avatar={
-                          !review.userImgUrl
+                          !comment.userImgUrl
                             ? "https://simpleicon.com/wp-content/uploads/user1.png"
-                            : review.userImgUrl
+                            : comment.userImgUrl
                         }
                       />
                     </Card>
