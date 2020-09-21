@@ -153,6 +153,10 @@ module.exports = {
     },
 
     async removeUserIterations(userId) {
+        const reviewsToDelete = await Review.find({ user: userId })
+        for (let i = 0; i < reviewsToDelete; i++) {
+            await ActivityService.removeReviewActivity(reviewsToDelete[i]._id)
+        }
         await Review.deleteMany({ user: userId })
         const reviews = await Review.find()
 
