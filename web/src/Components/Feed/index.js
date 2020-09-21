@@ -100,7 +100,7 @@ const Feed = (props) => {
           <div class="feed-node">
             <div class="avatar-box">
               <div>
-                <Link to={`/profile/activity/${activity._id}`}>
+                <Link to={`/profile/activity/${activity.userId}`}>
                   <img class="avatar-miniature" src={ (activity.userImgUrl != "") ? activity.userImgUrl : "https://simpleicon.com/wp-content/uploads/user1.png"} />
                 </Link>
               </div>
