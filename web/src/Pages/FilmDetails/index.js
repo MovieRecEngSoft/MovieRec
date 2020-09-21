@@ -16,7 +16,7 @@ import { Link, useParams } from "react-router-dom";
 
 function FilmDetails() {
 
-  function addReview(movieId, score){
+  function addReview(movieId){
     fetch("http://localhost:3333/review", {
       method: "POST",
       credentials: "include",
@@ -26,7 +26,7 @@ function FilmDetails() {
       },
       body: JSON.stringify({
         movieId: movieId,
-        score: score,
+        score: parseFloat(score),
         text: input,
       }),
     })
@@ -92,14 +92,16 @@ function FilmDetails() {
   if (reviews === undefined){
     reviews = [];
   }
-
+  
   function onScoreChange(event) {
     const value = event.target.value;
+    setScore(event.target.value);
     if (!value || value < 0 || value > 10) {
       event.target.value = "";
     }
   }
-
+  
+  const [score, setScore] = useState("");
   const [input, setInput] = useState("");
 
   return (
@@ -143,43 +145,44 @@ function FilmDetails() {
                     max="10"
                     step="0.1"
                     onChange={onScoreChange}
+                    value={score}
+                    onInput={(e) => setScore(e.target.value)}
                   />
                   <button
                     className="add-comment-button"
-                    onClick={() => addReview(id, 5.5)}
+                    onClick={() => addReview(id, score)}
                   >
                     Add review
                   </button>
                 </div>
               </Card>
 
-              {reviews
-                .slice(0)
-                .map((review, index) => {
-                  return (
-                    <Card key={index}>
-                      <Review
-                        reviewId={review._id}
-                        type="review-item"
-                        text={review.text}
-                        author={review.username}
-                        likes={review.likes}
-                        liked={review.userLiked}
-                        avatar={
-                          !reviews.userImgUrl
-                            ? "https://simpleicon.com/wp-content/uploads/user1.png"
-                            : reviews.userImgUrl
-                        }
-                        userId={review.userId}
-                      />
-                      <Link to={"/review/" + review._id}>
-                        <div className="row expand-row">
-                          <FullscreenOutlined className="expand-icon" />
-                        </div>
-                      </Link>
-                    </Card>
-                  );
-                })}
+              {reviews.slice(0).map((review, index) => {
+                return (
+                  <Card key={index}>
+                    <Review
+                      reviewId={review._id}
+                      type="review-item"
+                      text={review.text}
+                      author={review.username}
+                      likes={review.likes}
+                      liked={review.userLiked}
+                      score={review.score}
+                      avatar={
+                        !review.userImgUrl
+                          ? "https://simpleicon.com/wp-content/uploads/user1.png"
+                          : review.userImgUrl
+                      }
+                      userId={review.userId}
+                    />
+                    <Link to={"/review/" + review._id}>
+                      <div className="row expand-row">
+                        <FullscreenOutlined className="expand-icon" />
+                      </div>
+                    </Link>
+                  </Card>
+                );
+              })}
               <br />
             </div>
           </div>
