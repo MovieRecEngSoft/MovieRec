@@ -11,13 +11,13 @@ import Button from "../Button";
 const LoginForm = (props) => {
     let history = useHistory()
 
-    const [email, setEmail] = useState("");
+    const [name, setname] = useState("");
     const [password, setPassword] = useState("");
 
     const HandleLogin = () => {
       let API_URL = 'http://localhost:3333/login';
 
-      axios.post(API_URL, { username: email, password: password }, { withCredentials: true })
+      axios.post(API_URL, { username: name, password: password }, { withCredentials: true })
       .then(response => {
         if (response.status == 204) {
           //NICE
@@ -43,7 +43,7 @@ const LoginForm = (props) => {
     const validateMessages = {
       required: "${label} is required!",
         types: {
-            email: "${label} is not validate email!",
+            name: "${label} is not validate name!",
             number: "${label} is not a validate number!",
         },
         number: {
@@ -61,7 +61,7 @@ const LoginForm = (props) => {
           >
             <h1 className="form-title">{props.title}</h1>
 
-            <Input name="email" placeholder="Email" onChange={e => setEmail(e.target.value)}/>
+            <Input name="name" placeholder="Username" onChange={e => setname(e.target.value)}/>
 
             <Input name="password" type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
 
