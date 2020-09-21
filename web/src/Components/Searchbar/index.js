@@ -11,17 +11,22 @@ function SearchBar() {
   let history = useHistory()
   
   const HandleSearch = () =>{
-
+    console.log("SEARCHING")
+    console.log(query);
+    if(query!=""){
+      history.push(`/search/${query}`)
+    }
   }
 
   return (
     <nav className="search-bar-nav">
-      <form action="" class="search-bar">
-        <input type="search" name="search" pattern=".*\S.*" required/>
-        <button class="search-btn" type="submit">
+      <div class="search-bar">
+        <input type="text" onChange={e => setQuery(e.target.value)} />
+        {/* <input type="text" name="search"  onChange={e => setQuery(e.target.value)} required/> */}
+        <button class="search-btn" onClick={HandleSearch}>
           <span>Search</span>
         </button>
-      </form>
+      </div>
     </nav>
   );
 }
