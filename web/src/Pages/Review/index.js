@@ -117,6 +117,9 @@ function Review(){
                       <Comment
                         text={comment.text}
                         author={comment.username}
+                        userId={comment.userId}
+                        reviewId={id}
+                        commentId={comment._id}
                         avatar={
                           !review.userImgUrl
                             ? "https://simpleicon.com/wp-content/uploads/user1.png"
