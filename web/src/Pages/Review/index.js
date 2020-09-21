@@ -59,7 +59,7 @@ function Review(){
 
 
   const [input, setInput] = useState("");
-
+  console.log(review)
   return (
     <>
       <Menu />
@@ -84,6 +84,7 @@ function Review(){
                         ? "https://simpleicon.com/wp-content/uploads/user1.png"
                         : review.userImgUrl
                     }
+                    userId={review.userId}
                   />
                   <br />
                 </Card>

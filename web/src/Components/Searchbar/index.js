@@ -1,10 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
 
 import './styles.css';
 
 function SearchBar() {
+  
+  const [query, setQuery] = useState("");
+  
+  let history = useHistory()
   
   const HandleSearch = () =>{
 
