@@ -37,7 +37,7 @@ function FilmDetails() {
         // Error
       });
   }
-  
+
   function addToList(listName, movieId){
     fetch("http://localhost:3333/movieList/movie", {
       method: "PUT",
@@ -77,7 +77,7 @@ function FilmDetails() {
 
     fetchMovie();
   }, []);
-  
+
 
   let image = "";
   if(!(movie.poster_path === undefined)){
@@ -91,19 +91,25 @@ function FilmDetails() {
     year = movie.release_date.split("-")[0];
   }
 
-  const [reviews, setReviews] = useState([]);
+  let [reviews, setReviews] = useState([]);
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         let reviewsAux = [];
         let API_URL = `http://localhost:3333`;
 
-        const result = await axios.get(
-          `${API_URL}/reviews/?movieId=${id}`
-        );
-        reviewsAux = result.data;
-
-        setReviews(reviewsAux);
+        fetch(`${API_URL}/reviews/?movieId=${id}`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => response.json())
+        .then(reviewsAux => {
+          setReviews(reviewsAux);
+        })
       } catch (error) {}
     };
 
@@ -132,7 +138,7 @@ function FilmDetails() {
 
     fetchLists();
   }, []);
-  
+
   function onScoreChange(event) {
     const value = event.target.value;
     setScore(event.target.value);
@@ -140,7 +146,7 @@ function FilmDetails() {
       event.target.value = "";
     }
   }
-  
+
   const [score, setScore] = useState("");
   const [input, setInput] = useState("");
   const [select, setSelect] = useState("");
