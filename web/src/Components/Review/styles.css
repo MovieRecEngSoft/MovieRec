@@ -52,3 +52,8 @@
 .liked {
     color: red;
 }
+
+.score {
+    color: rgb(123 77 82);
+    font-size: 14px;
+}
