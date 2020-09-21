@@ -18,7 +18,7 @@
 
 .result-block{
     margin: auto;
-    max-width: 1000px;
+    max-width: 650px;
     font-family: system-ui;
     position: relative;
 }
@@ -48,10 +48,30 @@
 }
 
 .movie-img{
-    max-height: 300px;
+    /* max-height: 300px; */
+    width: 250px;
     margin-top: 10px;
 }
 
 .result-node .summary{
     padding-bottom: 0px;
+}
+
+.film-result-genres{
+    padding: 24px 0px;
+}
+
+.film-result-genres span {
+    color: #ff2a5b;
+    font-weight: bold;
+    border: 1px solid;
+    padding: 5px 25px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    display: inline-flex;
+}
+
+.result-node .card{
+    border: 0px solid !important;
 }

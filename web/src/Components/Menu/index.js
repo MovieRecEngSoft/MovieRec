@@ -10,7 +10,7 @@ import './styles.css';
 
 const Menu = (props) => {
 
-  const [avatarSrc, setAvatarSrc] = useState(sessionStorage.getItem('img_path'));
+  const [avatarSrc, setAvatarSrc] = useState("https://simpleicon.com/wp-content/uploads/user1.png");
   const [profileLink, setProfileLink] = useState(`/profile/activity/${sessionStorage.getItem('_id')}`);
 
   let history = useHistory()
@@ -40,7 +40,13 @@ const Menu = (props) => {
 
   const SetUp = () =>{
     setTimeout(function() { //Start the timer
-      setAvatarSrc(sessionStorage.getItem('img_path'))
+      console.log("INC AV SR")
+      console.log(sessionStorage.getItem('img_path'))
+      if(sessionStorage.getItem('img_path') != "undefined"){
+        setAvatarSrc(sessionStorage.getItem('img_path'))
+      }else{
+        setAvatarSrc("https://simpleicon.com/wp-content/uploads/user1.png")
+      }
       setProfileLink(`/profile/activity/${sessionStorage.getItem('_id')}`)
     }.bind(this), 350)
   }

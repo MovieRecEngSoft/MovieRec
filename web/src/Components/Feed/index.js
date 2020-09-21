@@ -47,34 +47,6 @@ const Feed = (props) => {
     fetchActivity();
   }, []);
 
-
-  function Extract(props){
-    return Object.keys(props).map((key) => {
-      return(
-        <div class="feed-node">
-          <div class="avatar-box">
-            <div>
-              <Link to="/profile/activity">
-                <img class="avatar-miniature" src="https://i.imgur.com/UctWXrz.png" />
-                {/* <img class="avatar-miniature" src="{props.?}" /> */}
-              </Link>
-            </div>
-          </div>
-          <div class="content-box">
-            <div class="pre-textual">
-              <span>Rusro</span>
-              {/* <span>{props.?}</span> */}
-              <span class="action">publicou uma nova resenha</span>
-              {/* <span class="action">{props.?}</span> */}
-            </div>
-            <div class="text-content">Even with the challenges of going back to school, Peter and Anthony understand their need for one another, and that together, they can tackle whatever comes their way.</div>
-            {/* <div class="text-content">{props.?}</div> */}
-          </div>
-        </div>
-      )
-    }); 
-  }
-
   const GetActivityType = (props) => {
 
     if(props == "like")
@@ -101,7 +73,7 @@ const Feed = (props) => {
             <div class="avatar-box">
               <div>
                 <Link to={`/profile/activity/${activity.userId}`}>
-                  <img class="avatar-miniature" src={ (activity.userImgUrl != "") ? activity.userImgUrl : "https://simpleicon.com/wp-content/uploads/user1.png"} />
+                  <img class="avatar-miniature" src={ (activity.userImgUrl != undefined) ? activity.userImgUrl : "https://simpleicon.com/wp-content/uploads/user1.png"} />
                 </Link>
               </div>
             </div>
