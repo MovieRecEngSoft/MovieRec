@@ -46,4 +46,9 @@
 .delete-button {
     color: white;
     padding-right: 15px;
+    cursor: pointer;
+}
+
+.liked {
+    color: red;
 }
