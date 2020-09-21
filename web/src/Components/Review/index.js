@@ -80,16 +80,22 @@ function Review(props) {
                   className="delete-button"
                 />
               )}
-              <p>{props.likes}</p>
-              <LikeOutlined
-                className={likedClassName}
-                onClick={() => like(props.reviewId)}
-              />
+              {props.type === "review-item" && (
+                <>
+                  <p>{props.likes}</p>
+                  <LikeOutlined
+                  className={likedClassName}
+                  onClick={() => like(props.reviewId)}
+                  />
+                </>
+              )}
             </div>
           </div>
           <p className={reviewClassName}>{props.text}</p>
-          <span className="score">Given score: {props.score}</span>
-        </div>
+          {props.type === "review-item" && (
+            <span className="score">Given score: {props.score}</span>
+          )}
+          </div>
       </div>
     </>
   );
