@@ -168,8 +168,9 @@ function FilmDetails() {
                 <select
                   value={select}
                   onChange={(e) => setSelect(e.target.value)}>
+                    <option key={0}></option>
                   {lists.map((list, index) => {
-                    return <option key={index}>{list.name}</option>;
+                    return <option key={index+1}>{list.name}</option>;
                   })};
                 </select>
                 <span>

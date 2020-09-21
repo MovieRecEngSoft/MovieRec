@@ -108,8 +108,9 @@ const ProfileLists = (props) => {
             <br />
             <div className="row">
               <select className="select-list" value={select} onInput={(e) => setSelect(e.target.value)}>
+                <option key={0}>Favorites</option>
                 {lists.map((list, index) => {
-                  return <option key={index}>{list.name}</option>;
+                  return <option key={index+1}>{list.name}</option>;
                 })}
                 ;
               </select>
