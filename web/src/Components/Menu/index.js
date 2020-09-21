@@ -40,8 +40,7 @@ const Menu = (props) => {
 
   const SetUp = () =>{
     setTimeout(function() { //Start the timer
-      console.log("INC AV SR")
-      console.log(sessionStorage.getItem('img_path'))
+      // console.log(sessionStorage.getItem('img_path'))
       if(sessionStorage.getItem('img_path') != "undefined"){
         setAvatarSrc(sessionStorage.getItem('img_path'))
       }else{

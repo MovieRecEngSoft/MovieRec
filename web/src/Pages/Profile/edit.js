@@ -111,7 +111,7 @@ function ProfileEditor() {
 
             <span class="txtblk2">Paste your new avatar URL below</span>
             <div class="txtblk2 edit-section" contentEditable="true" onInput={e => setAvatar(e.target.textContent)}>
-              {profileInfo.description}
+              {profileInfo.img_path}
             </div>
 
           </div>   
