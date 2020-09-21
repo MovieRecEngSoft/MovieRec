@@ -8,6 +8,7 @@ import Feed from "../../Components/Feed";
 import movies from "../../data/movies.json";
 import Carousel from '../../Components/Carousel';
 import ProfileHeader from './header.js';
+import Input from "../../Components/Input";
 
 // import checkIfUrlExists from "../../assets/utils/checkIfUrlExists";
 
@@ -18,64 +19,116 @@ import ProfileHeader from './header.js';
 // para que minhas atividades possam ser vistas pelos outros e que eu possa ver 
 // a atividade de pessoas que considero interessantes.
 
+function createCategory(title, movies) {
+  var category = {};
+  category.title = title;
+  category.movies = movies;
+
+  return category;
+}
+
 const ProfileLists = (props) => {
   
   let { id } = useParams();
 
-  // ALTERNATIVE USING FETCH
-  // const HandleListsFetch = () => {
-  //   let API_URL = 'http://localhost:3333/movieLists';
-  //   fetch(API_URL, {
-  //     method: "GET",
-  //     credentials: "include",
-  //     headers: {
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json'
-  //     }
-  //   }).then(response => response.json())
-  //   .then(response => {
-  //       if (response.status > 300) {
-  //         const error = new Error(response.error);
-  //         throw error;
-  //       } else {
-  //         console.log("LISTS RRR")
-  //         console.log(response)
-  //       }
-  //     })
-  //     .catch(err => {console.error(err);alert('Error logging out. Please try again');});   
-  // }
-  // HandleListsFetch()
+  function addList() {
+    fetch("http://localhost:3333/movieList", {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: input
+      }),
+    })
+      .then((response) => {
+        window.location.reload(false);
+      })
+      .catch((response) => {
+        // Error
+      });
+  }
 
-  const [ListsInfo, setListsInfo] = useState([]);
+  const [lists, setLists] = useState([]);
   useEffect(() => {
-    const fetchActivity = async () => {
+    const fetchLists = async () => {
       try {
-        let ListsInfoAux = {};
-        console.log(props)
-          let API_URL = `http://localhost:3333/movieLists`;
-          const result = await axios.get(API_URL,{withCredentials: true});
-          setListsInfo(result.data);
+        let listsAux = [];
+        let API_URL = `http://localhost:3333`;
+
+        const result = await axios.get(`${API_URL}/movieLists`,{withCredentials: true});
+        listsAux = result.data;
+
+        setLists(listsAux);
       } catch (error) {}
     };
-    fetchActivity();
+
+    fetchLists();
   }, []);
 
+  console.log(lists);
+
+  const [list, setList] = useState([]);
+  useEffect(() => {
+    const fetchList = async () => {
+      try {
+        let listAux = [];
+        let API_URL = `http://localhost:3333`;
+
+        const result = await axios.get(
+          `${API_URL}/movieList/?name=${select}&page=1&limit=10`,
+          { withCredentials: true }
+        );
+        listAux = result.data;
+        
+        setList(listAux);
+      } catch (error) {}
+    };
+    
+    fetchList();
+  }, []);
+  
+  const [input, setInput] = useState("");
+  const [select, setSelect] = useState("Favorites");
+  let [categoryList, setCategoryList] = useState({});
+  
+  categoryList = createCategory(select, list);
+  
   return (
     <>
-      <Menu /> 
+      <Menu />
       <div class="wrapper">
         <div class="profile-block">
-        <ProfileHeader activeSection={1} userId={id}/>
-          {ListsInfo.map((list, index) => {
-            return (
-              <div class="listsection">
-                <div class="carousel-wrapper">
-                  <Carousel category={movies.categorias[0]} />
-                  {/* <Carousel category={list.?} /> */}
-                </div>
-              </div>
-            );
-          })}
+          <ProfileHeader activeSection={1} userId={id} />
+          <div class="feed">
+            <br />
+            <div className="row">
+              <select value={select} onInput={(e) => setSelect(e.target.value)}>
+                {lists.map((list, index) => {
+                  return <option key={index}>{list.name}</option>;
+                })}
+                ;
+              </select>
+            </div>
+            <div className="row">
+              {categoryList !== undefined && (
+                <Carousel className="list-carousel" category={categoryList} />
+              )}
+            </div>
+            <div className="row">
+              <Input
+                placeholder="List name"
+                type="text"
+                value={input}
+                onInput={(e) => setInput(e.target.value)}
+              />
+              <button className="add-comment-button" onClick={() => addList()}>
+                ADD LIST
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </>
