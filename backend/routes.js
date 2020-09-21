@@ -60,6 +60,7 @@ routes.get('/reviews', ReviewController.getReviews)
 
 routes.get('/user', UserController.getProfile)
 routes.post('/user', UserController.register)
+routes.delete('/user', UserController.delete)
 routes.patch('/user', checkAuthentication, UserController.edit)
 routes.post('/user/follow', checkAuthentication, UserController.toggleFollow)
 routes.get('/user/activity', UserController.getUserActivity)

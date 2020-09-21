@@ -7,6 +7,7 @@ const ActivityService = require('./ActivityService')
 const MovieService = require('../services/MovieService.js')
 const MovieFilter = MovieService.MovieFilter
 const SearchParams = MovieService.SearchParams
+const MovieListService = require('../services/MovieListService.js')
 
 function getPublicUserData(user) {
     return {
@@ -147,6 +148,12 @@ module.exports = {
             movies = await MovieService.getMovies(searchParams)
         }
         return movies
+    },
+
+    async delete(sessionUserId){
+        await MovieListService.deleteMovieLists(sessionUserId) 
+        let user = await User.findByIdAndDelete(sessionUserId)
+        assert(user, 'Invalid parameter "sessionUserId"')
     },
 
     getUserSessionData(user) {
