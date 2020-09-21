@@ -111,3 +111,16 @@ h5 {
   /* background: #131213; */
   color: a !important;
 }
+
+.add-to-list {
+  margin-top: 20px;
+}
+
+.add-to-list-icon {
+  color: white;
+  margin-left: 10px;
+}
+
+.add-to-list-text {
+  color: white;
+}
