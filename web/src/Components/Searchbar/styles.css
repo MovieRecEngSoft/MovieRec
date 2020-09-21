@@ -37,7 +37,8 @@
 	margin: auto;
 	padding: 1.5em;
 	justify-content: center;
-	max-width: 30em;
+	/* max-width: 30em; */
+	max-width: 40em;
 }
 .search-bar input {
 	background: transparent;

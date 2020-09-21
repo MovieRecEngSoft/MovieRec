@@ -15,22 +15,38 @@ import './styles.css';
 
 function Search() {
 
-  let { query } = useParams();
-  let history = useHistory()
-
+  let {query, genre, year, rating} = useParams();
   // console.log(query)
+  // console.log(genre)
+  // console.log(year)
+  // console.log(rating)
+
+  let history = useHistory()
   
   const [ResultList, setResultList] = useState([]);
 
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        let ResultListAux = {};
-        let API_URL = `http://localhost:3333`;
-        
-        const result = await axios.get(`${API_URL}/movies/?names=${query}`);
-        setResultList(result.data);
-        console.log(result.data);
+        // console.log("SRC")
+        // console.log(query)
+        // console.log(genre)
+        // console.log(year)
+        // console.log(rating)
+
+        // console.log(query!=undefined)
+        // console.log(genre!=undefined)
+        // console.log(year!=undefined)
+        // console.log(rating!=undefined)
+
+        // if(query!=undefined && genre!=undefined && year!=undefined && rating!=undefined){
+          let ResultListAux = {};
+          let API_URL = `http://localhost:3333`;
+          
+          const result = await axios.get(`${API_URL}/movies/?names=${query}&genre=${genre}&date_gte=${year}&score=${rating}`);
+          setResultList(result.data);
+          console.log(result.data);
+        // }
       } catch (error) {}
     };
     fetchResults();
@@ -53,13 +69,7 @@ function Search() {
       <Menu HideSearchBar={true}/> 
       <div class="wrapper">       
         <div class="search-block">
-          <Searchbar htmlType="submit" name="SearchBar" />
-          <div class="filter-section">
-            <div class="grey-button">Name</div>
-            <div class="grey-button">Genre</div>
-            <div class="grey-button">Year</div> 
-            <div class="grey-button">Rating</div>
-          </div>
+          <Searchbar htmlType="submit" name="SearchBar" filters={true} />          
         </div>
       
         <div class="result-block">

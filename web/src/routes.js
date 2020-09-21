@@ -22,7 +22,7 @@ function Routes() {
             <Route path="/profile/lists/:id" component={ProfileLists} />
             <Route path="/review/:id" component={Review} />
             <Route path="/signup" component={Register} />
-            <Route path="/search/:query" component={Search} />
+            <Route path="/search/:query?/:genre?/:year?/:rating?" component={Search} />
             {/* <Route path="/search" component={Search} /> */}
         </BrowserRouter>
     );
