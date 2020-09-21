@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -9,40 +9,43 @@ import './styles.css';
 // para que minhas atividades possam ser vistas pelos outros e que eu possa ver 
 // a atividade de pessoas que considero interessantes.
 
+import checkIfUrlExists from "../../assets/utils/checkIfUrlExists";
+
 const Feed = (props) => {
 
-  const HandleFeedFetch = () => {
-    // alert("a");
-    if(props.scope == "followingUsers"){      
-      let API_URL = 'http://localhost:3333/user/followingActivity';
+  const [ActivityInfo, setActivityInfo] = useState([]);
+  useEffect(() => {
+    const fetchActivity = async () => {
+      try {
+        let ActivityInfoAux = {};
+        console.log(props)
 
-      axios.get(API_URL,{ withCredentials: true })
-      .then(response => {
-        // if (response.status == 200) {
-          console.log("FollowingUsers FEEDLIST below")
-          console.log(response.data)
-          // console.log(response.data.authenticated)
-          // if(response.data.authenticated == false){ history.push('/login'); return}
-          // else{
-          //   sessionStorage.setItem('_id', response.data.user._id );
-          //   sessionStorage.setItem('name', response.data.user.nam );
-          //   sessionStorage.setItem('img_path', response.data.user.img_path );
-          //   sessionStorage.setItem('description', response.data.user.description );
-          // }
-        // }else{const error = new Error(response.error);throw error;}
-      })
-      // .catch(err => {alert('ERR');history.push('/login');});
+        if(props.scope == "followingUsers"){  
+          console.log("FL")
 
-    }else if(props.scope == "singleUser"){
-    // }else if(props.scope == "singleUser" && props.userId){
-      let API_URL = 'http://localhost:3333/user';
-      axios.get(API_URL,{ userId : props.userId },{ withCredentials: true })      
-      .then(response => {
-          console.log("SingleUser FEEDLIST below")
-          console.log(response.data)
-      })      
-    }
-  }
+          let API_URL = `http://localhost:3333/user/followingActivity/?userId=${props.userId}`;
+          const result = await axios.get(API_URL);
+            console.log("ACTIVITY RESULT BEGIN")
+          console.log(result.data);
+            console.log("ACTIVITY RESULT END")
+          setActivityInfo(result.data);
+
+        }else if(props.scope == "singleUser"){
+          console.log("SI")
+
+          let API_URL = `http://localhost:3333/user/activity/?userId=${props.userId}`;
+          const result = await axios.get(API_URL);
+            console.log("ACTIVITY RESULT BEGIN")
+          console.log(result.data);
+            console.log("ACTIVITY RESULT END")
+          setActivityInfo(result.data);
+        }
+
+      } catch (error) {}
+    };
+    fetchActivity();
+  }, []);
+
 
   function Extract(props){
     return Object.keys(props).map((key) => {
@@ -71,13 +74,39 @@ const Feed = (props) => {
     }); 
   }
 
-  HandleFeedFetch();
+  const GetActivityType = (props) => {
+
+    if(props == "like")
+      return(<span class="action">liked a post</span>)
+
+    if(props == "review")
+      return(<span class="action">posted a new review</span>)
+
+    if(props == "comment")
+      return(<span class="action">posted a new comment</span>)
+  }
 
   return(
     <>
       <div class="feed">
-        {/* <h1 className="form-title">{props.scope}</h1> */}
-        {/* {Extract(props)} */}
+        {ActivityInfo.map((activity,index)=>{return(
+          <div class="feed-node">
+            <div class="avatar-box">
+              <div>
+                <Link to={`/profile/activity/${activity._id}`}>
+                  <img class="avatar-miniature" src={ (activity.userImgUrl != "") ? activity.userImgUrl : "https://simpleicon.com/wp-content/uploads/user1.png"} />
+                </Link>
+              </div>
+            </div>
+            <div class="content-box">
+              <div class="pre-textual">
+                <span>{activity.username}</span>
+                {GetActivityType()}
+              </div>
+                <div class="text-content">{activity.text}</div>
+            </div>
+          </div>
+        )})}
       </div>
     </>
   );
