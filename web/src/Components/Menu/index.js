@@ -8,7 +8,7 @@ import { UserOutlined } from "@ant-design/icons";
 
 import './styles.css';
 
-function Menu() {
+const Menu = (props) => {
 
   const [avatarSrc, setAvatarSrc] = useState(sessionStorage.getItem('img_path'));
   const [profileLink, setProfileLink] = useState(`/profile/activity/${sessionStorage.getItem('_id')}`);
@@ -45,13 +45,18 @@ function Menu() {
     }.bind(this), 350)
   }
 
+  const ShowSearchBar = () =>{
+    if(!props.HideSearchBar)
+      return (<SearchBar/>)
+  } 
+
   return (
     <nav className="Menu" onLoad={SetUp}>
       <Link to="/">
         <img className="Logo" src={Logo} alt="Logo" />
       </Link>
       
-      <SearchBar/>
+      {ShowSearchBar()}
 
       <div>
         <button class="grey-button logout-button" onClick={HandleLogout}>LOGOUT</button>
