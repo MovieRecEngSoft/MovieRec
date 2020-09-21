@@ -75,8 +75,6 @@ const SignupForm = ({title}) => {
             <h1 className="form-title">{title}</h1>
             <Input name="name" placeholder="Name" onChange={e => setName(e.target.value)}/>
 
-            <Input name="email" placeholder="Email" onChange={e => setEmail(e.target.value)}/>
-
             <Input name="password" type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
 
             <Input name="c-password" type="password" placeholder="Confirm Password" onChange={e => setConfirmPassword(e.target.value)}/>
