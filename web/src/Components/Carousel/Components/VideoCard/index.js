@@ -7,7 +7,7 @@ import checkIfUrlExists from "../../../../assets/utils/checkIfUrlExists";
 function VideoCard({ videoTitle, videoId, categoryColor, videoImage }) {
   const image = checkIfUrlExists(getImageAddress(videoImage))
     ? getImageAddress(videoImage)
-    : "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX3851270.jpg";
+    : "https://pngimage.net/wp-content/uploads/2018/06/image-not-available-png-5.png";
 
   let path = "/movie/" + videoId;
   
