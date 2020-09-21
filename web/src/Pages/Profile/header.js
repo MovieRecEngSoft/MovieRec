@@ -114,16 +114,16 @@ const ProfileHeader = (props) => {
           </div>
         </div>
         <div class="switchsection">
-          <div class={GetActiveSection(0,props.activeSection)}>
-            <Link to={`/profile/activity/${props.userId}`}>
+          <Link to={`/profile/activity/${props.userId}`}>
+            <div class={GetActiveSection(0,props.activeSection)}>
               <span>ACTIVITY</span>
-            </Link>
-          </div>
-          <div class={GetActiveSection(1,props.activeSection)}>
-            <Link to={`/profile/lists/${props.userId}`}>
+            </div>
+          </Link>
+          <Link to={`/profile/lists/${props.userId}`}>
+            <div class={GetActiveSection(1,props.activeSection)}>
               <span>LISTS</span>
-            </Link>
-          </div>
+            </div>
+          </Link>
         </div>
       </div>
     </>
