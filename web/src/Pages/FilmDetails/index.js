@@ -70,7 +70,6 @@ function FilmDetails() {
 
         const result = await axios.get(`${API_URL}/movie/?id=${id}`);
         movieAux = result.data;
-        console.log(movieAux);
 
         setMovie(movieAux);
       } catch (error) {}
