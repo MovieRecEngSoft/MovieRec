@@ -64,12 +64,13 @@ const ProfileLists = (props) => {
         setLists(listsAux);
       } catch (error) {}
     };
-
+    
     fetchLists();
   }, []);
-
+  
   console.log(lists);
-
+  
+  const [select, setSelect] = useState("Favorites");
   const [list, setList] = useState([]);
   useEffect(() => {
     const fetchList = async () => {
@@ -88,14 +89,15 @@ const ProfileLists = (props) => {
     };
     
     fetchList();
-  }, []);
+  }, [select]);
   
   const [input, setInput] = useState("");
-  const [select, setSelect] = useState("Favorites");
   let [categoryList, setCategoryList] = useState({});
   
   categoryList = createCategory(select, list);
   
+  console.log(list)
+
   return (
     <>
       <Menu />
@@ -105,7 +107,7 @@ const ProfileLists = (props) => {
           <div class="feed">
             <br />
             <div className="row">
-              <select value={select} onInput={(e) => setSelect(e.target.value)}>
+              <select className="select-list" value={select} onInput={(e) => setSelect(e.target.value)}>
                 {lists.map((list, index) => {
                   return <option key={index}>{list.name}</option>;
                 })}
@@ -117,13 +119,14 @@ const ProfileLists = (props) => {
                 <Carousel className="list-carousel" category={categoryList} />
               )}
             </div>
-            <div className="row">
+            <div className="row add-list">
               <Input
                 placeholder="List name"
                 type="text"
                 value={input}
                 onInput={(e) => setInput(e.target.value)}
               />
+              <br />
               <button className="add-comment-button" onClick={() => addList()}>
                 ADD LIST
               </button>
