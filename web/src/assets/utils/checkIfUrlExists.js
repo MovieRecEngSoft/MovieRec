@@ -1,8 +1,11 @@
 function checkIfUrlExists(url) {
   var http = new XMLHttpRequest();
-
-  http.open("HEAD", url, false);
-  http.send();
+  try{
+    http.open("HEAD", url, false);
+    http.send();
+  }catch (error) {
+    return false
+  }
 
   return http.status != 404;
 }

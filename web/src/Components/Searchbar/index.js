@@ -48,11 +48,11 @@ const SearchBar = (props) => {
   }
 
   const HandleSearch = () =>{
-    console.log("SEARCHING")
-    console.log(query);
-    console.log(genre);
-    console.log(year);
-    console.log(rating);
+    // console.log("SEARCHING")
+    // console.log(query);
+    // console.log(genre);
+    // console.log(year);
+    // console.log(rating);
 
     if(props.filters){
       if(query!="" || genre!="" || year!="" || rating!=""){

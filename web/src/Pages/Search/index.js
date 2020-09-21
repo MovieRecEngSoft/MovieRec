@@ -42,7 +42,6 @@ function Search() {
         // if(query!=undefined && genre!=undefined && year!=undefined && rating!=undefined){
           let ResultListAux = {};
           let API_URL = `http://localhost:3333`;
-          
           const result = await axios.get(`${API_URL}/movies/?names=${query}&genre=${genre}&date_gte=${year}&score=${rating}`);
           setResultList(result.data);
           console.log(result.data);
