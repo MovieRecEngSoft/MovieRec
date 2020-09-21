@@ -38,8 +38,11 @@ function Review(props) {
       body: JSON.stringify({
         reviewId: reviewId,
       }),
+    }).then(response => {
+      window.location.reload(false);
+    }).catch(response => {
+      // Error
     });
-    window.location.reload(false);
   }
 
   return (
