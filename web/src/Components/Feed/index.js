@@ -22,23 +22,24 @@ const Feed = (props) => {
 
         if(props.scope == "followingUsers"){  
           console.log("FL")
+          console.log("ACTIVITY RESULT BEGIN")
 
           let API_URL = `http://localhost:3333/user/followingActivity/?userId=${props.userId}`;
           const result = await axios.get(API_URL);
-            console.log("ACTIVITY RESULT BEGIN")
           console.log(result.data);
-            console.log("ACTIVITY RESULT END")
           setActivityInfo(result.data);
-
+          
+          console.log("ACTIVITY RESULT END")
         }else if(props.scope == "singleUser"){
           console.log("SI")
+          console.log("ACTIVITY RESULT BEGIN")
 
           let API_URL = `http://localhost:3333/user/activity/?userId=${props.userId}`;
           const result = await axios.get(API_URL);
-            console.log("ACTIVITY RESULT BEGIN")
           console.log(result.data);
-            console.log("ACTIVITY RESULT END")
           setActivityInfo(result.data);
+          
+          console.log("ACTIVITY RESULT END")
         }
 
       } catch (error) {}
@@ -77,13 +78,19 @@ const Feed = (props) => {
   const GetActivityType = (props) => {
 
     if(props == "like")
-      return(<span class="action">liked a post</span>)
+      return(<span class="action ">liked a post</span>)
 
     if(props == "review")
       return(<span class="action">posted a new review</span>)
 
     if(props == "comment")
       return(<span class="action">posted a new comment</span>)
+  }
+
+  const GetContentFormat = (props) => {
+    if(props.activityType == "like")
+      return(<div class="text-content like-cite">{props.text}</div>)
+    return(<div class="text-content">{props.text}</div>)
   }
 
   return(
@@ -101,9 +108,9 @@ const Feed = (props) => {
             <div class="content-box">
               <div class="pre-textual">
                 <span>{activity.username}</span>
-                {GetActivityType()}
+                {GetActivityType(activity.activityType)}
               </div>
-                <div class="text-content">{activity.text}</div>
+                {GetContentFormat(activity)}
             </div>
           </div>
         )})}
