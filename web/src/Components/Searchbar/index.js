@@ -20,10 +20,12 @@ function SearchBar() {
 
   return (
     <nav className="search-bar-nav">
+
       <div class="search-bar">
         <input type="text" onChange={e => setQuery(e.target.value)} />
         {/* <input type="text" name="search"  onChange={e => setQuery(e.target.value)} required/> */}
         <button class="search-btn" onClick={HandleSearch}>
+
           <span>Search</span>
         </button>
       </div>

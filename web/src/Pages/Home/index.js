@@ -53,8 +53,8 @@ const Home = () => {
           const result_all = await axios.get(`${API_URL}/movies`);
           categoriesAux.push(createCategory("All movies", result_all.data));
 
-          // const result_recom = await axios.get(`${API_URL}/user/recommendedMovies`);
-          // categoriesAux.push(createCategory("Recommended for you", result_recom.data));
+          const result_recom = await axios.get(`${API_URL}/user/recommendedMovies`, {withCredentials: true});
+          categoriesAux.push(createCategory("Recommended for you", result_recom.data));
 
           setCategories(categoriesAux);
         } catch (error) {}
@@ -69,12 +69,7 @@ const Home = () => {
           <div class="wrapper">
             <div class="nav">
               <div class="nav-block lists">
-                <div class="carousel-wrapper">
-                  <Carousel category={categories[0]} />
-                </div>
-                {/* <div class="carousel-wrapper">
-                  <Carousel category={categories[1]} />
-                </div> */}
+                {categories.map(category => <div class="carousel-wrapper"> <Carousel category={category} /> </div>)}
               </div>
               <div class="nav-block activity">
                 <h1>Recent Activity</h1>

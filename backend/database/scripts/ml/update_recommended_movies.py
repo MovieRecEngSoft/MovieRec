@@ -59,7 +59,7 @@ print("Connecting to MongoDB...")
 client = MongoClient("mongodb+srv://movierec:movierecpassword@cluster0.gsuuq.mongodb.net/movierec?retryWrites=true&w=majority") # TODO: Hide credentials
 db = client.movierec
 print("Initializing Keywords DataFrame...")
-keywords = get_keywords_df("../../metadata/keywords.csv")
+keywords = get_keywords_df("database/metadata/keywords.csv")
 print("Initializing Movies DataFrame...")
 movies = get_movies_df(db)
 print("Initializing Genres DataFrame...")
