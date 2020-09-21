@@ -6,10 +6,15 @@ import './styles.css';
 function Review(props) {
   let reviewClassName = 'review-text';
   let likesClassName = 'likes';
+  let likedClassName = "like-button";
   
   if(props.type == "review-item"){
     reviewClassName += ' review-item';
     likesClassName += ' right-like';
+  }
+
+  if(props.liked == false){
+    likedClassName += ' liked';
   }
 
   function deleteReview(reviewId){
@@ -23,8 +28,13 @@ function Review(props) {
       body: JSON.stringify({
         reviewId: reviewId,
       }),
-    });
-    window.location.reload(false);
+    })
+      .then((response) => {
+        window.location.reload(false);
+      })
+      .catch((response) => {
+        // Error
+      });
   }
   
   function like(reviewId){
@@ -49,7 +59,7 @@ function Review(props) {
     <>
       <div className="row">
         <div className="col">
-          <Link to={"/profile/activity/"+props.userId}>
+          <Link to={"/profile/activity/" + props.userId}>
             <img className="avatar" src={props.avatar} />
           </Link>
         </div>
@@ -58,7 +68,7 @@ function Review(props) {
             <div>
               <h5>
                 <span>Review by </span>{" "}
-                <Link to={"/profile/activity/"+props.userId}>
+                <Link to={"/profile/activity/" + props.userId}>
                   <strong className="reviewer">{props.author}</strong>
                 </Link>
               </h5>
@@ -72,7 +82,7 @@ function Review(props) {
               )}
               <p>{props.likes}</p>
               <LikeOutlined
-                className="like-button"
+                className={likedClassName}
                 onClick={() => like(props.reviewId)}
               />
             </div>
