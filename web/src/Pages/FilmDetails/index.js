@@ -8,7 +8,7 @@ import Card from "../../Components/Card";
 
 import checkIfUrlExists from "../../assets/utils/checkIfUrlExists";
 
-import { FullscreenOutlined } from "@ant-design/icons";
+import { FullscreenOutlined, PlusOutlined } from "@ant-design/icons";
 
 import './styles.css';
 import Review from "../../Components/Review";
@@ -28,6 +28,28 @@ function FilmDetails() {
         movieId: movieId,
         score: parseFloat(score),
         text: input,
+      }),
+    })
+      .then((response) => {
+        window.location.reload(false);
+      })
+      .catch((response) => {
+        // Error
+      });
+  }
+  
+  function addToList(listName, movieId){
+    console.log("------> " + movieId)
+    fetch("http://localhost:3333/movieList/movie", {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        movieId: movieId,
+        name: listName
       }),
     })
       .then((response) => {
@@ -57,6 +79,7 @@ function FilmDetails() {
 
     fetchMovie();
   }, []);
+  
 
   let image = "";
   if(!(movie.poster_path === undefined)){
@@ -92,6 +115,29 @@ function FilmDetails() {
   if (reviews === undefined){
     reviews = [];
   }
+
+  const [lists, setLists] = useState([]);
+  useEffect(() => {
+    const fetchLists = async () => {
+      try {
+        let listsAux = [];
+        let API_URL = `http://localhost:3333`;
+
+        const result = await axios.get(`${API_URL}/movieLists`, {
+          withCredentials: true,
+        });
+        listsAux = result.data;
+
+        setLists(listsAux);
+      } catch (error) {}
+    };
+
+    fetchLists();
+  }, []);
+
+  console.log("+++++++");
+  console.log(lists);
+  console.log("+++++++");
   
   function onScoreChange(event) {
     const value = event.target.value;
@@ -103,6 +149,7 @@ function FilmDetails() {
   
   const [score, setScore] = useState("");
   const [input, setInput] = useState("");
+  const [select, setSelect] = useState("");
 
   return (
     <>
@@ -111,7 +158,28 @@ function FilmDetails() {
         <div className="info-block">
           <div className="row">
             <div className="detail-leftcolumn">
-              <img className="cover" src={image} />
+              <div className="row">
+                <img className="cover" src={image} />
+              </div>
+              <div className="row add-to-list">
+                <span className="add-to-list-text">Add to list</span>
+              </div>
+              <div className="row add-to-list">
+                <select
+                  value={select}
+                  onInput={(e) => setSelect(e.target.value)}>
+                  {lists.map((list, index) => {
+                    return <option key={index}>{list.name}</option>;
+                  })}
+                  ;
+                </select>
+                <span>
+                  <PlusOutlined
+                    className="add-to-list-icon"
+                    onClick={() => addToList(select, id)}
+                  />
+                </span>
+              </div>
             </div>
             <div className="detail-rightcolumn">
               <Card>
