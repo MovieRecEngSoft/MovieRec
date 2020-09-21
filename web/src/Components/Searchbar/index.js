@@ -12,9 +12,9 @@ function SearchBar() {
 
   return (
     <nav className="search-bar-nav">
-      <form action="" class="search-bar">
+      <form action="" className="search-bar">
         <input type="search" name="search" pattern=".*\S.*" required/>
-        <button class="search-btn" type="submit">
+        <button className="search-btn" type="submit">
           <span>Search</span>
         </button>
       </form>
