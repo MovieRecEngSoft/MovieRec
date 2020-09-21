@@ -22,6 +22,9 @@ const Home = () => {
 
     let history = useHistory()
     
+    if(sessionStorage.getItem("_id") === null)
+      history.push('/login');
+    
     const [categories, setCategories] = useState([]);
     useEffect(() => {
       const fetchMovies = async () => {
