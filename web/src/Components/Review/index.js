@@ -13,7 +13,7 @@ function Review(props) {
     likesClassName += ' right-like';
   }
 
-  if(props.liked === false){
+  if(props.liked === true){
     likedClassName += ' liked';
   }
 
