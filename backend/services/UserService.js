@@ -4,6 +4,7 @@ const assert = require('assert')
 const crypt = require('../util/crypt.js')
 const dbErrorHandler = require('../database/error/handler.js')
 const ActivityService = require('./ActivityService')
+const ReviewService = require('./ReviewService.js')
 const MovieService = require('../services/MovieService.js')
 const MovieFilter = MovieService.MovieFilter
 const SearchParams = MovieService.SearchParams
@@ -151,7 +152,11 @@ module.exports = {
     },
 
     async delete(sessionUserId){
-        await MovieListService.deleteMovieLists(sessionUserId) 
+        await Follow.deleteMany({ userFollowing: sessionUserId })
+        await Follow.deleteMany({ userFollowed: sessionUserId })
+        await ActivityService.removeUserActivity(sessionUserId)
+        await ReviewService.removeUserIterations(sessionUserId)
+        await MovieListService.deleteMovieLists(sessionUserId)
         let user = await User.findByIdAndDelete(sessionUserId)
         assert(user, 'Invalid parameter "sessionUserId"')
     },

@@ -152,4 +152,17 @@ module.exports = {
         return ActivityService.removeCommentActivity(reviewId, commentId)
     },
 
+    async removeUserIterations(userId) {
+        await Review.deleteMany({ user: userId })
+        const reviews = await Review.find()
+
+        for (let i = 0; i < reviews.length; i++) {
+            if (reviews[i].comments.length > 0 || reviews[i].likes.length > 0) {
+                reviews[i].comments = reviews[i].comments.filter(comment => !comment.user.equals(userId))
+                reviews[i].likes = reviews[i].likes.filter(like => !like.equals(userId))
+                await reviews[i].save()
+            }
+        }
+    }
+
 }

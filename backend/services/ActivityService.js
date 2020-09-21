@@ -65,6 +65,10 @@ module.exports = {
         return Activity.deleteMany({ review: reviewId, like: likeId })
     },
 
+    async removeUserActivity(userId) {
+        return Activity.deleteMany({ user: userId })
+    },
+
     async getUserActivities(userId) {
         let activities = await Activity
             .find({ user: userId })
