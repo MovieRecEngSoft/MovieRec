@@ -26,11 +26,20 @@ const ProfileHeader = (props) => {
         let profileInfoAux = {};
         let API_URL = `http://localhost:3333`;
         
-        const result = await axios.get(`${API_URL}/user/?userId=${props.userId}`);
-        profileInfoAux = result.data;
-        console.log(profileInfoAux);
-        
-        setProfileInfo(profileInfoAux);
+        const requestOptions = {
+          method: 'GET',
+          credentials: "include",
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'      
+          }
+        };
+        fetch(`${API_URL}/user/?userId=${props.userId}`, requestOptions)
+        .then(response => response.json())
+        .then(response => {
+            setProfileInfo(response)
+          }
+        )
       } catch (error) {}
     };
     
@@ -40,12 +49,13 @@ const ProfileHeader = (props) => {
 
   const HandleFollow = () => {
     // alert('Follow');
-
+    console.log("HANDLE FOLLOW")
     let API_URL = `http://localhost:3333/user/follow`;
 
     axios.post(API_URL,{ userId: props.userId },{ withCredentials: true })
       .then(response => {
         if (response.status == 204) {
+          console.log(response.data)
           window.location.reload(false);
         }else{const error = new Error(response.error);throw error;}
       })
@@ -59,6 +69,9 @@ const ProfileHeader = (props) => {
   
   function InteractionInfo(props){
     //self
+    console.log("VM VER")
+    console.log(profileInfo)
+    console.log(sessionStorage.getItem("_id"))
     if(sessionStorage.getItem("_id")==props.userId){
       return(<Link to={`/profile/edit/${props.userId}`}><div class="grey-button">Edit</div></Link>)
     }
