@@ -37,7 +37,15 @@ function Search() {
   }, []);
 
   const FormatDate = (props) => {
-    return(props);
+    var months = [
+      'January', 'February', 'March', 'April', 'May',
+      'June', 'July', 'August', 'September',
+      'October', 'November', 'December'
+      ];
+      
+    return(
+      <div class="film-result-date"><span>{months[parseInt(props.substring(5,7),10)-1]} - {props.substring(0,4)}</span></div>
+    )
   }
 
   return (
@@ -68,6 +76,7 @@ function Search() {
                   <h2 className="film-title">
                     <strong>{result.title}</strong>
                   </h2>
+                    {FormatDate(result.release_date)}
                   <h3 className="film-details">{ (result.score != null) ? result.score : "-"}</h3>
                   <div class="film-result-genres">
                     {result.genres.map((genre, key)=>{
@@ -76,7 +85,6 @@ function Search() {
                       )
                     })}
                   </div>
-                  <div class="film-result-date">{FormatDate(result.release_date)}</div>
                   <br />
                 </Card>
               </div>

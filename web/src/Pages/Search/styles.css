@@ -75,3 +75,8 @@
 .result-node .card{
     border: 0px solid !important;
 }
+
+.film-result-date {
+    font-weight: bold;
+    color: #76748a;
+}
