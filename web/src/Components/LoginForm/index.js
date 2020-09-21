@@ -20,8 +20,28 @@ const LoginForm = (props) => {
       axios.post(API_URL, { username: name, password: password }, { withCredentials: true })
       .then(response => {
         if (response.status == 204) {
-          //NICE
-          history.push('/');
+          function CheckLogged(){    
+            let API_URL = 'http://localhost:3333/session';
+
+            axios.get(API_URL,{ withCredentials: true })
+            .then(response => {
+              if (response.status == 200) {
+                console.log(response.data)
+                console.log(response.data.authenticated)
+                if(response.data.authenticated == false){ history.push('/login'); return}
+                else{
+                  sessionStorage.setItem('_id', response.data.user._id );
+                  sessionStorage.setItem('name', response.data.user.nam );
+                  sessionStorage.setItem('img_path', response.data.user.img_path );
+                  sessionStorage.setItem('description', response.data.user.description );
+                }
+                history.push('/');
+              }else{const error = new Error(response.error);throw error;}
+            })
+            .catch(err => {alert('ERR');history.push('/login');});
+          }
+          CheckLogged()
+
         } else {
           const error = new Error(response.error);
           throw error;
