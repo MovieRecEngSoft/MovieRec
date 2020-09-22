@@ -32,8 +32,8 @@ const Home = () => {
           let categoriesAux = [];
           let API_URL = `http://localhost:3333`;
 
-          const result_all = await axios.get(`${API_URL}/movies`);
-          categoriesAux.push(createCategory("All movies", result_all.data));
+          const result_all = await axios.get(`${API_URL}/movies?page=1&limit=10`);
+          categoriesAux.push(createCategory("Latest movies", result_all.data));
 
           const result_recom = await axios.get(`${API_URL}/user/recommendedMovies`, {withCredentials: true});
           categoriesAux.push(createCategory("Recommended for you", result_recom.data));
