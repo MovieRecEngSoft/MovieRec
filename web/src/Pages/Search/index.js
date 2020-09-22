@@ -26,15 +26,15 @@ function Search() {
       try {
         let API_URL = `http://localhost:3333`;
         let urlRequest = `${API_URL}/movies/?`;
-        if(query !== '-')
+        if(query && query !== '-')
           urlRequest += `names=${query}`
-        if (genre && genre !== '-')
+        if(genre && genre !== '-')
           urlRequest += `&genres=${genre}`
-        if (year && year !== '-'){
+        if(year && year !== '-'){
           urlRequest += `&date_gte=${year}`
-          urlRequest += `&date_lt=${year + 1}`
+          urlRequest += `&date_lt=${+year + 1}`
         }
-        if (rating!== '-'){
+        if(rating && rating!== '-'){
           urlRequest += `&score=${rating}`
         }
         const result = await axios.get(urlRequest);
