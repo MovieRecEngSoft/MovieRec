@@ -30,7 +30,7 @@ function Search() {
           urlRequest += `names=${query}`
         if (genre && genre !== '-')
           urlRequest += `&genres=${genre}`
-        if (year !== '-'){
+        if (year && year !== '-'){
           urlRequest += `&date_gte=${year}`
           urlRequest += `&date_lt=${year + 1}`
         }
