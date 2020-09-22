@@ -30,7 +30,7 @@ function Search() {
       try {
         // console.log("SRC")
         // console.log(query)
-        // console.log(genre)
+        console.log(genre)
         // console.log(year)
         // console.log(rating)
 
@@ -42,7 +42,12 @@ function Search() {
         // if(query!=undefined && genre!=undefined && year!=undefined && rating!=undefined){
           let ResultListAux = {};
           let API_URL = `http://localhost:3333`;
-          const result = await axios.get(`${API_URL}/movies/?names=${query}&genres=${genre}&date_gte=${year}&date_lt=${year && year !== '-' ? +year+1 : ""}&score=${rating}`);
+          let urlRequest = `${API_URL}/movies/?names=${query}`;
+          if (genre && genre !== '-')
+            urlRequest += `&genres=${genre}`
+          urlRequest += `&date_gte=${year}&date_lt=${year && year !== '-' ? +year+1 : ""}&score=${rating}`
+
+          const result = await axios.get(urlRequest);
           setResultList(result.data);
           console.log(result.data);
         // }
