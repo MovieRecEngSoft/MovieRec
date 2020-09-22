@@ -16,10 +16,6 @@ import './styles.css';
 function Search() {
 
   let {query, genre, year, rating} = useParams();
-  // console.log(query)
-  // console.log(genre)
-  // console.log(year)
-  // console.log(rating)
 
   let history = useHistory()
   
@@ -28,36 +24,21 @@ function Search() {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        // console.log("SRC")
-        // console.log(query)
-        console.log(genre)
-        // console.log(year)
-        // console.log(rating)
-
-        // console.log(query!=undefined)
-        // console.log(genre!=undefined)
-        // console.log(year!=undefined)
-        // console.log(rating!=undefined)
-
-          // console.log(year)
-        // if(query!=undefined && genre!=undefined && year!=undefined && rating!=undefined){
-          let API_URL = `http://localhost:3333`;
-          let urlRequest = `${API_URL}/movies/?`;
-          if(query !== '-')
-            urlRequest += `names=${query}`
-          if (genre && genre !== '-')
-            urlRequest += `&genres=${genre}`
-          if (year !== '-'){
-            urlRequest += `&date_gte=${year}`
-            urlRequest += `&date_lt=${year + 1}`
-          }
-          if (rating!== '-'){
-            urlRequest += `&score=${rating}`
-          }  
-          const result = await axios.get(urlRequest);
-          setResultList(result.data);
-          console.log(result.data);
-        // }
+        let API_URL = `http://localhost:3333`;
+        let urlRequest = `${API_URL}/movies/?`;
+        if(query !== '-')
+          urlRequest += `names=${query}`
+        if (genre && genre !== '-')
+          urlRequest += `&genres=${genre}`
+        if (year !== '-'){
+          urlRequest += `&date_gte=${year}`
+          urlRequest += `&date_lt=${year + 1}`
+        }
+        if (rating!== '-'){
+          urlRequest += `&score=${rating}`
+        }
+        const result = await axios.get(urlRequest);
+        setResultList(result.data);
       } catch (error) {}
     };
     fetchResults();
