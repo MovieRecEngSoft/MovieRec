@@ -54,8 +54,10 @@ function Review(){
     if (location.hash) {
         let highlightedElement = document.getElementById(location.hash.slice(1))
         if (highlightedElement) {
+            let offset = document.getElementsByClassName("Menu")[0].offsetHeight
+            let elementTopPosition = highlightedElement.getBoundingClientRect().top
             highlightedElement.classList.add("highlighted")
-            highlightedElement.scrollIntoView({behavior: "smooth"})
+            window.scrollTo({top: elementTopPosition - offset, behavior: "smooth"})
         }
     }
   }, [review])
