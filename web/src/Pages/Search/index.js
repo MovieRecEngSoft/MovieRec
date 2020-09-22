@@ -32,7 +32,7 @@ function Search() {
           urlRequest += `&genres=${genre}`
         if(year && year !== '-'){
           urlRequest += `&date_gte=${year}`
-          urlRequest += `&date_lt=${year + 1}`
+          urlRequest += `&date_lt=${+year + 1}`
         }
         if(rating && rating!== '-'){
           urlRequest += `&score=${rating}`
