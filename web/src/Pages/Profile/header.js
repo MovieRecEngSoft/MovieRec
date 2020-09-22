@@ -82,6 +82,15 @@ const ProfileHeader = (props) => {
     return(<div class="red-button" onClick={HandleFollow}>Follow</div>)
   }
 
+  function movieListComponent() {
+    if (sessionStorage.getItem("_id") === profileInfo._id) 
+      return <Link to={`/profile/lists/${props.userId}`}>
+        <div class={GetActiveSection(1,props.activeSection)}>
+          <span>LISTS</span>
+        </div>
+      </Link>
+  }
+
   return (
     <>      
       <div>
@@ -119,11 +128,7 @@ const ProfileHeader = (props) => {
               <span>ACTIVITY</span>
             </div>
           </Link>
-          <Link to={`/profile/lists/${props.userId}`}>
-            <div class={GetActiveSection(1,props.activeSection)}>
-              <span>LISTS</span>
-            </div>
-          </Link>
+          {movieListComponent()}
         </div>
       </div>
     </>
