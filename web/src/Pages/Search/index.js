@@ -39,14 +39,21 @@ function Search() {
         // console.log(year!=undefined)
         // console.log(rating!=undefined)
 
+          // console.log(year)
         // if(query!=undefined && genre!=undefined && year!=undefined && rating!=undefined){
-          let ResultListAux = {};
           let API_URL = `http://localhost:3333`;
-          let urlRequest = `${API_URL}/movies/?names=${query}`;
+          let urlRequest = `${API_URL}/movies/?`;
+          if(query !== '-')
+            urlRequest += `names=${query}`
           if (genre && genre !== '-')
             urlRequest += `&genres=${genre}`
-          urlRequest += `&date_gte=${year}&date_lt=${year && year !== '-' ? +year+1 : ""}&score=${rating}`
-
+          if (year !== '-'){
+            urlRequest += `&date_gte=${year}`
+            urlRequest += `&date_lt=${year + 1}`
+          }
+          if (rating!== '-'){
+            urlRequest += `&score=${rating}`
+          }  
           const result = await axios.get(urlRequest);
           setResultList(result.data);
           console.log(result.data);
