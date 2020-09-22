@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import './styles.css';
 
 // Seguir outros usuários
-// Como usuário, eu quero poder seguir e poder ser seguido por outras pessoas, 
-// para que minhas atividades possam ser vistas pelos outros e que eu possa ver 
+// Como usuário, eu quero poder seguir e poder ser seguido por outras pessoas,
+// para que minhas atividades possam ser vistas pelos outros e que eu possa ver
 // a atividade de pessoas que considero interessantes.
 
 import checkIfUrlExists from "../../assets/utils/checkIfUrlExists";
@@ -20,7 +20,7 @@ const Feed = (props) => {
         let ActivityInfoAux = {};
         console.log(props)
 
-        if(props.scope == "followingUsers"){  
+        if(props.scope == "followingUsers"){
           console.log("FL")
           console.log("ACTIVITY RESULT BEGIN")
 
@@ -28,7 +28,7 @@ const Feed = (props) => {
           const result = await axios.get(API_URL);
           console.log(result.data);
           setActivityInfo(result.data);
-          
+
           console.log("ACTIVITY RESULT END")
         }else if(props.scope == "singleUser"){
           console.log("SI")
@@ -38,7 +38,7 @@ const Feed = (props) => {
           const result = await axios.get(API_URL);
           console.log(result.data);
           setActivityInfo(result.data);
-          
+
           console.log("ACTIVITY RESULT END")
         }
 
@@ -47,16 +47,21 @@ const Feed = (props) => {
     fetchActivity();
   }, []);
 
+  const getLink = (props, text) => {
+    const url = props.activityType === "comment" ? `/review/${props.reviewId}#${props.commentId}` : `/movie/${props.movieId}#${props.reviewId}`
+    return <Link to={url}>{text}</Link>
+  }
+
   const GetActivityType = (props) => {
 
-    if(props == "like")
-      return(<span class="action ">liked a post</span>)
+    if(props.activityType == "like")
+      return(<span class="action ">liked a {getLink(props, "post")}</span>)
 
-    if(props == "review")
-      return(<span class="action">posted a new review</span>)
+    if(props.activityType == "review")
+      return(<span class="action">posted a new {getLink(props, "review")}</span>)
 
-    if(props == "comment")
-      return(<span class="action">posted a new comment</span>)
+    if(props.activityType == "comment")
+      return(<span class="action">posted a new {getLink(props, "comment")}</span>)
   }
 
   const GetContentFormat = (props) => {
@@ -80,7 +85,7 @@ const Feed = (props) => {
             <div class="content-box">
               <div class="pre-textual">
                 <span>{activity.username}</span>
-                {GetActivityType(activity.activityType)}
+                {GetActivityType(activity)}
               </div>
                 {GetContentFormat(activity)}
             </div>

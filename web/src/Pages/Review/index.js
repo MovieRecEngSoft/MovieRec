@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import Menu from '../../Components/Menu';
 import Card from '../../Components/Card';
@@ -49,8 +49,19 @@ function Review(){
     fetchReview();
   }, []);
 
+  const location = useLocation()
+  useEffect(()=> {
+    if (location.hash) {
+        let highlightedElement = document.getElementById(location.hash.slice(1))
+        if (highlightedElement) {
+            highlightedElement.classList.add("highlighted")
+            highlightedElement.scrollIntoView({behavior: "smooth"})
+        }
+    }
+  }, [review])
+
   if (!review.comments) review.comments = [];
-  
+
   let image;
   if(review.moviePosterPath)
   image = checkIfUrlExists(getImageAddress(review.moviePosterPath))
@@ -113,7 +124,7 @@ function Review(){
                 .reverse()
                 .map((comment, index) => {
                   return (
-                    <Card>
+                    <Card id={comment._id}>
                       <Comment
                         text={comment.text}
                         author={comment.username}

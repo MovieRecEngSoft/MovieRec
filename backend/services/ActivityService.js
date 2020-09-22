@@ -11,12 +11,15 @@ function formatActivity(activity) {
         activityType: activity.activityType,
         userId: activity.user._id,
         username: activity.user.name,
-        userImgUrl: activity.user.img_path
+        userImgUrl: activity.user.img_path,
+        movieId: activity.review.movie._id,
+        reviewId: activity.review._id
     }
     if (activity.activityType === ACTIVITY_TYPES.CREATE_REVIEW || activity.activityType === ACTIVITY_TYPES.LIKE_REVIEW) {
         activityData.text = activity.review.text
     } else if (activity.activityType === ACTIVITY_TYPES.COMMENT_REVIEW) {
         const comment = activity.review.comments.find(comment => comment._id.equals(activity.comment))
+        activityData.commentId = comment._id
         activityData.text = comment.text
     }
     return activityData
@@ -73,8 +76,9 @@ module.exports = {
         let activities = await Activity
             .find({ user: userId })
             .populate("user", "name img_path")
-            .populate("review.comments", "text")
-            .populate("review", "text comments")
+            .populate("review.movie", "_id")
+            .populate("review.comments", "text _id")
+            .populate("review", "text comments movie")
             .sort("-createdAt")
         activities = activities.map(formatActivity)
         return activities
@@ -86,8 +90,9 @@ module.exports = {
             .where('user')
             .in(usersIds)
             .populate("user", "name img_path")
-            .populate("review.comments", "text")
-            .populate("review", "text comments")
+            .populate("review.movie", "_id")
+            .populate("review.comments", "text _id")
+            .populate("review", "text comments movie")
             .sort("-createdAt")
         activities = activities.map(formatActivity)
         return activities

@@ -12,7 +12,7 @@ import { FullscreenOutlined, PlusOutlined } from "@ant-design/icons";
 
 import './styles.css';
 import Review from "../../Components/Review";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 function FilmDetails() {
 
@@ -139,6 +139,17 @@ function FilmDetails() {
     fetchLists();
   }, []);
 
+  const location = useLocation()
+  useEffect(()=> {
+    if (location.hash) {
+        let highlightedElement = document.getElementById(location.hash.slice(1))
+        if (highlightedElement) {
+            highlightedElement.classList.add("highlighted")
+            highlightedElement.scrollIntoView({behavior: "smooth"})
+        }
+    }
+}, [reviews])
+
   function onScoreChange(event) {
     const value = event.target.value;
     setScore(event.target.value);
@@ -227,7 +238,7 @@ function FilmDetails() {
 
               {reviews.map((review, index) => {
                 return (
-                  <Card key={index}>
+                  <Card key={index} id={review._id}>
                     <Review
                       reviewId={review._id}
                       type="review-item"

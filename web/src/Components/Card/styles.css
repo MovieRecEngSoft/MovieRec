@@ -6,3 +6,7 @@
    border: 1px solid #2f29296b !important;
    width: 100%;
 }
+
+.card.highlighted {
+   border: 1px solid #ff2b63 !important;
+}
