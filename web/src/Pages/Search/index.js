@@ -86,7 +86,7 @@ function Search() {
                   </h2>
                   {FormatDate(result.release_date)}
                   <h3 className="film-details">
-                    {result.score != null ? result.score : "-"}
+                    {result.score != null ? result.score.toFixed(1) : "-"}
                   </h3>
                   <div class="film-result-genres">
                     {result.genres.map((genre, key) => {
