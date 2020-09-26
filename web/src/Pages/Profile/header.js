@@ -73,13 +73,13 @@ const ProfileHeader = (props) => {
     console.log(profileInfo)
     console.log(sessionStorage.getItem("_id"))
     if(sessionStorage.getItem("_id")==props.userId){
-      return(<Link to={`/profile/edit/${props.userId}`}><div class="grey-button">Edit</div></Link>)
+      return(<Link to={`/profile/edit/${props.userId}`}><div id="edit-button" class="grey-button">Edit</div></Link>)
     }
     //following
     if(profileInfo.userIsFollowing)
-      return(<div class="grey-button" onClick={HandleFollow} >Unfollow</div>)
+      return(<div class="grey-button" id="follow-button" onClick={HandleFollow} >Unfollow</div>)
     //not following
-    return(<div class="red-button" onClick={HandleFollow}>Follow</div>)
+    return(<div class="red-button" id="follow-button" onClick={HandleFollow}>Follow</div>)
   }
 
   function movieListComponent() {

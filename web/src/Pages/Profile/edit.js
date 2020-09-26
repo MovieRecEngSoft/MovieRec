@@ -105,7 +105,7 @@ function ProfileEditor() {
               <span>{profileInfo.name}</span>
             </div>
             <span class="txtblk2">Edit your description below</span>
-            <div class="txtblk2 edit-section" contentEditable="true" onInput={e => setDescription(e.target.textContent)}>
+            <div id="description-input" class="txtblk2 edit-section" contentEditable="true" onInput={e => setDescription(e.target.textContent)}>
               {profileInfo.description}
             </div>
 
@@ -120,7 +120,8 @@ function ProfileEditor() {
               type="button"
               onClick={handleSubmit}
               htmlType="submit"
-              name="Apply">
+              name="Apply"
+              id="apply">
               APPLY
             </button>
         </div>

@@ -93,6 +93,7 @@ const LoginForm = (props) => {
               onClick={HandleLogin}
               htmlType="submit"
               name="Login"
+              id="submit"
             >Login</button>
 
             <p>
