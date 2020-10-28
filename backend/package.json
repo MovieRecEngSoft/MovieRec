@@ -15,12 +15,14 @@
   },
   "devDependencies": {
     "csv-parser": "^2.3.3",
+    "jest": "^26.6.1",
     "nodemon": "^2.0.4"
   },
   "scripts": {
     "start": "nodemon src/index.js",
     "populate_database": "node database/scripts/populate.js",
     "update_recommended_movies": "pip install -r database/scripts/ml/requirements.txt && python database/scripts/ml/update_recommended_movies.py",
-    "update_user_recommended_movies": "pip3 install -r database/scripts/ml/requirements.txt && python3 database/scripts/ml/update_user_recommended_movies.py"
+    "update_user_recommended_movies": "pip3 install -r database/scripts/ml/requirements.txt && python3 database/scripts/ml/update_user_recommended_movies.py",
+    "test": "jest"
   }
 }
