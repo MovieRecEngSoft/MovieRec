@@ -20,7 +20,7 @@ class MovieFilter {
 
     validate(){
         assert(!this.names || typeof this.names === 'string', 'Wrong type of parameter "names".')
-        assert(!this.genres || typeof this.genres === 'object', 'Wrong type of parameter "genres".')
+        assert(!this.genres || Array.isArray(this.genres), 'Wrong type of parameter "genres".')
         assert(!this.date_lt || typeof this.date_lt === 'object', 'Wrong type of parameter "date".')
         assert(!this.date_gte || typeof this.date_gte === 'object', 'Wrong type of parameter "date".')
         if(this.score){
@@ -28,9 +28,18 @@ class MovieFilter {
             assert(this.score >= SCORE_MIN && this.score <= SCORE_MAX,
                 'Parameter "score" must be between ' + SCORE_MIN + ' and ' + SCORE_MAX + '.')
         }
-        assert(!this.moviesIds || typeof this.moviesIds === 'object', 'Wrong type of parameter "moviesIds".')
+        assert(!this.userId || typeof this.userId === 'object', 'Wrong type of parameter "userId".')
+        assert(!this.moviesIds || Array.isArray(this.moviesIds), 'Wrong type of parameter "moviesIds".')
     }
-    
+
+    getMinScore(){
+        return SCORE_MIN
+    }
+
+    getMaxScore(){
+        return SCORE_MAX
+    }
+
 }
 
 const DEFAULT_PAGE = 1
@@ -45,6 +54,8 @@ class PageFilter{
     validate(){
         assert(typeof this.page === 'number', 'Wrong type of parameter "page".')
         assert(typeof this.limit === 'number', 'Wrong type of parameter "limit".')
+        assert(this.page > 0, 'Parameter "page" must be greater than 0.')
+        assert(this.limit > 0, 'Parameter "limit" must be greater than 0.')
     }
 
     get skip(){
