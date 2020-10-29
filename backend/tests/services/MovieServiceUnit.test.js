@@ -3,12 +3,9 @@ const MovieFilter = MovieService.MovieFilter
 const PageFilter = MovieService.PageFilter
 const assert = require('assert')
 const mongoose = require('mongoose')
-const mockingoose = require('mockingoose').default
 const Movie = require('../../database/models/Movie')
 
-afterEach(() => {
-    mockingoose.resetAll()
-})
+jest.mock('../../database/models/Movie')
 
 test('MovieService: MovieFilter: validate', () => {
     //Default parameters
@@ -87,7 +84,7 @@ test('MovieService: PageFilter: size', () => {
     expect(pageFilter.skip).toBe(40)
 })
 
-test('MovieService: size', async () => {
+test('MovieService: getMovie', async () => {
     const movieId = mongoose.Types.ObjectId()
     const title = 'Toy Story'
     const overview = 'Good'
@@ -114,16 +111,15 @@ test('MovieService: size', async () => {
         genres: genres,
         recommended_movies: recommended_movies
     }
-    const finderMock = query => {
-        if (query.getQuery()._id === movieId) {
+    const finderMock = id => {
+        if (id === movieId) {
             return _doc;
         }
         else{
             return undefined
         }
     }
-    mockingoose(Movie).toReturn(finderMock, 'findOne')
-    //Movie found
+    Movie.findById.mockImplementation(finderMock);
     let movie = await MovieService.getMovie(movieId)
     expect(movie._id).toBe(movie._id)
     expect(movie.title).toBe(movie.title)
@@ -132,8 +128,7 @@ test('MovieService: size', async () => {
     expect(movie.overview).toBe(movie.overview)
     expect(movie.genres).toBe(movie.genres)
     expect(movie.recommended_movies).toBe(movie.recommended_movies)
-    //Movie not found
+
     movie = await MovieService.getMovie(mongoose.Types.ObjectId())
     expect(movie).toBe(undefined)
-
 })
